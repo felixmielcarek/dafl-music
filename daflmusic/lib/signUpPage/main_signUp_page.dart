@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:daflmusic/signInPage/main_signIn_page.dart';
+import 'package:daflmusic/homePage/main_homepage.dart';
+import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 
 class MainSignUpPage extends StatefulWidget {
   const MainSignUpPage({Key? key}) : super(key: key);
@@ -9,6 +13,9 @@ class MainSignUpPage extends StatefulWidget {
 }
 
 class _MainSignUpPageState extends State<MainSignUpPage> {
+
+  Color boxColor = Colors.white;
+  bool isHovering = false;
   @override
   TextEditingController passwordconfirm = new TextEditingController();
   bool isChecked = false;
@@ -215,35 +222,53 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                   )
               ),
               SizedBox(height: 30,),
-              Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/arrow.png',
-                    width: 47,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+
+                child: Material(
+
+                  child: InkWell(
+                    highlightColor: Colors.grey.shade100,
+                    splashColor: Color(0xFF406DE1),
+                    onTap: (){
+                      setState(() {
+                        boxColor = Colors.blue;
+                      });
+                      Navigator.of(context).push(
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            childCurrent: widget,
+                            duration: Duration(milliseconds: 600),
+                            reverseDuration: Duration(milliseconds: 600),
+                            child: MainHomePage()),
+                      );
+                    },
+                    child:Ink(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/images/valid_logo.png',
+                          width: 47,
+                        ),
+                      ),
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      width: 83,
+                      height: 83,
+                      decoration: BoxDecoration(
+                        color: Colors.white,// Set rounded corner radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+
+                    ),
                   ),
                 ),
-                margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
-                width: 83,
-                height: 83,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(22)),
-                  border: Border.all(
-                    width: 1.5,
-                    color: Colors.white,
-                  ),// Set rounded corner radius
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-
               ),
               SizedBox(height: 100,),
               Center(
@@ -278,3 +303,4 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
     );
   }
 }
+

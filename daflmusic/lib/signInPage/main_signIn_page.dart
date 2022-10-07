@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:daflmusic/signInPage/main_signIn_page.dart';
+import 'package:daflmusic/homePage/main_homepage.dart';
+import 'package:daflmusic/signUpPage/main_signUp_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MainSignInPage extends StatefulWidget {
   const MainSignInPage({Key? key}) : super(key: key);
@@ -9,6 +13,8 @@ class MainSignInPage extends StatefulWidget {
 }
 
 class _MainSignInPageState extends State<MainSignInPage> {
+  var boxColor = Colors.white;
+
   @override
   bool isChecked = false;
   Widget build(BuildContext context) {
@@ -150,26 +156,49 @@ class _MainSignInPageState extends State<MainSignInPage> {
                 ),
               ),
               SizedBox(height: 50,),
-              Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/arrow.png',
-                    width: 47,
-                  ),
-                ),
-                margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
-                width: 83,
-                height: 83,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(22)),
-                  border: Border.all(
-                    width: 1.5,
-                    color: Colors.white,
-                  ),// Set rounded corner radius
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22),
 
+                child: Material(
+
+                  child: InkWell(
+                    highlightColor: Colors.grey.shade100,
+                    splashColor: Color(0xFF406DE1),
+                    onTap: (){
+                      Navigator.of(context).push(
+                        PageTransition(
+                          type: PageTransitionType.topToBottomJoined,
+                            childCurrent: widget,
+                            duration: Duration(milliseconds: 600),
+                            reverseDuration: Duration(milliseconds: 600),
+                            child: MainHomePage()),
+                      );
+                    },
+                    child:Ink(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/images/valid_logo.png',
+                          width: 40,
+                        ),
+                      ),
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      width: 83,
+                      height: 83,
+                      decoration: BoxDecoration(
+                        color: Colors.white,// Set rounded corner radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 100,),
@@ -205,3 +234,4 @@ class _MainSignInPageState extends State<MainSignInPage> {
     );
   }
 }
+

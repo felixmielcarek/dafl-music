@@ -1,5 +1,10 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:daflmusic/signInPage/main_signIn_page.dart';
+import 'package:daflmusic/homePage/main_homepage.dart';
+import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key}) : super(key: key);
@@ -31,7 +36,8 @@ class _MainHomePage extends State<MainHomePage> {
                 'assets/images/Logo.png',
                 width: 250,
               ),
-              Container(
+              GestureDetector(
+                child: Container(
                 child: Align(
                   alignment: Alignment.center,
                   child: Text("CONTINUER AVEC SPOTIFY",
@@ -51,8 +57,19 @@ class _MainHomePage extends State<MainHomePage> {
                   ),// Set rounded corner radius
 
                 ),
-              ),
-              Container(
+              ),),
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).push(
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        childCurrent: widget,
+                        duration: Duration(milliseconds: 600),
+                        reverseDuration: Duration(milliseconds: 600),
+                        child: MainSignUpPage()),
+                  );
+                },
+                child: Container(
                 child: Align(
                   alignment: Alignment.center,
                   child: Text("S’INSCRIRE MAINTENANT",
@@ -73,9 +90,20 @@ class _MainHomePage extends State<MainHomePage> {
                   ),// Set rounded corner radius
 
                 ),
-              ),
+              ),),
               SizedBox(height: 220,),
-              Container(
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).push(
+                    PageTransition(
+                        type: PageTransitionType.bottomToTopJoined,
+                        childCurrent: widget,
+                        duration: Duration(milliseconds: 600),
+                        reverseDuration: Duration(milliseconds: 600),
+                        child: MainSignInPage()),
+                  );
+                },
+                child: Container(
                 child: Align(
                   alignment: Alignment.center,
                   child: Text("SE CONNECTER",
@@ -93,6 +121,7 @@ class _MainHomePage extends State<MainHomePage> {
                   ),// Set rounded corner radius
 
                 ),
+              ),
               ),
 
 
