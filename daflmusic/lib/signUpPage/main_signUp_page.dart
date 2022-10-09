@@ -236,10 +236,8 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                       });
                       Navigator.of(context).push(
                         PageTransition(
-                            type: PageTransitionType.fade,
+                            type: PageTransitionType.leftToRightJoined,
                             childCurrent: widget,
-                            duration: Duration(milliseconds: 600),
-                            reverseDuration: Duration(milliseconds: 600),
                             child: MainHomePage()),
                       );
                     },

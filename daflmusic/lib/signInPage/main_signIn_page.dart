@@ -1,3 +1,4 @@
+import 'package:daflmusic/mainPage/main_mainpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:daflmusic/signInPage/main_signIn_page.dart';
@@ -167,11 +168,9 @@ class _MainSignInPageState extends State<MainSignInPage> {
                     onTap: (){
                       Navigator.of(context).push(
                         PageTransition(
-                          type: PageTransitionType.topToBottomJoined,
+                          type: PageTransitionType.fade,
                             childCurrent: widget,
-                            duration: Duration(milliseconds: 600),
-                            reverseDuration: Duration(milliseconds: 600),
-                            child: MainHomePage()),
+                            child: MainMainPage()),
                       );
                     },
                     child:Ink(
