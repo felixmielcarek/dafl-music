@@ -20,7 +20,7 @@ class _MainMainPageState extends State<MainMainPage> {
 
   final screens = [
     MainHomePage(),
-    Draggable(child: Container(height: 200 , width: 300, color: Colors.grey,), feedback: Container(height: 200 , width: 300, color: Colors.black,)),
+    Center(child: Text('Discovery'),),
     Spots(),
     Center(child: Text('Tops'),),
     Center(child: Text('Messages'),),
