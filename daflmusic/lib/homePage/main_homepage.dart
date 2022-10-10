@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -61,6 +63,8 @@ class _MainHomePage extends State<MainHomePage> {
                 onTap: (){
                   Navigator.of(context).push(
                     PageTransition(
+                      duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
                         type: PageTransitionType.rightToLeftJoined,
                         childCurrent: widget,
                         child: MainSignUpPage()),
