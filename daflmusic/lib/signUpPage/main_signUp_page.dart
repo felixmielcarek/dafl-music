@@ -238,6 +238,8 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                       });
                       Navigator.of(context).push(
                         PageTransition(
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
                             type: PageTransitionType.leftToRightJoined,
                             childCurrent: widget,
                             child: MainHomePage()),

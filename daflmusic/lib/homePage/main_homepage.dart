@@ -97,6 +97,8 @@ class _MainHomePage extends State<MainHomePage> {
                 onTap: (){
                   Navigator.of(context).push(
                     PageTransition(
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
                         type: PageTransitionType.rightToLeftJoined,
                         childCurrent: widget,
                         child: MainSignInPage()),

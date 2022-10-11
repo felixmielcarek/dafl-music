@@ -27,6 +27,7 @@ class _MainMainPageState extends State<MainMainPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: screens[index],
       bottomNavigationBar: NavigationBarTheme(
@@ -36,20 +37,27 @@ class _MainMainPageState extends State<MainMainPage> {
             TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey)
           ),
         ),
-        child: NavigationBar(
-          animationDuration: Duration(seconds: 1),
-          selectedIndex: index,
-          onDestinationSelected: (index) =>
-              setState(() => this.index = index),
-          backgroundColor: Color(0xFF232123),
-          destinations: [
-            NavigationDestination(icon: Icon(Icons.person_outline, color: Colors.grey,), label: 'Profil', selectedIcon: Icon(Icons.person, color: Colors.white,),),
-            NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey,), selectedIcon: Icon(Icons.bookmark, color: Colors.white,), label: 'Discovery'),
-            NavigationDestination(icon: Icon(MyFlutterApp.Spots_outline, color: Colors.grey), selectedIcon: Icon(MyFlutterApp.Spots, color: Colors.white), label: 'Spots',),
-            NavigationDestination(icon: Icon(MyFlutterApp.podium_outine, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(MyFlutterApp.podium, color: Colors.white,),),
-            NavigationDestination(icon: Icon(Icons.mail_outline, color: Colors.grey,), label: 'Messages', selectedIcon: Icon(Icons.email, color: Colors.white,),),
-          ],
-        ),
+        child: ConstrainedBox(
+    constraints: BoxConstraints(
+    minHeight: height*0.1,
+    maxHeight: 100,
+    ),
+    child: NavigationBar(
+    animationDuration: Duration(seconds: 1),
+    selectedIndex: index,
+    height: height*0.1,
+    onDestinationSelected: (index) =>
+    setState(() => this.index = index),
+    backgroundColor: Color(0xFF232123),
+    destinations: [
+    NavigationDestination(icon: Icon(Icons.person_outline, color: Colors.grey,), label: 'Profil', selectedIcon: Icon(Icons.person, color: Colors.white,),),
+    NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey,), selectedIcon: Icon(Icons.bookmark, color: Colors.white,), label: 'Discovery'),
+    NavigationDestination(icon: Icon(MyFlutterApp.Spots_outline, color: Colors.grey), selectedIcon: Icon(MyFlutterApp.Spots, color: Colors.white), label: 'Spots',),
+    NavigationDestination(icon: Icon(MyFlutterApp.podium_outine, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(MyFlutterApp.podium, color: Colors.white,),),
+    NavigationDestination(icon: Icon(Icons.mail_outline, color: Colors.grey,), label: 'Messages', selectedIcon: Icon(Icons.email, color: Colors.white,),),
+    ],
+    ),
+      ),
       ),
     );
   }

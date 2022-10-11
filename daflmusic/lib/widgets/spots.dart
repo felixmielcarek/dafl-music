@@ -1,8 +1,15 @@
+import 'dart:ui';
+
 import 'package:animations/animations.dart';
-import 'package:daflmusic/dafl_card.dart';
+import 'package:daflmusic/homePage/main_homepage.dart';
+import 'package:daflmusic/main.dart';
+import 'package:daflmusic/mainPage/main_mainpage.dart';
+import 'package:daflmusic/widgets/DaflCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swipable/flutter_swipable.dart';
+import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class Spots extends StatefulWidget {
   const Spots({Key? key}) : super(key: key);
@@ -13,20 +20,16 @@ class Spots extends StatefulWidget {
 
 class _SpotsState extends State<Spots> {
 
-  List<Widget> pileCarte = <Widget>[
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-    DaflCard(color: Colors.red),
-  ];
+  final user = User(
+    chanteur: 'Khali',
+    titre: 'COULEURS',
+    urlImage: 'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg',
+  );
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    final provider = Provider.of<CardProvider>(context);
     return Scaffold(
 
       resizeToAvoidBottomInset: false,
@@ -35,129 +38,149 @@ class _SpotsState extends State<Spots> {
         height: double.maxFinite,
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/image_blur.png',
-              height: double.infinity,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+            Transform.scale(scale: 1.1,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(provider.urlImages.isEmpty != true
+                      ?provider.urlImages.last
+                      :"https://www.colorhexa.com/141414.png"),
+                  fit: BoxFit.cover,
 
-                Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.25),
-                                spreadRadius: 0,
-                                blurRadius: 10,
-                                offset: Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
-                        margin: EdgeInsets.fromLTRB(34, height*0.1, 34, 0),
-                        height: height*0.66,
-                        width: 565,
-                        child: Stack(children:
-                        pileCarte,
-                        ),
-                      ),
-                    ),
-                    IgnorePointer(child: Container(height: 200,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.black, Colors.transparent],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          )
-
-                      ),),),
-                    Padding(padding: EdgeInsets.fromLTRB(20, 60, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('COULEURS',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                          Text('Khali',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
-                        ],
-                      ),),
-
-                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, height*0.03, 0,0),
-                  child:  Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: OpenContainer(
+              ),
+              child: BackdropFilter(filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.black.withOpacity(0.4)),
+                ),),
+            ),),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0,height*0.03),
+              child:  Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: OpenContainer(
 
-                      closedColor: Colors.transparent,
-                      closedElevation: 0,
-                      transitionDuration: Duration(milliseconds: 400),
-                      closedBuilder: (context, openWidget){
-                        return PreviewInfo();
-                      },
-                      openBuilder: (context, closeWidget){
-                        return Destination();
-                      },
+                  closedColor: Colors.transparent,
+                  closedElevation: 0,
+                  transitionDuration: Duration(milliseconds: 400),
+                  closedBuilder: (context, openWidget){
+                    return PreviewInfo();
+                  },
+                  openBuilder: (context, closeWidget){
+                    return Destination();
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              top: height*0.65,
+              width: width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      final provider = Provider.of<CardProvider>(context, listen:  false);
+                      provider.dislike();
+                    },
+                    child: Image.asset(
+                      'assets/images/bouton_dislike.png',
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-
-              ],
+                  SizedBox(
+                    width: width*0.1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      final provider = Provider.of<CardProvider>(context, listen:  false);
+                      provider.discovery();
+                    },
+                    child: Image.asset(
+                      'assets/images/bouton_discovery.png',
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    width: width*0.1,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      final provider = Provider.of<CardProvider>(context, listen:  false);
+                      provider.like();
+                    },
+                    child: Image.asset(
+                      'assets/images/bouton_like.png',
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
             ),
-        Positioned(
-          top: height*0.71,
-          width: width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  pileCarte.remove(0);
-                  print("remove");
-                },
-                child: Image.asset(
-                  'assets/images/bouton_dislike.png',
-                  height: 70,
-                  width: 70,
-                  fit: BoxFit.cover,
+            Align(
+                  child:Container(
+                    width: 400,
+                    height: height*0.8,
+                    margin: EdgeInsets.fromLTRB(width*0.09,height/5,width*0.09,height/3.7),
+
+                    child: Container(
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                      BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+              ],
+                      ),
+                      child: buildCards(),
+                    )
+                  ) ,
                 ),
-              ),
-              SizedBox(
-                width: width*0.1,
-              ),
-              GestureDetector(
-                child: Image.asset(
-                  'assets/images/bouton_discovery.png',
-                  height: 70,
-                  width: 70,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(
-                width: width*0.1,
-              ),
-              GestureDetector(
-                child: Image.asset(
-                  'assets/images/bouton_like.png',
-                  height: 70,
-                  width: 70,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
-        ),
+            IgnorePointer(child: Container(height: 200,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.black, Colors.transparent],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )
+
+              ),),),
+            Padding(padding: EdgeInsets.fromLTRB(20, 60, 0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('COULEURS',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                  Text('Khali',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
+                ],
+              ),),
           ],
         ),
       )
     );
   }
+
+  Widget buildCards() {
+    final provider = Provider.of<CardProvider>(context);
+    final urlImages = provider.urlImages;
+
+    return Stack(
+      children: urlImages
+          .map((urlImage) => DaflCard(
+          urlImage: urlImage,
+          isFront: urlImages.last == urlImage,
+      ))
+          .toList(),
+    );
+  }
+
 }
 
 class Destination extends StatelessWidget{
@@ -641,7 +664,7 @@ class PreviewInfo extends StatelessWidget{
     double height = MediaQuery.of(context).size.height;
     return Container(
       width: 200,
-      height: height*0.10,
+      height: height*0.08,
       decoration: BoxDecoration(
         color: Color(0xFF24243A).withOpacity(0.24),
         border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
