@@ -73,7 +73,7 @@ class _SpotsState extends State<Spots> {
               ),
             ),
             Positioned(
-              top: height*0.65,
+              top: height*0.68,
               width: width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,8 +85,8 @@ class _SpotsState extends State<Spots> {
                     },
                     child: Image.asset(
                       'assets/images/bouton_dislike.png',
-                      height: 90,
-                      width: 90,
+                      height: 70,
+                      width: 70,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -100,8 +100,8 @@ class _SpotsState extends State<Spots> {
                     },
                     child: Image.asset(
                       'assets/images/bouton_discovery.png',
-                      height: 90,
-                      width: 90,
+                      height: 70,
+                      width: 70,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -115,8 +115,8 @@ class _SpotsState extends State<Spots> {
                     },
                     child: Image.asset(
                       'assets/images/bouton_like.png',
-                      height: 90,
-                      width: 90,
+                      height: 70,
+                      width: 70,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -662,9 +662,10 @@ class PreviewInfo extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
-      width: 200,
-      height: height*0.08,
+      width: width/1.2,
+      height: height*0.06,
       decoration: BoxDecoration(
         color: Color(0xFF24243A).withOpacity(0.24),
         border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
@@ -673,7 +674,7 @@ class PreviewInfo extends StatelessWidget{
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
          children: [
-           Text('Me découvrir...',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+           Text('Me découvrir...',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w800),),
          ],
       ),
     );

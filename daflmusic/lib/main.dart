@@ -57,7 +57,7 @@ class CardProvider extends ChangeNotifier{
       'https://cdns-images.dzcdn.net/images/cover/2818a661c6d533155ce6dffc256b1f51/500x500.jpg',
       'https://cdns-images.dzcdn.net/images/cover/b351f0e935c9c3901f8d893b92ab952a/500x500.jpg',
       'https://cdns-images.dzcdn.net/images/cover/65147b581f2ace9e0f0723ee76e70fda/500x500.jpg',
-      'https://images.genius.com/a8b6d39d8b10d7441527e2f5cf6b6ca5.1000x1000x1.jpg',
+      'https://cdns-images.dzcdn.net/images/cover/173b96be8ac025fb9578b0139010bc80/500x500.jpg',
       'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg',
     ].reversed.toList();
 
