@@ -273,19 +273,23 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                 ),
               ),
               SizedBox(height: 100,),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Tu as déjà un compte ?',
-                    style: TextStyle(fontFamily: 'DMSans', color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17), /*defining default style is optional */
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' se connecter',
-                        style: TextStyle(fontFamily: 'DMSans', color: Color(0xFF406DE1), fontWeight: FontWeight.normal),
-                      ),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Tu n’as déjà un compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            childCurrent: widget,
+                            child: MainSignInPage()),
+                      );
+                    },
+                    child: Text(' se connecter', style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal, fontSize: 16),
+                    ),
                   ),
-                ),
+                ],
               ),
               SizedBox(height: 60,),
             ],

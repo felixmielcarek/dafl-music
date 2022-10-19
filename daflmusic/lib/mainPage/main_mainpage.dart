@@ -8,6 +8,10 @@ import 'package:daflmusic/signInPage/main_signIn_page.dart';
 import 'package:daflmusic/homePage/main_homepage.dart';
 import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 
+import '../discoveryPage/discoveryPage.dart';
+import '../profilPage/MainProfilPage.dart';
+import '../profilPage/parametre_page.dart';
+
 class MainMainPage extends StatefulWidget {
   const MainMainPage({Key? key}) : super(key: key);
 
@@ -15,24 +19,26 @@ class MainMainPage extends StatefulWidget {
   State<MainMainPage> createState() => _MainMainPageState();
 }
 
-class _MainMainPageState extends State<MainMainPage> {
-  int index = 2;
 
+class _MainMainPageState extends State<MainMainPage> {
+  int _index = 2;
+  int get index => _index;
   final screens = [
-    MainHomePage(),
-    Center(child: Text('Discovery'),),
+    MainProfilPage(),
+    DiscoveryPage(),
     Spots(),
     Center(child: Text('Tops'),),
     Center(child: Text('Messages'),),
+    ParametrePage(),
   ];
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: screens[index],
+      body: screens[_index],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          indicatorColor:  Colors.deepPurple,
+          indicatorColor:  Color(0xFF5C1DC3),
           labelTextStyle: MaterialStateProperty.all(
             TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey)
           ),
@@ -47,7 +53,7 @@ class _MainMainPageState extends State<MainMainPage> {
     selectedIndex: index,
     height: height*0.1,
     onDestinationSelected: (index) =>
-    setState(() => this.index = index),
+    setState(() => this._index = index),
     backgroundColor: Color(0xFF232123),
     destinations: [
     NavigationDestination(icon: Icon(Icons.person_outline, color: Colors.grey,), label: 'Profil', selectedIcon: Icon(Icons.person, color: Colors.white,),),

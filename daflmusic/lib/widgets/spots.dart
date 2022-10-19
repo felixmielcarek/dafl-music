@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rive/rive.dart';
+import 'package:flutter/src/painting/gradient.dart' as gradiant;
 
 
 class Spots extends StatefulWidget {
@@ -44,7 +46,7 @@ class _SpotsState extends State<Spots> {
                 image: DecorationImage(
                   image: NetworkImage(provider.urlImages.isEmpty != true
                       ?provider.urlImages.last
-                      :"https://www.colorhexa.com/141414.png"),
+                      :"https://i.imgur.com/Uovh293.png"),
                   fit: BoxFit.cover,
 
                 ),
@@ -72,6 +74,13 @@ class _SpotsState extends State<Spots> {
                 ),
               ),
             ),
+            Center(
+              child: Container(
+                width: 300,
+                height: 300,
+                child: RiveAnimation.asset('assets/images/search_spot_animation.riv'),
+              ),
+            ),
             Positioned(
               top: height*0.68,
               width: width,
@@ -82,6 +91,7 @@ class _SpotsState extends State<Spots> {
                     onTap: () {
                       final provider = Provider.of<CardProvider>(context, listen:  false);
                       provider.dislike();
+
                     },
                     child: Image.asset(
                       'assets/images/bouton_dislike.png',
@@ -130,23 +140,13 @@ class _SpotsState extends State<Spots> {
                     margin: EdgeInsets.fromLTRB(width*0.09,height/5,width*0.09,height/3.7),
 
                     child: Container(
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                      BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-              ],
-                      ),
                       child: buildCards(),
                     )
                   ) ,
                 ),
             IgnorePointer(child: Container(height: 200,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: gradiant.LinearGradient(
                     colors: [Colors.black, Colors.transparent],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -182,6 +182,8 @@ class _SpotsState extends State<Spots> {
   }
 
 }
+
+
 
 class Destination extends StatelessWidget{
   @override
@@ -664,10 +666,11 @@ class PreviewInfo extends StatelessWidget{
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      width: width/1.2,
       height: height*0.06,
+      constraints: BoxConstraints(minWidth: 300, maxWidth: 400),
+      margin: EdgeInsets.fromLTRB(width*0.1, 0, width*0.1, 0),
       decoration: BoxDecoration(
-        color: Color(0xFF24243A).withOpacity(0.24),
+        color: Color(0xFF24243A).withOpacity(0.40),
         border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
           borderRadius: BorderRadius.all(Radius.circular(15)),
       ),

@@ -6,6 +6,8 @@ import 'package:daflmusic/homePage/main_homepage.dart';
 import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../main.dart';
+
 class MainSignInPage extends StatefulWidget {
   const MainSignInPage({Key? key}) : super(key: key);
 
@@ -170,7 +172,7 @@ class _MainSignInPageState extends State<MainSignInPage> {
                         PageTransition(
                           type: PageTransitionType.fade,
                             childCurrent: widget,
-                            child: MainMainPage()),
+                            child: Splash()),
                       );
                     },
                     child:Ink(
@@ -201,20 +203,24 @@ class _MainSignInPageState extends State<MainSignInPage> {
                 ),
               ),
               SizedBox(height: 100,),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Tu n’as pas de compte?',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17), /*defining default style is optional */
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: ' s’inscrire',
-                          style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal),
-                      ),
-                    ],
-                  ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Tu n’as pas de compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              childCurrent: widget,
+                              child: MainSignUpPage()),
+                        );
+                      },
+                      child: Text(' s’inscrire', style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal, fontSize: 16),
+                    ),
+                    ),
+                  ],
                 ),
-              ),
               SizedBox(height: 60,),
             ],
           ),

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:daflmusic/dafl_card.dart';
 import 'package:daflmusic/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,9 +57,9 @@ class _DaflCardState extends State<DaflCard>{
             alignment:  Alignment(0,0),
           ),
 
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
+          borderRadius: BorderRadius.all(Radius.circular(20))
       ),
+    ),
   );
 
   Widget buildStamps() {
@@ -94,7 +93,7 @@ class _DaflCardState extends State<DaflCard>{
       borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withOpacity(0.75),
             border: Border.all(color: Color(0xFF3F1DC3), width: 6),
 
             borderRadius: BorderRadius.all(Radius.circular(20))

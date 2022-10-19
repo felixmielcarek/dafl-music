@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:daflmusic/mainPage/main_mainpage.dart';
@@ -8,6 +9,7 @@ import 'package:daflmusic/homePage/main_homepage.dart';
 import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 
 
 void main() {
@@ -15,6 +17,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
 
   // This widget is the root of your application.
   @override
@@ -63,6 +66,12 @@ class CardProvider extends ChangeNotifier{
 
     notifyListeners();
   }
+  void isLast(){
+    if(_urlImages.length == 1){
+
+    }
+  }
+
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
 
@@ -190,5 +199,54 @@ class CardProvider extends ChangeNotifier{
   Future _discovery_card() async {
     await Future.delayed(Duration(milliseconds: 200));
     resetPosition();
+  }
+}
+
+
+class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Timer(Duration(seconds: 2), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder:
+                (context) =>MainMainPage()
+            )
+        );
+      });
+    });
+
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF141414),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 300,
+              width: 300,
+              child: RiveAnimation.asset('assets/images/new_file (2).riv'),
+            ),
+            SizedBox(height: 50),
+          ],
+        ),
+      ),
+    );
   }
 }

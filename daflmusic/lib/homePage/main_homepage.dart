@@ -17,6 +17,8 @@ class MainHomePage extends StatefulWidget {
 class _MainHomePage extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xFF141414),
       body: Stack(
@@ -37,59 +39,47 @@ class _MainHomePage extends State<MainHomePage> {
                 'assets/images/Logo.png',
                 width: 200,
               ),
-              GestureDetector(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text("CONTINUER AVEC SPOTIFY",
-                      style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+              SizedBox(height: height*0.04,),
+              SizedBox(
+                height: 55,
+                width: width*0.75,
+                child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF24CF5F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),// background// foreground
+                ),
+                onPressed: () {
+                },
+                child: Text("CONTINUER AVEC SPOTIFY",
+                  style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),),
+              SizedBox(height: height*0.015,),
+              SizedBox(
+                height: 55,
+                width: width*0.75,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF5C1DC3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),// background// foreground
                   ),
-                  margin: EdgeInsets.fromLTRB(60, 40, 60, 0),
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF24CF5F),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(15)),
-                    border: Border.all(
-                      width: 1.5,
-                      color: Color(0xFF68F097),
-                    ),// Set rounded corner radius
-
-                  ),
-                ),),
-              GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(
-                    PageTransition(
-                      duration: Duration(milliseconds: 300),
+                  onPressed: () {
+                    Navigator.of(context).push(PageTransition(
+                        duration: Duration(milliseconds: 300),
                         reverseDuration: Duration(milliseconds: 300),
                         type: PageTransitionType.rightToLeftJoined,
                         childCurrent: widget,
                         child: MainSignUpPage()),
-                  );
-                },
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text("S’INSCRIRE MAINTENANT",
-                      style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 17, fontWeight: FontWeight.w700),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
-                  width: double.infinity,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF951DDE),
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(15)),
-                    border: Border.all(
-                      width: 1.5,
-                      color: Color(0xFFC656ED),
-                    ),// Set rounded corner radius
-
+                    );
+                  },
+                  child: Text("S’INSCRIRE MAINTENANT",
+                    style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
                 ),),
               SizedBox(height: 220,),
