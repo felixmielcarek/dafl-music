@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';

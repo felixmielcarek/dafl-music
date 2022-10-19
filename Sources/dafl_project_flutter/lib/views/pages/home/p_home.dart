@@ -1,7 +1,5 @@
 import 'package:page_transition/page_transition.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../sign_in/p_sign_in.dart';
 import '../sign_up/p_sign_up.dart';
 
