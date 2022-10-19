@@ -22,10 +22,9 @@ class _MainProfilPageState extends State<MainProfilPage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Color(0xFF141414),
-      resizeToAvoidBottomInset: false,
-    body: Container(
+    return Container(
+      color: Color(0xFF141414),
+    child: Container(
       width: double.infinity,
       height: double.infinity,
       child: Column(

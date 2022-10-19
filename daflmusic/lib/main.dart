@@ -66,11 +66,6 @@ class CardProvider extends ChangeNotifier{
 
     notifyListeners();
   }
-  void isLast(){
-    if(_urlImages.length == 1){
-
-    }
-  }
 
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
