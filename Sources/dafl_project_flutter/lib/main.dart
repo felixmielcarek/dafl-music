@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:daflmusic/mainPage/main_mainpage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:math';
+import './views/pages/home/p_home.dart';
+import './views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:daflmusic/signInPage/main_signIn_page.dart';
-import 'package:daflmusic/homePage/main_homepage.dart';
-import 'package:daflmusic/signUpPage/main_signUp_page.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-
 
 void main() {
   runApp(MyApp());

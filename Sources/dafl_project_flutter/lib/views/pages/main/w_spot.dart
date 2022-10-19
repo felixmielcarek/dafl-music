@@ -1,17 +1,11 @@
 import 'dart:ui';
-
-import 'package:animations/animations.dart';
-import 'package:daflmusic/homePage/main_homepage.dart';
-import 'package:daflmusic/main.dart';
-import 'package:daflmusic/mainPage/main_mainpage.dart';
-import 'package:daflmusic/widgets/DaflCard.dart';
-import 'package:flutter/cupertino.dart';
+import './w_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rive/rive.dart';
 import 'package:flutter/src/painting/gradient.dart' as gradiant;
-
+import 'package:provider/provider.dart';
+import '../../../main.dart';
+import 'package:rive/rive.dart';
+import 'package:animations/animations.dart';
 
 class Spots extends StatefulWidget {
   const Spots({Key? key}) : super(key: key);

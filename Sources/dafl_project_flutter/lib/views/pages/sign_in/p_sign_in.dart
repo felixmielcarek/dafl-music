@@ -1,12 +1,8 @@
-import 'package:daflmusic/mainPage/main_mainpage.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:daflmusic/signInPage/main_signIn_page.dart';
-import 'package:daflmusic/homePage/main_homepage.dart';
-import 'package:daflmusic/signUpPage/main_signUp_page.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../main.dart';
+import '../../../main.dart';
+import '../sign_up/p_sign_up.dart';
 
 class MainSignInPage extends StatefulWidget {
   const MainSignInPage({Key? key}) : super(key: key);

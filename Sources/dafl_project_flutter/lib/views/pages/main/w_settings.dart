@@ -1,5 +1,3 @@
-import 'package:daflmusic/mainPage/main_mainpage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ParametrePage extends StatefulWidget {

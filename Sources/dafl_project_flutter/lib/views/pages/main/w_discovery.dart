@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:provider/provider.dart';
-
-import '../main.dart';
+import 'package:flutter/material.dart';
 
 class DiscoveryPage extends StatefulWidget {
   const DiscoveryPage({Key? key}) : super(key: key);
@@ -17,8 +13,6 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   @override
 
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xFF141414),
       resizeToAvoidBottomInset: false,

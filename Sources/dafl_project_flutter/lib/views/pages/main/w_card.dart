@@ -1,8 +1,8 @@
 import 'dart:math';
-
-import 'package:daflmusic/main.dart';
 import 'package:flutter/material.dart';
+import '../../../main.dart';
 import 'package:provider/provider.dart';
+
 class User{
   final String chanteur;
   final String titre;
@@ -35,7 +35,7 @@ class _DaflCardState extends State<DaflCard>{
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery.of(context).size;
 
       final provider = Provider.of<CardProvider>(context, listen: false);

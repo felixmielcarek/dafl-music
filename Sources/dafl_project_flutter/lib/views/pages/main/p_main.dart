@@ -1,15 +1,10 @@
-import 'package:daflmusic/icons.dart';
-import 'package:daflmusic/widgets/spots.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:daflmusic/signInPage/main_signIn_page.dart';
-import 'package:daflmusic/homePage/main_homepage.dart';
-import 'package:daflmusic/signUpPage/main_signUp_page.dart';
-
-import '../discoveryPage/discoveryPage.dart';
-import '../profilPage/MainProfilPage.dart';
-import '../profilPage/parametre_page.dart';
+import '../../assets/icons/icons.dart';
+import './w_settings.dart';
+import './w_spot.dart';
+import './w_discovery.dart';
+import './w_profil.dart';
+import 'package:flutter/cupertino.dart';
 
 class MainMainPage extends StatefulWidget {
   const MainMainPage({Key? key}) : super(key: key);
@@ -57,8 +52,8 @@ class _MainMainPageState extends State<MainMainPage> {
     destinations: [
     NavigationDestination(icon: Icon(Icons.person_outline, color: Colors.grey,), label: 'Profil', selectedIcon: Icon(Icons.person, color: Colors.white,),),
     NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey,), selectedIcon: Icon(Icons.bookmark, color: Colors.white,), label: 'Discovery'),
-    NavigationDestination(icon: Icon(MyFlutterApp.Spots_outline, color: Colors.grey), selectedIcon: Icon(MyFlutterApp.Spots, color: Colors.white), label: 'Spots',),
-    NavigationDestination(icon: Icon(MyFlutterApp.podium_outine, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(MyFlutterApp.podium, color: Colors.white,),),
+    NavigationDestination(icon: Icon(CustomIcons.Spots_outline, color: Colors.grey), selectedIcon: Icon(CustomIcons.Spots, color: Colors.white), label: 'Spots',),
+    NavigationDestination(icon: Icon(CustomIcons.podium_outine, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(CustomIcons.podium, color: Colors.white,),),
     NavigationDestination(icon: Icon(Icons.mail_outline, color: Colors.grey,), label: 'Messages', selectedIcon: Icon(Icons.email, color: Colors.white,),),
     ],
     ),

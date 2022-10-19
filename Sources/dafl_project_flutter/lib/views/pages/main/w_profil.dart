@@ -1,10 +1,6 @@
-import 'package:daflmusic/profilPage/parametre_page.dart';
-import 'package:flutter/cupertino.dart';
+import './w_settings.dart';
+import './w_spot.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../icons.dart';
-import '../widgets/spots.dart';
 
 class MainProfilPage extends StatefulWidget {
   const MainProfilPage({Key? key}) : super(key: key);
@@ -19,7 +15,6 @@ class _MainProfilPageState extends State<MainProfilPage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return Container(
       color: Color(0xFF141414),

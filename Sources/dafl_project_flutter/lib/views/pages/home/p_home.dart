@@ -1,12 +1,9 @@
-import 'dart:io';
-
+import 'package:page_transition/page_transition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:daflmusic/signInPage/main_signIn_page.dart';
-import 'package:daflmusic/homePage/main_homepage.dart';
-import 'package:daflmusic/signUpPage/main_signUp_page.dart';
-import 'package:animations/animations.dart';
+
+import '../sign_in/p_sign_in.dart';
+import '../sign_up/p_sign_up.dart';
 
 class MainHomePage extends StatefulWidget {
   @override
