@@ -12,5 +12,5 @@ mon_repertoire
 
 | Contenu du fichier | Convention |
 | :- | :- |
-| Page de vue | p_ma_page.dart |
-| Page de widget | w_mon_widget.dart |
+| Page de vue | ```p_ma_page.dart``` |
+| Page de widget | ```w_mon_widget.dart``` |
