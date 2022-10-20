@@ -4,14 +4,14 @@ import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';
 import '../sign_up/p_sign_up.dart';
 
-class MainSignInPage extends StatefulWidget {
-  const MainSignInPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<MainSignInPage> createState() => _MainSignInPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _MainSignInPageState extends State<MainSignInPage> {
+class _SignInPageState extends State<SignInPage> {
   var boxColor = Colors.white;
 
   @override
@@ -209,7 +209,7 @@ class _MainSignInPageState extends State<MainSignInPage> {
                           PageTransition(
                               type: PageTransitionType.fade,
                               childCurrent: widget,
-                              child: MainSignUpPage()),
+                              child: SignUpPage()),
                         );
                       },
                       child: Text(' s’inscrire', style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal, fontSize: 16),

@@ -17,20 +17,20 @@ class User{
 
 
 
-class DaflCard extends StatefulWidget {
+class CardWidget extends StatefulWidget {
   final String urlImage;
   final bool isFront;
 
-  const DaflCard({
+  const CardWidget({
     Key? key,
     required this.urlImage,
     required this.isFront,
   }) : super(key: key);
 
   @override
-  State<DaflCard> createState() => _DaflCardState();
+  State<CardWidget> createState() => _CardWidgetState();
 }
-class _DaflCardState extends State<DaflCard>{
+class _CardWidgetState extends State<CardWidget>{
   @override
   void initState() {
     super.initState();

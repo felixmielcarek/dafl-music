@@ -1,14 +1,14 @@
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter/material.dart';
 
-class DiscoveryPage extends StatefulWidget {
-  const DiscoveryPage({Key? key}) : super(key: key);
+class DiscoveryWidget extends StatefulWidget {
+  const DiscoveryWidget({Key? key}) : super(key: key);
 
   @override
-  State<DiscoveryPage> createState() => _DiscoveryPageState();
+  State<DiscoveryWidget> createState() => _DiscoveryWidgetState();
 }
 
-class _DiscoveryPageState extends State<DiscoveryPage> {
+class _DiscoveryWidgetState extends State<DiscoveryWidget> {
 
   @override
 

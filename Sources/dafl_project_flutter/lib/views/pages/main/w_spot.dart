@@ -7,14 +7,14 @@ import '../../../main.dart';
 import 'package:rive/rive.dart';
 import 'package:animations/animations.dart';
 
-class Spots extends StatefulWidget {
-  const Spots({Key? key}) : super(key: key);
+class SpotsWidget extends StatefulWidget {
+  const SpotsWidget({Key? key}) : super(key: key);
 
   @override
-  State<Spots> createState() => _SpotsState();
+  State<SpotsWidget> createState() => _SpotsWidgetState();
 }
 
-class _SpotsState extends State<Spots> {
+class _SpotsWidgetState extends State<SpotsWidget> {
 
   final user = User(
     chanteur: 'Khali',
@@ -60,10 +60,10 @@ class _SpotsState extends State<Spots> {
                   closedElevation: 0,
                   transitionDuration: Duration(milliseconds: 400),
                   closedBuilder: (context, openWidget){
-                    return PreviewInfo();
+                    return PreviewInfoWidget();
                   },
                   openBuilder: (context, closeWidget){
-                    return Destination();
+                    return DisplayInfoWidget();
                   },
                 ),
               ),
@@ -167,7 +167,7 @@ class _SpotsState extends State<Spots> {
 
     return Stack(
       children: urlImages
-          .map((urlImage) => DaflCard(
+          .map((urlImage) => CardWidget(
           urlImage: urlImage,
           isFront: urlImages.last == urlImage,
       ))
@@ -179,7 +179,7 @@ class _SpotsState extends State<Spots> {
 
 
 
-class Destination extends StatelessWidget{
+class DisplayInfoWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -654,7 +654,7 @@ class Destination extends StatelessWidget{
   }
 }
 
-class PreviewInfo extends StatelessWidget{
+class PreviewInfoWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

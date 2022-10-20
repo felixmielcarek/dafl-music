@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: MainHomePage(),
+        home: HomePage(),
       ),
     );
   }
@@ -205,13 +205,12 @@ class _SplashState extends State<Splash> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Timer(Duration(seconds: 2), () {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
-                (context) =>MainMainPage()
+                (context) =>MainPage()
             )
         );
       });

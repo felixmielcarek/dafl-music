@@ -2,14 +2,14 @@ import './w_settings.dart';
 import './w_spot.dart';
 import 'package:flutter/material.dart';
 
-class MainProfilPage extends StatefulWidget {
-  const MainProfilPage({Key? key}) : super(key: key);
+class ProfilWidget extends StatefulWidget {
+  const ProfilWidget({Key? key}) : super(key: key);
 
   @override
-  State<MainProfilPage> createState() => _MainProfilPageState();
+  State<ProfilWidget> createState() => _ProfilWidgetState();
 }
 
-class _MainProfilPageState extends State<MainProfilPage> {
+class _ProfilWidgetState extends State<ProfilWidget> {
 
 
   @override
@@ -94,7 +94,7 @@ class _MainProfilPageState extends State<MainProfilPage> {
                     ),// background// foreground
                   ),
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=> Destination()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> DisplayInfoWidget()));
                   },
                   child: Row(
                     children: [
@@ -189,7 +189,7 @@ class _MainProfilPageState extends State<MainProfilPage> {
                     ),// background// foreground
                   ),
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=> ParametrePage()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> SettingsWidget()));
                   },
                   child: Row(
                     children: [

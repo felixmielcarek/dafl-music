@@ -3,14 +3,14 @@ import 'package:page_transition/page_transition.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 
-class MainSignUpPage extends StatefulWidget {
-  const MainSignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<MainSignUpPage> createState() => _MainSignUpPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _MainSignUpPageState extends State<MainSignUpPage> {
+class _SignUpPageState extends State<SignUpPage> {
 
   Color boxColor = Colors.white;
   bool isHovering = false;
@@ -238,7 +238,7 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                             reverseDuration: Duration(milliseconds: 300),
                             type: PageTransitionType.leftToRightJoined,
                             childCurrent: widget,
-                            child: MainHomePage()),
+                            child: HomePage()),
                       );
                     },
                     child:Ink(
@@ -279,7 +279,7 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                         PageTransition(
                             type: PageTransitionType.fade,
                             childCurrent: widget,
-                            child: MainSignInPage()),
+                            child: SignInPage()),
                       );
                     },
                     child: Text(' se connecter', style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal, fontSize: 16),

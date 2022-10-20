@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ParametrePage extends StatefulWidget {
-  const ParametrePage({Key? key}) : super(key: key);
+class SettingsWidget extends StatefulWidget {
+  const SettingsWidget({Key? key}) : super(key: key);
 
   @override
-  State<ParametrePage> createState() => _ParametrePageState();
+  State<SettingsWidget> createState() => _SettingsWidgetState();
 }
 
-class _ParametrePageState extends State<ParametrePage> {
+class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

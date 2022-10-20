@@ -1,27 +1,28 @@
+import 'package:dafl_project_flutter/presentation/custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 import './w_settings.dart';
 import './w_spot.dart';
 import './w_discovery.dart';
 import './w_profile.dart';
 
-class MainMainPage extends StatefulWidget {
-  const MainMainPage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<MainMainPage> createState() => _MainMainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 
-class _MainMainPageState extends State<MainMainPage> {
+class _MainPageState extends State<MainPage> {
   int _index = 2;
   int get index => _index;
   final screens = [
-    MainProfilPage(),
-    DiscoveryPage(),
-    Spots(),
+    ProfilWidget(),
+    DiscoveryWidget(),
+    SpotsWidget(),
     Center(child: Text('Tops'),),
     Center(child: Text('Messages'),),
-    ParametrePage(),
+    SettingsWidget(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -45,13 +46,13 @@ class _MainMainPageState extends State<MainMainPage> {
     selectedIndex: index,
     height: height*0.1,
     onDestinationSelected: (index) =>
-    setState(() => this._index = index),
+    setState(() => _index = index),
     backgroundColor: Color(0xFF232123),
     destinations: [
     NavigationDestination(icon: Icon(Icons.person_outline, color: Colors.grey,), label: 'Profil', selectedIcon: Icon(Icons.person, color: Colors.white,),),
     NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey,), selectedIcon: Icon(Icons.bookmark, color: Colors.white,), label: 'Discovery'),
-    NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey), selectedIcon: Icon(Icons.bookmark_border, color: Colors.white), label: 'Spots',),
-    NavigationDestination(icon: Icon(Icons.bookmark_border, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(Icons.bookmark_border, color: Colors.white,),),
+    NavigationDestination(icon: Icon(CustomIcons.spot, color: Colors.grey), selectedIcon: Icon(CustomIcons.spot_outline, color: Colors.white), label: 'Spots',),
+    NavigationDestination(icon: Icon(CustomIcons.podium_outline, color: Colors.grey,), label: 'Tops', selectedIcon: Icon(CustomIcons.podium, color: Colors.white,),),
     NavigationDestination(icon: Icon(Icons.mail_outline, color: Colors.grey,), label: 'Messages', selectedIcon: Icon(Icons.email, color: Colors.white,),),
     ],
     ),

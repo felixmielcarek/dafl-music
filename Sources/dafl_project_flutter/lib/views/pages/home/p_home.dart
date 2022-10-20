@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../sign_in/p_sign_in.dart';
 import '../sign_up/p_sign_up.dart';
 
-class MainHomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  State<MainHomePage> createState() => _MainHomePage();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MainHomePage extends State<MainHomePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -68,7 +68,7 @@ class _MainHomePage extends State<MainHomePage> {
                         reverseDuration: Duration(milliseconds: 300),
                         type: PageTransitionType.rightToLeftJoined,
                         childCurrent: widget,
-                        child: MainSignUpPage()),
+                        child: SignUpPage()),
                     );
                   },
                   child: Text("S’INSCRIRE MAINTENANT",
@@ -85,7 +85,7 @@ class _MainHomePage extends State<MainHomePage> {
                         reverseDuration: Duration(milliseconds: 300),
                         type: PageTransitionType.rightToLeftJoined,
                         childCurrent: widget,
-                        child: MainSignInPage()),
+                        child: SignInPage()),
                   );
                 },
                 child: Container(
