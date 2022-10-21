@@ -149,7 +149,7 @@ class _CardWidgetState extends State<CardWidget>{
     onPanEnd: (details) {
       final provider = Provider.of<CardProvider>(context, listen: false);
 
-      provider.endPosition();
+      provider.endPosition(this.context);
     },
 
 

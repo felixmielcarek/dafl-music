@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dafl_project_flutter/views/pages/main/w_bottomsheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
@@ -80,7 +81,7 @@ class CardProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void endPosition() {
+  void endPosition(context) {
     _isDragging = false;
     notifyListeners();
 
@@ -89,7 +90,7 @@ class CardProvider extends ChangeNotifier{
 
     switch (status) {
       case CardStatus.like:
-        like();
+        like(context);
         break;
       case CardStatus.disLike:
         dislike();
@@ -170,7 +171,7 @@ class CardProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void like() {
+  void like(context) {
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
@@ -191,6 +192,7 @@ class CardProvider extends ChangeNotifier{
     await Future.delayed(Duration(milliseconds: 200));
     resetPosition();
   }
+
 }
 
 

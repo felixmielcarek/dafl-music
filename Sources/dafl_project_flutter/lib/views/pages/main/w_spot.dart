@@ -109,9 +109,21 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                       width: width*0.1,
                     ),
                     GestureDetector(
+                      onLongPress: (){
+                        showModalBottomSheet(
+                          useRootNavigator: true,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          constraints: BoxConstraints(
+                            maxWidth:  600,
+                            maxHeight: double.infinity,
+                          ),
+                          builder: (context) => buildSheet(),);
+                      },
                       onTap: () {
                         final provider = Provider.of<CardProvider>(context, listen:  false);
-                        provider.like();
+                        provider.like(this.context);
                       },
                       child: Image.asset(
                         'assets/images/bouton_like.png',
@@ -170,6 +182,85 @@ class _SpotsWidgetState extends State<SpotsWidget> {
           .toList(),
     );
   }
+
+  Widget buildSheet() => Container(
+    height: 550,
+    width: 330,
+    decoration: BoxDecoration(
+      color: Color(0xFF232123),
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30),
+        topLeft: Radius.circular(30),
+      ),
+    ),
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Column(
+        children: [
+
+          Container(
+            height: 5,
+            width: 130,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF8A8A8A),
+            ),
+          ),
+          SizedBox(height: 30,),
+          Container(
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF302C30),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                maxLength: 200,
+                style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                expands: true,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  border: InputBorder.none,
+                  hintText: "Mon message",
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          SizedBox(
+            width: double.infinity,
+            height: 70,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF3F1DC3),
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(17)
+                  )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("Envoyer"),
+                  Opacity(opacity: 0.2,
+                    child: Image.asset("assets/images/send_logo.png",),)
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
+
+  );
 
 }
 
