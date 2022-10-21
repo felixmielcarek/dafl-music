@@ -246,9 +246,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     child:Ink(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          'assets/images/valid_logo.png',
-                          width: 47,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -274,7 +275,7 @@ class _SignUpPageState extends State<SignUpPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Tu as déjà un compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                  Text('Tu as déjà un compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(

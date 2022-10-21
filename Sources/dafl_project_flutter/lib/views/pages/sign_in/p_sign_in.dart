@@ -175,9 +175,10 @@ class _SignInPageState extends State<SignInPage> {
                     child:Ink(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          'assets/images/valid_logo.png',
-                          width: 40,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -203,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Tu n’as pas de compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                    Text('Tu n’as pas de compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(

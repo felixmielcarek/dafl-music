@@ -54,6 +54,16 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.10.0
+  flutter_native_splash: ^2.2.11
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#141414"
+  #background_image: "assets/images/background_blur.png"
+  image: "assets/images/Logo_launcher_2.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,7 +73,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/Logo_luancher_2.png"
+  image_path: "assets/images/Logo_launcher_2.png"
 
 flutter:
 
