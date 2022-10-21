@@ -111,6 +111,7 @@ class _SignInPageState extends State<SignInPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -219,15 +220,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               SizedBox(height: 60,),
             ],
-          ),
-          Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                child: Text("v1.0",
-                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.5) ,fontSize: 17, fontWeight: FontWeight.w700),
-                ),
-              )
           ),
 
         ],
