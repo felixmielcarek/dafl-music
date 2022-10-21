@@ -42,6 +42,7 @@ dependencies:
   rive: ^0.9.1
   animations: ^2.0.7
   fluttertoast: ^8.1.1
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   flutter_test:
