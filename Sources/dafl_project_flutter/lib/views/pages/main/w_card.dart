@@ -77,6 +77,9 @@ class _CardWidgetState extends State<CardWidget>{
       case CardStatus.discovery:
         final child = buildStamp(image: 'assets/images/icon_discovery.png', opacity: opacity);
         return child;
+      case CardStatus.message:
+        final child = buildStamp(image: 'assets/images/icon_messages.png', opacity: opacity);
+        return child;
       default:
         return Container();
 
@@ -124,7 +127,7 @@ class _CardWidgetState extends State<CardWidget>{
           ..translate(-center.dx, -center.dy);
 
         return AnimatedContainer(
-          curve: Curves.easeInOut,
+          curve: Curves.easeOut,
           duration: Duration(milliseconds: milliseconds),
           transform: rotatedMatrix..translate(position.dx, position.dy),
           child: Stack(
