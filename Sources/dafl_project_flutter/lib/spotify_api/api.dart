@@ -3,7 +3,7 @@ import 'dart:math';
 
 class Api {
   var clientId = '7ceb49d874b9404492246027e4d68cf8';
-  var redirectUri = 'https://felixmielcarek.github.io';
+  var redirectUri='https://192.168.183.120:8888/';
   var state;
   var scopes = 'user-read-private';
   var url;
@@ -23,12 +23,13 @@ class Api {
   Future<void> launchInBrowser() async {
     if (!await launchUrl(
       url,
-      mode: LaunchMode.externalApplication,
+      mode: LaunchMode.inAppWebView,
     )) {
       throw 'Could not launch $url';
     }
   }
 
+  // for state value
   String generateRandomString() {
     var r = Random();
     return String.fromCharCodes(
