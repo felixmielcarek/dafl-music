@@ -1,4 +1,4 @@
-import 'package:dafl_project_flutter/spotify_api/api_sptfy.dart';
+import 'package:dafl_project_flutter/spotify_api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../home/p_home.dart';
@@ -16,7 +16,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isHovering = false;
   TextEditingController passwordconfirm = TextEditingController();
   bool isChecked = false;
-  ApiSptfy apiSptfy = ApiSptfy();
+  Api apiSptfy = Api();
   Future<void>? _launched;
   @override
   Widget build(BuildContext context) {
@@ -209,25 +209,22 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 55,
+                        height: 43,
                         width: width * 0.75,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF24CF5F),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                ),
-                                onPressed: () => setState(() {
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF24CF5F),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ), // background// foreground
+                            ),
+                            onPressed: () => setState(() {
                                   _launched = apiSptfy.launchInBrowser();
                                 }),
-                                child: const Text(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
                                   "Lier compte ",
                                   style: TextStyle(
                                       fontFamily: 'DMSans',
@@ -235,16 +232,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700),
                                 ),
-                              ),
-                              Image.asset(
-                                'assets/images/spotify_logo.png',
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover,
-                              ),
-                            ],
-                          ),
-                        ),
+                                Image.asset(
+                                  'assets/images/spotify_logo.png',
+                                  height: 25,
+                                  width: 25,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            )),
                       ),
                     ],
                   )),
@@ -303,7 +298,7 @@ class _SignUpPageState extends State<SignUpPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Tu n’as déjà un compte?',
+                  const Text('Tu as déjà un compte ?',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
