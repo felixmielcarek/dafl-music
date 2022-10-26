@@ -4,15 +4,8 @@ name: DAFLPipeline
 
 steps:
 - name: app-build
-  image: plugins/docker:17.12
-  settings:
-    repo: DAFLDev/DAFLMusic
-    auto_tag: true
-    dockerfile: Dockerfile
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-  when:
-    event:
-    - push
+  image: cirrusci/flutter:stable
+  commands:
+    - sudo chown -R cirrus:cirrus .
+    - flutter doctor
+    - flutter test
