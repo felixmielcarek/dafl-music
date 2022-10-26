@@ -34,7 +34,7 @@
                 <data
                     android:scheme="https"
                     android:pathPrefix="/callback/"
-                    android:host="https://192.168.1.11" />
+                    android:host="192.168.23.120" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

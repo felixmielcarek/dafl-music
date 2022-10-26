@@ -3,7 +3,7 @@ import 'dart:math';
 
 class Api {
   var clientId = '7ceb49d874b9404492246027e4d68cf8';
-  var redirectUri='https://192.168.183.120:8888/';
+  var redirectUri = 'https://192.168.23.120/callback/';
   var state;
   var scopes = 'user-read-private';
   var url;
