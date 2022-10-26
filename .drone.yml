@@ -6,6 +6,5 @@ steps:
 - name: app-build
   image: cirrusci/flutter:stable
   commands:
-    - sudo chown -R cirrus:cirrus .
     - flutter doctor
     - flutter test
