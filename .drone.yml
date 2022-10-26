@@ -1,17 +1,17 @@
 # database container deployment
-  - name: deploy-container-dafl
+  - name: deploy-container-mysql
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
     environment:
-        IMAGENAME: alpine:3.16
-        CONTAINERNAME: dafl
+        IMAGENAME: mariadb:10
+        CONTAINERNAME: mysql
         COMMAND: create
         # OVERWRITE: false
         PRIVATE: true
-        CODEFIRST_CLIENTDRONE_ENV_POSTGRESQL_ROOT_PASSWORD:
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_ROOT_PASSWORD:
           from_secret: db_root_password
-        CODEFIRST_CLIENTDRONE_ENV_POSTGRESQL_DATABASE:
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_DATABASE:
           from_secret: db_database
-        CODEFIRST_CLIENTDRONE_ENV_POSTGRESQL_USER:
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_USER:
           from_secret: db_user
-        CODEFIRST_CLIENTDRONE_ENV_POSTGRESQL_PASSWORD:
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
           from_secret: db_password
