@@ -1,0 +1,10 @@
+kind: pipeline
+type: docker
+name: DAFLPipeline
+
+steps:
+- name: app-build
+  image: cirrusci/flutter:stable
+  commands:
+    - flutter doctor
+    - flutter build
