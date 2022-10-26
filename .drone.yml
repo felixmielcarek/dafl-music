@@ -7,4 +7,4 @@ steps:
   image: cirrusci/flutter:stable
   commands:
     - flutter doctor
-    - flutter app-build
+    - flutter build
