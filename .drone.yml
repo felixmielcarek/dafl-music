@@ -1,17 +1,18 @@
-# database container deployment
-  - name: deploy-container-mysql
-    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
-    environment:
-        IMAGENAME: mariadb:10
-        CONTAINERNAME: mysql
-        COMMAND: create
-        # OVERWRITE: false
-        PRIVATE: true
-        CODEFIRST_CLIENTDRONE_ENV_MARIADB_ROOT_PASSWORD:
-          from_secret: db_root_password
-        CODEFIRST_CLIENTDRONE_ENV_MARIADB_DATABASE:
-          from_secret: db_database
-        CODEFIRST_CLIENTDRONE_ENV_MARIADB_USER:
-          from_secret: db_user
-        CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
-          from_secret: db_password
+kind: pipeline
+type: docker
+name: DAFLPipeline
+
+steps:
+- name: app-build
+  image: plugins/docker:17.12
+  settings:
+    repo: DAFLDev/DAFLMusic
+    auto_tag: true
+    dockerfile: Dockerfile
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    event:
+    - push
