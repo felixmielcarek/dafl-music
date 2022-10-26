@@ -8,3 +8,13 @@ steps:
   commands:
     - flutter doctor
     - flutter build
+
+- name: code-analysis
+  image: cirrusci/flutter:stable
+  environment:
+      SONAR_TOKEN:
+        from_secret: sonar_token
+  settings:
+      sources: ./Sources
+  commands:
+  - cd Sources/dafl_project_flutter
