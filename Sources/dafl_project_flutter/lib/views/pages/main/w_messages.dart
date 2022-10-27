@@ -1,5 +1,8 @@
+import 'package:dafl_project_flutter/views/pages/main/p_conversation.dart';
+import 'package:dafl_project_flutter/views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MessagesWidget extends StatefulWidget {
   const MessagesWidget({Key? key}) : super(key: key);
@@ -130,6 +133,7 @@ class MessagesButtonWidget extends StatelessWidget{
           children: [
 
             Container(
+              color: Colors.transparent,
               margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: Row(
                 children: [
@@ -156,7 +160,6 @@ class MessagesButtonWidget extends StatelessWidget{
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Max',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                            Spacer(),
                             Text('1 jour(s)',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.8) ,fontSize: 15, fontWeight: FontWeight.w400),),
                           ],
                         ),
@@ -206,7 +209,17 @@ class ListWaitingWidget extends StatelessWidget{
 
       children: [
         SizedBox(height: 40,),
-        MessagesButtonWidget(),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(PageTransition(
+                duration: Duration(milliseconds: 200),
+                reverseDuration: Duration(milliseconds: 200),
+                type: PageTransitionType.rightToLeftWithFade,
+                childCurrent: context.widget,
+                child: ConversationPage()));
+          },
+          child: MessagesButtonWidget(),
+        ),
 
       ],
     );

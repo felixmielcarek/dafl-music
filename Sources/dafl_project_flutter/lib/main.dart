@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dafl_project_flutter/views/pages/main/w_bottomsheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vibration/vibration.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
 import './views/pages/main/p_main.dart';
@@ -154,6 +155,7 @@ class CardProvider extends ChangeNotifier{
     }
   }
   void dislike() {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("dislike");
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
@@ -163,6 +165,7 @@ class CardProvider extends ChangeNotifier{
   }
 
   void discovery() {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
@@ -180,6 +183,7 @@ class CardProvider extends ChangeNotifier{
   }
 
   void message(context) {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("message");
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
@@ -296,12 +300,13 @@ class CardProvider extends ChangeNotifier{
 
 
   void like(context) {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
-
     notifyListeners();
+
   }
 
   Future _nextCard() async {

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../main.dart';
 import 'package:rive/rive.dart';
 import 'package:animations/animations.dart';
+import 'package:vibration/vibration.dart';
 
 class SpotsWidget extends StatefulWidget {
   const SpotsWidget({Key? key}) : super(key: key);
@@ -81,6 +82,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                       onTap: () {
                         final provider = Provider.of<CardProvider>(context, listen:  false);
                         provider.dislike();
+
 
                       },
                       child: Image.asset(
@@ -176,6 +178,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
           .toList(),
     );
   }
+
 
 
 }
