@@ -1,4 +1,7 @@
 import 'dart:ui';
+import 'package:dafl_project_flutter/views/pages/main/w_discovery.dart';
+
+import '../../../model/music.dart';
 import './w_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/painting/gradient.dart' as gradiant;
@@ -94,6 +97,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        MyApp().controller.currentUser.addDiscovery(Music('e','Khali','https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'));
                         final provider = Provider.of<CardProvider>(context, listen:  false);
                         provider.discovery();
                       },
@@ -145,12 +149,12 @@ class _SpotsWidgetState extends State<SpotsWidget> {
               IgnorePointer(child: Container(height: 200,
                 decoration: BoxDecoration(
                     gradient: gradiant.LinearGradient(
-                      colors: [Colors.black, Colors.transparent],
+                      colors: [Colors.black.withOpacity(0.95),Colors.black.withOpacity(0.84),Colors.black.withOpacity(0.66),Colors.black.withOpacity(0.41),Colors.black.withOpacity(0)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     )
 
-                ),),),
+              ),),),
               Padding(padding: EdgeInsets.fromLTRB(20, 60, 0, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

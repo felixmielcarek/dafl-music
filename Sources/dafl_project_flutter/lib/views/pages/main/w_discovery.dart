@@ -1,5 +1,10 @@
+import 'dart:math';
+
+import 'package:dafl_project_flutter/main.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter/material.dart';
+
+import '../../../model/music.dart';
 
 class DiscoveryWidget extends StatefulWidget {
   const DiscoveryWidget({Key? key}) : super(key: key);
@@ -16,11 +21,12 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
     return Container(
       color: Color(0xFF141414),
 
-      child: Padding(padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
+      child: Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -37,173 +43,89 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
               ),
             ),
             Expanded(
-              child: ListView(
+              child: DiscoveryList(),
+            )
+          ],
+        ),),
+    );
+  }
+}
 
+class DiscoveryList extends StatefulWidget {
+  const DiscoveryList({Key? key}) : super(key: key);
+
+  @override
+  State<DiscoveryList> createState() => _DiscoveryListState();
+}
+
+class _DiscoveryListState extends State<DiscoveryList> {
+   late GlobalKey<RefreshIndicatorState> refreshKey;
+  @override
+  void initState() {
+    print('testttt');
+    refreshKey = GlobalKey<RefreshIndicatorState>();
+    refreshList();
+    super.initState();
+  }
+
+  Future<Null> refreshList() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      MyApp().controller.currentUser.Discovery;
+      print('test');
+    });
+    return null;
+  }
+  Widget build(BuildContext context) {
+    return RefreshIndicator(child: ListView.builder(
+        itemCount: MyApp().controller.currentUser.Discovery.length ?? 0,
+        itemBuilder: (context, index){
+          int itemCount = MyApp().controller.currentUser.Discovery.length ?? 0;
+          int reversedIndex = itemCount - 1 - index;
+          return Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Column(
                 children: [
-                  SizedBox(height: 40,),
+
                   Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Column(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Container(
-                                    child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
-                                  ),),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('IVERSON',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                                      Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
-
-                                    ],
-                                  ),),
-                              ],
-                            ),
+                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    width: double.infinity,
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
+                          child: Container(
+                            child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
+                          ),),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(MyApp().controller.currentUser.Discovery[reversedIndex].name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                              Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
 
-
-                        ],
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Column(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Container(
-                                    child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
-                                  ),),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('IVERSON',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                                      Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
-
-                                    ],
-                                  ),),
-                              ],
-                            ),
-                          ),
-
-
-                        ],
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Column(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Container(
-                                    child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
-                                  ),),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('IVERSON',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                                      Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
-
-                                    ],
-                                  ),),
-                              ],
-                            ),
-                          ),
-
-
-                        ],
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Column(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 0, color: Colors.grey.withOpacity(0)),
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Container(
-                                    child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
-                                  ),),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('IVERSON',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                                      Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
-
-                                    ],
-                                  ),),
-                              ],
-                            ),
-                          ),
-
-
-                        ],
-                      )
+                            ],
+                          ),),
+                      ],
+                    ),
                   ),
 
 
                 ],
-              ),
-            ),
-          ],
-        ),),
-    );
+              )
+
+          );
+        }
+    ), onRefresh: () async {
+      refreshList();
+    }, key: refreshKey,);
   }
 }

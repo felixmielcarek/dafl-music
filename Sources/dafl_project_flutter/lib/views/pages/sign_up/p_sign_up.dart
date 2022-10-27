@@ -1,7 +1,9 @@
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
+import '../../../controller/controller.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -15,8 +17,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Color boxColor = Colors.white;
   bool isHovering = false;
   @override
-  TextEditingController passwordconfirm = new TextEditingController();
   bool isChecked = false;
+  final userNameTextField = TextEditingController();
+  final passwordTextField = TextEditingController();
+  final passwordConfirmTextField = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -69,6 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          controller: userNameTextField,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -112,6 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          controller: passwordTextField,
                           obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -157,7 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
                           obscureText: true,
-                          controller: passwordconfirm,
+                          controller: passwordConfirmTextField,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -231,17 +237,20 @@ class _SignUpPageState extends State<SignUpPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
-                      setState(() {
-                        boxColor = Colors.blue;
-                      });
-                      Navigator.of(context).push(
+                      if(passwordConfirmTextField.text == passwordTextField.text && userNameTextField.text != null){
+                        MyApp().controller.createUser(userNameTextField.text, passwordConfirmTextField.text);
+                        Navigator.of(context).push(
                         PageTransition(
-                            duration: Duration(milliseconds: 300),
-                            reverseDuration: Duration(milliseconds: 300),
-                            type: PageTransitionType.leftToRightJoined,
-                            childCurrent: widget,
-                            child: HomePage()),
-                      );
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        type: PageTransitionType.leftToRightJoined,
+                        childCurrent: widget,
+                        child: HomePage()),);
+                      }
+                      else{
+                        print('Null');
+                      }
+
                     },
                     child:Ink(
                       child: Align(

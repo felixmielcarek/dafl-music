@@ -1,4 +1,6 @@
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
+  final userNameTextField = TextEditingController(text: MyApp().controller.currentUser?.usernameDafl);
+  final passwordTextField = TextEditingController(text: MyApp().controller.currentUser?.passwDafl);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -54,6 +58,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     SizedBox(
                       width: 230,
                       child: TextField(
+                        controller: userNameTextField,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           hintStyle: Theme.of(context).textTheme.caption?.copyWith(
@@ -67,9 +72,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       ),
                     ),
                     Spacer(),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    GestureDetector(
+                      onTap: () {
+                        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+                        MyApp().controller.changeUsernameCourant(userNameTextField.text);
+                      },
+                    child: Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: Text('modifier',
-                        style: TextStyle( color: Colors.blue, fontSize: 17),),),
+                        style: TextStyle( color: Colors.blue, fontSize: 17),),),)
+
 
                   ],
                 ),
@@ -100,6 +111,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     SizedBox(
                       width: 230,
                       child: TextField(
+                        controller: passwordTextField,
                         obscureText: true,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -114,9 +126,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       ),
                     ),
                     Spacer(),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: Text('modifier',
-                        style: TextStyle( color: Colors.blue, fontSize: 17),),),
+                    GestureDetector(
+                      onTap: () {
+                      },
+                      child: Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: Text('modifier',
+                          style: TextStyle( color: Colors.blue, fontSize: 17),),),
+                    ),
 
                   ],
                 ),

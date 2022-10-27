@@ -1,3 +1,5 @@
+import 'package:dafl_project_flutter/main.dart';
+
 import './w_settings.dart';
 import './w_spot.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +45,32 @@ class MainPageProfil extends StatelessWidget {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 40),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
               height: height*0.14,
               width: height*0.14,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100.0),
                 color: Colors.blue,border: Border.all(width: 6.0, color: Colors.white),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 0),
+                    spreadRadius: 5,
+                    blurRadius:10,
+                    color: Color.fromRGBO(0, 0, 0, 1),
+                  ),
+                ],
 
               ),
+              child: Center(
+                child: Text(MyApp().controller.currentUser?.usernameDafl![0] ?? '',
+                  style: TextStyle(color: Colors.white ,fontSize: 60, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Text(MyApp().controller.currentUser?.usernameDafl ?? '',
+              style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.w400),
+              textAlign: TextAlign.center,
             ),
             Container(
               height: 55,
@@ -59,7 +79,7 @@ class MainPageProfil extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.transparent,
               ),
-              margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+              margin: EdgeInsets.fromLTRB(30, 40, 30, 0),
               child: SizedBox(
                 height: 55,
                 width: double.infinity,
@@ -187,7 +207,7 @@ class MainPageProfil extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.transparent,
               ),
-              margin: EdgeInsets.fromLTRB(30, 0, 30, height*0.04),
+              margin: EdgeInsets.fromLTRB(30, 0, 30,0),
               child: SizedBox(
                 height: 55,
                 width: double.infinity,
@@ -215,6 +235,7 @@ class MainPageProfil extends StatelessWidget {
                     )
                 ),),
             ),
+            Spacer(),
           ],
         ),
       ),

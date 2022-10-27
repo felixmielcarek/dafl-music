@@ -16,6 +16,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   bool isChecked = false;
+  final userNameTextField = TextEditingController();
+  final passwordTextField = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,6 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                       child: TextField(
+                        controller: userNameTextField,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -111,6 +114,7 @@ class _SignInPageState extends State<SignInPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          controller: passwordTextField,
                           obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -165,12 +169,18 @@ class _SignInPageState extends State<SignInPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
-                      Navigator.of(context).push(
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                            childCurrent: widget,
-                            child: Splash()),
-                      );
+                      if(passwordTextField.text != "" && userNameTextField.text != ""){
+                        MyApp().controller.changeCurrentUser(MyApp().controller.createUser(userNameTextField.text, passwordTextField.text));
+                        Navigator.of(context).push(
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              childCurrent: widget,
+                              child: Splash()),
+                        );
+                      }
+                      else{
+                        print('probleme connexion');
+                      }
                     },
                     child:Ink(
                       child: Align(

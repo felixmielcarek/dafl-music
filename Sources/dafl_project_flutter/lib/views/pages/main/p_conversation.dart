@@ -15,35 +15,47 @@ class _ConversationPageState extends State<ConversationPage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
-      backgroundColor: Color(0xFF141414),
       appBar: AppBar(
-        toolbarHeight: 100,
-        title: Row(
-          children: [
-            Container(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(width: 20,),
-            Text("Max"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+          gradient: LinearGradient(
+          colors: [Colors.black, Colors.transparent],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
 
-          ],
+          ),
+        ),
+        toolbarHeight: 70,
+        title: Container(
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.blue,
+                ),
+              ),
+              SizedBox(width: 20,),
+              Text("Max"),
+
+            ],
+          ),
         ),
 
-        backgroundColor: Color(0xFF141414),
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
+        child:
             Container(
               color: Color(0xFF141414),
-              height: height*0.76,
+              height: height*0.92,
               width: double.infinity,
               child: ListView(
                 scrollDirection: Axis.vertical,
@@ -58,50 +70,58 @@ class _ConversationPageState extends State<ConversationPage> {
               ),
 
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      ),
+      bottomSheet: BottomAppBar(
+        color: Color(0xFF141414),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
 
-              children: [
-                Container(
-                  height: height*0.08,
+          children: [
+            Container(
+              height: height*0.08,
+              color: Colors.transparent,
+              width: width*0.8,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(20, 10, 0, 10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Color(0xFF2F2F2F),
+                  ),
+                  borderRadius: BorderRadius.circular(100),
                   color: Color(0xFF141414),
-                  width: width*0.8,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(20, 10, 0, 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
 
+                ),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: Colors.white),
+                        border: InputBorder.none,
+                        hintText: "Envoyer un message...",
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Envoyer un message..."
-                        ),
-                        cursorColor: Colors.purple,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
+                    cursorColor: Colors.purple,
+                    textAlign: TextAlign.left,
                   ),
                 ),
-                Container(
-                  width: 40,
-                  height: 40,
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.blue,
-                  ),
-                  child: Icon(Icons.send, size: 20, color: Colors.white,),
-                )
-              ],
+              ),
             ),
+            Container(
+              width: 40,
+              height: 40,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.blue,
+              ),
+              child: Icon(Icons.send, size: 20, color: Colors.white,),
+            )
           ],
         ),
       ),
+
     );
   }
 
@@ -121,8 +141,8 @@ class _ConversationPageState extends State<ConversationPage> {
           color: Color(0xFF191919),
         ),
         child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 19, fontWeight: FontWeight.w400),
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
             )),
       );
     }
@@ -139,8 +159,8 @@ class _ConversationPageState extends State<ConversationPage> {
           color: Color(0xFF2F2F2F),
         ),
         child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 19, fontWeight: FontWeight.w400),
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
             )),
       );
     }

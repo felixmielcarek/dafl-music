@@ -9,17 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+import '../controller/controller.dart';
 
 void main() {
+  MyApp mainApp = MyApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  Controller controller = Controller();
 
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
+    Paint.enableDithering = true;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return ChangeNotifierProvider(
       create: (context) => CardProvider(),
