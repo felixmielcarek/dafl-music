@@ -25,5 +25,5 @@ steps:
       - cd sonar-scanner-$SONAR_SCANNER_VERSION-linux/
       - cd ../..
       - export SONAR_SCANNER_OPTS="-server"
-      - ./.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux/bin/sonar-scanner -D sonar.projectKey=Passworld -D sonar.host.url=https://codefirst.iut.uca.fr/sonar -D sonar.login=$${SONAR_TOKEN}
-    depends_on: [ build-apk ]
+      - ./.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux/bin/sonar-scanner -D sonar.projectKey=DAFLMusic -D sonar.host.url=https://codefirst.iut.uca.fr/sonar -D sonar.login=$${SONAR_TOKEN}
+    depends_on: [ app-build ]
