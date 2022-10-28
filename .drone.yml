@@ -10,11 +10,20 @@ steps:
     - flutter build
 
 - name: code-analysis
-  image: cirrusci/flutter:stable
-  environment:
-      SONAR_TOKEN:
-        from_secret: sonar_token
-  settings:
-      sources: ./Sources
-  commands:
-  - cd Sources/dafl_project_flutter
+    image: cirrusci/flutter:stable
+    #hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-sonar
+    environment:
+        SONAR_TOKEN:
+          from_secret: sonar_token
+    commands:
+      #- apk add zip unzip openjdk11 tree
+      - export SONAR_SCANNER_VERSION=4.7.0.2747
+      - mkdir .sonar
+      - cd .sonar
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - cd sonar-scanner-$SONAR_SCANNER_VERSION-linux/
+      - cd ../..
+      - export SONAR_SCANNER_OPTS="-server"
+      - ./.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux/bin/sonar-scanner -D sonar.projectKey=Passworld -D sonar.host.url=https://codefirst.iut.uca.fr/sonar -D sonar.login=$${SONAR_TOKEN}
+    depends_on: [ build-apk ]
