@@ -8,7 +8,7 @@ steps:
   commands:
     - flutter doctor
     - flutter build
-
+    
 - name: code-analysis
     image: cirrusci/flutter:stable
     #hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-sonar
