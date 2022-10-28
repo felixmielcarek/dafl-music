@@ -15,7 +15,7 @@ steps:
         SONAR_TOKEN:
           from_secret: sonar_token
     settings:
-        sources: ./Sources
+        sources: ./Sources/dafl_project_flutter
     commands:
       - export SONAR_SCANNER_VERSION=4.7.0.2747
       - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
