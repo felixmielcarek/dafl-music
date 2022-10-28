@@ -41,8 +41,8 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(provider.urlImages.isEmpty != true
-                          ?provider.urlImages.last
+                      image: NetworkImage(provider.spotsList.isEmpty != true
+                          ?provider.spotsList.last.linkCover
                           :"https://i.imgur.com/Uovh293.png"),
                       fit: BoxFit.cover,
 
@@ -97,7 +97,6 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        MyApp().controller.currentUser.addDiscovery(Music('e','Khali','https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'));
                         final provider = Provider.of<CardProvider>(context, listen:  false);
                         provider.discovery();
                       },
@@ -159,8 +158,8 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('COULEURS',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                    Text('Khali',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
+                    Text(MyApp().controller.currentUser.Spots.last.name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                    Text(MyApp().controller.currentUser.Spots.last.artist ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
                   ],
                 ),),
             ],
@@ -171,12 +170,12 @@ class _SpotsWidgetState extends State<SpotsWidget> {
 
   Widget buildCards() {
     final provider = Provider.of<CardProvider>(context);
-    final urlImages = provider.urlImages;
+    final urlImages = provider.spotsList;
 
     return Stack(
       children: urlImages
           .map((urlImage) => CardWidget(
-        urlImage: urlImage,
+        urlImage: urlImage.linkCover,
         isFront: urlImages.last == urlImage,
       ))
           .toList(),

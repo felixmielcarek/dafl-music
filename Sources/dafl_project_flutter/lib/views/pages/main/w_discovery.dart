@@ -101,7 +101,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Container(
-                            child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
+                            child: FadeInImage.assetNetwork(placeholder: "assets/images/loadingPlaceholder.gif", image: MyApp().controller.currentUser.Discovery[reversedIndex].linkCover),
                           ),),
                         Container(
                           margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

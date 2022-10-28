@@ -1,5 +1,7 @@
 import 'package:dafl_project_flutter/main.dart';
 
+import '../../../main.dart';
+import '../../../main.dart';
 import './w_settings.dart';
 import './w_spot.dart';
 import 'package:flutter/material.dart';

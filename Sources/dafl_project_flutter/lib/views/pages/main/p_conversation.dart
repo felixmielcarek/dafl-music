@@ -18,16 +18,7 @@ class _ConversationPageState extends State<ConversationPage> {
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-          gradient: LinearGradient(
-          colors: [Colors.black, Colors.transparent],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )
-
-          ),
-        ),
+        backgroundColor: Color(0xFF141414),
         toolbarHeight: 70,
         title: Container(
           child: Row(
@@ -48,7 +39,6 @@ class _ConversationPageState extends State<ConversationPage> {
           ),
         ),
 
-        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       body: SingleChildScrollView(

@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import '../controller/controller.dart';
+import '../model/music.dart';
+import 'model/music.dart';
 
 void main() {
   MyApp mainApp = MyApp();
@@ -39,13 +41,13 @@ class MyApp extends StatelessWidget {
 enum CardStatus { like, disLike, discovery, message}
 
 class CardProvider extends ChangeNotifier{
-  List<String> _urlImages = [];
+  List<Music> _spotsList = [];
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
 
-  List<String> get urlImages => _urlImages;
+  List<Music> get spotsList => _spotsList;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
@@ -55,16 +57,7 @@ class CardProvider extends ChangeNotifier{
   }
 
   void resetUsers() {
-    _urlImages = <String>[
-      'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg',
-      'https://m.media-amazon.com/images/I/61aUOMzwS8L._SL1440_.jpg',
-      'https://pbs.twimg.com/media/ExJ-My-XMAE3Ko2.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/2818a661c6d533155ce6dffc256b1f51/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/b351f0e935c9c3901f8d893b92ab952a/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/65147b581f2ace9e0f0723ee76e70fda/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/173b96be8ac025fb9578b0139010bc80/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg',
-    ].reversed.toList();
+    _spotsList = MyApp().controller.currentUser.Spots;
 
     notifyListeners();
   }
@@ -170,20 +163,34 @@ class CardProvider extends ChangeNotifier{
 
   void discovery() {
     Vibration.vibrate(duration: 20, amplitude: 60);
-    print("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
     _discovery_card();
-    Fluttertoast.showToast(
-        msg: 'Ajouté',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.deepPurple,
-        textColor: Colors.white
-    );
+    print("discovery");
+    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots.last)){
+      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots.last);
+      Fluttertoast.showToast(
+      msg: 'Supprimer',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.red,
+      textColor: Colors.white
+      );
+    }
+    else{
+      MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots.last);
+      Fluttertoast.showToast(
+      msg: 'Ajouté',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.deepPurple,
+      textColor: Colors.white
+      );
+      notifyListeners();
+    }
 
-    notifyListeners();
   }
 
   void message(context) {
@@ -314,10 +321,10 @@ class CardProvider extends ChangeNotifier{
   }
 
   Future _nextCard() async {
-    if ( _urlImages.isEmpty) return;
+    if ( _spotsList.isEmpty) return;
 
     await Future.delayed(Duration(milliseconds: 200));
-    _urlImages.removeLast();
+    _spotsList.removeLast();
     resetPosition();
   }
 

@@ -1,7 +1,7 @@
 class Music{
-  String? name;
-  String? artist;
-  String? linkCover;
+  String name;
+  String artist;
+  String linkCover;
 
   Music(this.name, this.artist, this.linkCover);
 
