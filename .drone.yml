@@ -32,7 +32,7 @@ steps:
     dockerfile: Sources/Dockerfile
     context: Sources/
     registry: hub.codefirst.iut.uca.fr
-    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/DAFLMusic
+    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
     username:
       from_secret: secret-registry-username
     password:
