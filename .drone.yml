@@ -49,3 +49,4 @@ steps:
       from_secret: secret-registry-username
     password:
       from_secret: secret-registry-password
+  depends_on: [ web-server, app-build ]
