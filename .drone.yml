@@ -41,3 +41,5 @@ steps:
     CONTAINERNAME: api-redirect
     COMMAND: create
     OVERWRITE: true
+  commands:
+    - echo test > $HOME/public-html/index.html
