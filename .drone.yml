@@ -12,7 +12,8 @@ steps:
   image: cirrusci/flutter:stable
   commands:
     - flutter doctor
-    - flutter build
+    - cd ./Sources/
+    - flutter build apk
 
 # build CONTAINER for sonar on cirrusci IMAGE
 - name: code-analysis
