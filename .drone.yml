@@ -37,7 +37,7 @@ steps:
 - name: deploy-container
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   settings:
-    - dockerfile: ./Sources/api-redirect/Dockerfile
+    - dockerfile: ./Sources/api_redirect/Dockerfile
   environment:
     IMAGENAME: httpd:2.4
     CONTAINERNAME: api-redirect
