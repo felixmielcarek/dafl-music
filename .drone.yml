@@ -12,7 +12,7 @@ steps:
   image: cirrusci/flutter:stable
   commands:
     - flutter doctor
-    - flutter build ./Sources/dafl_project_flutter
+    - flutter build
 
 # build CONTAINER for sonar on cirrusci IMAGE
 - name: code-analysis
