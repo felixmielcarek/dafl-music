@@ -32,3 +32,16 @@ steps:
     - export SONAR_SCANNER_OPTS="-server"
     - sonar-scanner -D sonar.projectKey=DAFLMusic -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
   depends_on: [ app-build ]
+
+  # build CONTAINER for web server on httpd IMAGE
+- name: web-server
+  image: httpd:2.4
+  settings:
+    dockerfile: Sources/api_redirect/Dockerfile
+    context: Sources/api_redirect/
+    registry: hub.codefirst.iut.uca.fr
+    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
+    username:
+      from_secret: secret-registry-username
+    password:
+      from_secret: secret-registry-password
