@@ -2,13 +2,20 @@ kind: pipeline
 type: docker
 name: DAFLPipeline
 
+trigger:
+  event:
+    - push
+
 steps:
+# build CONTAINER for app-build on cirrusci IMAGE
 - name: app-build
   image: cirrusci/flutter:stable
   commands:
     - flutter doctor
-    - flutter build
-    
+    - cd ./Sources/dafl_project_flutter/
+    - flutter build apk
+
+# build CONTAINER for sonar on cirrusci IMAGE
 - name: code-analysis
   image: cirrusci/flutter:stable
   environment:
@@ -25,28 +32,3 @@ steps:
     - export SONAR_SCANNER_OPTS="-server"
     - sonar-scanner -D sonar.projectKey=DAFLMusic -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
   depends_on: [ app-build ]
-
-- name: web-server
-  image: plugins/docker
-  settings:
-    dockerfile: Sources/Dockerfile
-    context: Sources/
-    registry: hub.codefirst.iut.uca.fr
-    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
-    username:
-      from_secret: secret-registry-username
-    password:
-      from_secret: secret-registry-password
-
-- name: deploy-container
-  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
-  environment:
-    IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music:latest
-    CONTAINERNAME: dafl-container
-    COMMAND: create
-    OVERWRITE: true
-    username:
-      from_secret: secret-registry-username
-    password:
-      from_secret: secret-registry-password
-  depends_on: [ web-server ]
