@@ -38,6 +38,7 @@ steps:
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   settings:
     dockerfile: ./Sources/api_redirect/Dockerfile
+    context: Sources/api_redirect/
   environment:
     IMAGENAME: httpd:2.4
     CONTAINERNAME: api-redirect
