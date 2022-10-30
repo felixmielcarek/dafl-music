@@ -44,3 +44,12 @@ steps:
       from_secret: secret-registry-username
     password:
       from_secret: secret-registry-password
+
+- name: deploy-container
+  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+  environment:
+    IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/web-server:latest
+    CONTAINERNAME: apiredirect
+    COMMAND: create
+    OVERWRITE: true
+  depends_on: [ web-server ]
