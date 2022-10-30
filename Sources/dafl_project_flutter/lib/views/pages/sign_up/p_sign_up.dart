@@ -124,6 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       const Padding(
                         padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -167,6 +168,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          obscureText: true,
                           controller: passwordconfirm,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
@@ -265,7 +267,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: HomePage()),
                       );
                     },
-                    child: Ink(
+                    child:Ink(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
+                        ),
+                      ),
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       width: 83,
                       height: 83,
@@ -280,13 +290,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 0, 3), // changes position of shadow
                           ),
                         ],
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          'assets/images/valid_logo.png',
-                          width: 47,
-                        ),
                       ),
                     ),
                   ),

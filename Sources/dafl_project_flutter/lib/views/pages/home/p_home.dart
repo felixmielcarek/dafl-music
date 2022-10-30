@@ -28,9 +28,10 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Spacer(),
               Image.asset(
                 'assets/images/Logo.png',
-                width: 200,
+                width: 230,
               ),
               SizedBox(
                 height: height * 0.04,
@@ -59,6 +60,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: height * 0.015,
               ),
+              SizedBox(height: height*0.08,),
               SizedBox(
                 height: 55,
                 width: width * 0.75,
@@ -87,11 +89,8 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 220,
-              ),
+                ),),
+              Spacer(),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(

@@ -111,6 +111,7 @@ class _SignInPageState extends State<SignInPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -174,9 +175,10 @@ class _SignInPageState extends State<SignInPage> {
                     child:Ink(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          'assets/images/valid_logo.png',
-                          width: 40,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -202,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Tu n’as pas de compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                    Text('Tu n’as pas de compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -219,15 +221,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               SizedBox(height: 60,),
             ],
-          ),
-          Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                child: Text("v1.0",
-                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.5) ,fontSize: 17, fontWeight: FontWeight.w700),
-                ),
-              )
           ),
 
         ],
