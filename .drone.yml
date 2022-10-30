@@ -34,9 +34,13 @@ steps:
   depends_on: [ app-build ]
 
 - name: web-server
-  image: httpd:2.4
+  image: plugins/docker
   settings:
     dockerfile: ./Sources/api_redirect/Dockerfile
     context: Sources/api_redirect/
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
+    username:
+      from_secret: secret-registry-username
+    password:
+      from_secret: secret-registry-password
