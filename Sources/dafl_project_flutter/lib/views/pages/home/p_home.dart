@@ -60,7 +60,9 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: height * 0.015,
               ),
-              SizedBox(height: height*0.08,),
+              SizedBox(
+                height: height * 0.08,
+              ),
               SizedBox(
                 height: 55,
                 width: width * 0.75,
@@ -89,7 +91,8 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
-                ),),
+                ),
+              ),
               Spacer(),
               GestureDetector(
                 onTap: () {

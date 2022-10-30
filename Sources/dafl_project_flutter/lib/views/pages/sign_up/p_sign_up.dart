@@ -267,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: HomePage()),
                       );
                     },
-                    child:Ink(
+                    child: Ink(
                       child: Align(
                         alignment: Alignment.center,
                         child: Icon(
