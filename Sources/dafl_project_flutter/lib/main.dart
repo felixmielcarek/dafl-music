@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dafl_project_flutter/views/pages/main/w_bottomsheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import './model/location.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-import './views/location.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,16 +21,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
+    Location.getCurrentLocation();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return ChangeNotifierProvider(
       create: (context) => CardProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: LocationPage(),
+        home: HomePage(),
       ),
     );
   }
+
 }
 
 enum CardStatus { like, disLike, discovery, message}
