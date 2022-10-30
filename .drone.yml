@@ -48,7 +48,7 @@ steps:
 - name: deploy-container
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   environment:
-    IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/web-server:latest
+    IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music:latest
     CONTAINERNAME: apiredirect
     COMMAND: create
     OVERWRITE: true
