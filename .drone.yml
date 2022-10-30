@@ -33,14 +33,10 @@ steps:
     - sonar-scanner -D sonar.projectKey=DAFLMusic -D sonar.sources=. -D sonar.host.url=https://codefirst.iut.uca.fr/sonar
   depends_on: [ app-build ]
 
-# container deployment
-- name: deploy-container
-  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+- name: web-server
+  image: httpd:2.4
   settings:
     dockerfile: ./Sources/api_redirect/Dockerfile
     context: Sources/api_redirect/
-  environment:
-    IMAGENAME: httpd:2.4
-    CONTAINERNAME: api-redirect
-    COMMAND: create
-    OVERWRITE: true
+    registry: hub.codefirst.iut.uca.fr
+    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
