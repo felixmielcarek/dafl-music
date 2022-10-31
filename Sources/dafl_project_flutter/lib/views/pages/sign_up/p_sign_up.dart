@@ -1,7 +1,16 @@
+import 'package:dafl_project_flutter/controller/controller.dart';
+import 'package:dafl_project_flutter/persistence/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../persistence/saver.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
+import '../../../persistence/database_saver.dart';
+import '../../../persistence/database_loader.dart';
+import '../../../controller/controller.dart';
+import '../../../model/user.dart';
+
+
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -11,11 +20,17 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final Controller ctrl = Controller();
 
   Color boxColor = Colors.white;
   bool isHovering = false;
   @override
   TextEditingController passwordconfirm = new TextEditingController();
+
+  //Text field that entered the username of the user
+  TextEditingController username = new TextEditingController();
+
+
   bool isChecked = false;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          controller: username,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -112,7 +128,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
-                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -156,7 +171,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
-                          obscureText: true,
                           controller: passwordconfirm,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -231,6 +245,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
+                      ctrl.save(User(username.text, passwordconfirm.text));
+
                       setState(() {
                         boxColor = Colors.blue;
                       });
@@ -246,10 +262,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     child:Ink(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Icon(
-                          Icons.check,
-                          color: Color(0xFF406DE1),
-                          size: 60.0,
+                        child: Image.asset(
+                          'assets/images/valid_logo.png',
+                          width: 47,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -275,7 +290,7 @@ class _SignUpPageState extends State<SignUpPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Tu as déjà un compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                  Text('Tu n’as déjà un compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
@@ -292,6 +307,15 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               SizedBox(height: 60,),
             ],
+          ),
+          Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
+                child: Text("v1.0",
+                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.5) ,fontSize: 17, fontWeight: FontWeight.w700),
+                ),
+              )
           ),
 
         ],

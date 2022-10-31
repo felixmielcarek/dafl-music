@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:dafl_project_flutter/views/pages/main/w_bottomsheet.dart';
+import 'package:dafl_project_flutter/persistence/database_saver.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:vibration/vibration.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
 import './views/pages/main/p_main.dart';
@@ -10,12 +9,18 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
+import 'package:dafl_project_flutter/controller/controller.dart';
+
+
+
 void main() {
-  runApp(MyApp());
+  MyApp mainApp = MyApp();
+
+  runApp(mainApp);
 }
 
-class MyApp extends StatelessWidget {
 
+class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-enum CardStatus { like, disLike, discovery, message}
+enum CardStatus { like, disLike, discovery}
 
 class CardProvider extends ChangeNotifier{
   List<String> _urlImages = [];
@@ -82,7 +87,7 @@ class CardProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void endPosition(context) {
+  void endPosition() {
     _isDragging = false;
     notifyListeners();
 
@@ -91,16 +96,13 @@ class CardProvider extends ChangeNotifier{
 
     switch (status) {
       case CardStatus.like:
-        like(context);
+        like();
         break;
       case CardStatus.disLike:
         dislike();
         break;
       case CardStatus.discovery:
         discovery();
-        break;
-      case CardStatus.message:
-        message(context);
         break;
       default:
         resetPosition();
@@ -125,8 +127,7 @@ class CardProvider extends ChangeNotifier{
   CardStatus? getStatus({bool force = false}) {
     final x = _position.dx;
     final y = _position.dy;
-    final forceDiscovery = x.abs() < 80;
-    final forceMessage = x.abs() < 100;
+    final forceDiscovery = x.abs() < 20;
 
     if(force) {
       final delta = 100;
@@ -135,19 +136,15 @@ class CardProvider extends ChangeNotifier{
         return CardStatus.like;
       } else if ( x <= -delta){
         return CardStatus.disLike;
-      } else if ( y <= -delta/2 && forceDiscovery){
-        return CardStatus.message;
-      } else if (y >= delta * 2 && x.abs() < 100) {
+      } else if ( y <= -delta / 2 && forceDiscovery){
         return CardStatus.discovery;
       }
     } else{
       final delta = 20;
 
       if(y <= -delta * 2 && forceDiscovery) {
-        return CardStatus.message;
-      } else if (y >= delta *2 && x.abs() < 80) {
         return CardStatus.discovery;
-      }else  if ( x >= delta) {
+      } else  if ( x >= delta) {
         return CardStatus.like;
       } else if ( x <= -delta) {
         return CardStatus.disLike;
@@ -155,7 +152,6 @@ class CardProvider extends ChangeNotifier{
     }
   }
   void dislike() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     print("dislike");
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
@@ -165,10 +161,9 @@ class CardProvider extends ChangeNotifier{
   }
 
   void discovery() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     print("discovery");
     _angle = 0;
-    _position -= Offset(0, -_screenSize.height);
+    _position -= Offset(0, _screenSize.height);
     _discovery_card();
     Fluttertoast.showToast(
         msg: 'Ajouté',
@@ -182,131 +177,13 @@ class CardProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void message(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
-    print("message");
-    _angle = 0;
-    _position -= Offset(0, _screenSize.height);
-    _message_card();
-    showModalBottomSheet(
-      isDismissible: false,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      constraints: BoxConstraints(
-        maxWidth:  600,
-        maxHeight: double.infinity,
-      ),
-      builder: (context) => buildSheet(),);
-    notifyListeners();
-  }
-  Widget buildSheet() => Container(
-    height: 550,
-    width: 350,
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.4),
-          offset: const Offset(
-            0,
-            0,
-          ),
-          blurRadius: 10.0,
-          spreadRadius: 2.0,
-        ),
-        BoxShadow(
-          color: Colors.white.withOpacity(0.3),
-          offset: const Offset(0.0, 0.0),
-          blurRadius: 0.0,
-          spreadRadius: 0.0,
-        ),//BoxShadow//BoxShadow
-      ],
-      color: Color(0xFF232123),
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30),
-        topLeft: Radius.circular(30),
-      ),
-    ),
-    child: Padding(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Column(
-        children: [
-
-          Container(
-            height: 5,
-            width: 130,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF8A8A8A),
-            ),
-          ),
-          SizedBox(height: 30,),
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF302C30),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: TextField(
-                maxLength: 300,
-                style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
-                expands: true,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  border: InputBorder.none,
-                  hintText: "Mon message",
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20,),
-          SizedBox(
-            width: double.infinity,
-            height: 70,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF3F1DC3),
-                  textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(17)
-                  ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Envoyer"),
-                  Opacity(opacity: 0.2,
-                    child: Image.asset("assets/images/send_logo.png",),)
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    ),
-
-  );
-
-
-  void like(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
+  void like() {
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
-    notifyListeners();
 
+    notifyListeners();
   }
 
   Future _nextCard() async {
@@ -321,12 +198,6 @@ class CardProvider extends ChangeNotifier{
     await Future.delayed(Duration(milliseconds: 200));
     resetPosition();
   }
-
-  Future _message_card() async {
-    await Future.delayed(Duration(milliseconds: 200));
-    resetPosition();
-  }
-
 }
 
 
