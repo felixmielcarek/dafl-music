@@ -43,8 +43,11 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
               ),
             ),
             Expanded(
-              child: DiscoveryList(),
-            )
+              child: MyApp().controller.currentUser.Discovery.isEmpty?
+                    Center(child: Image.asset('assets/images/EmptyDiscovery-Hint.png',scale: 1.8,)):
+                  DiscoveryList(),
+            ),
+
           ],
         ),),
     );
@@ -62,7 +65,6 @@ class _DiscoveryListState extends State<DiscoveryList> {
    late GlobalKey<RefreshIndicatorState> refreshKey;
   @override
   void initState() {
-    print('testttt');
     refreshKey = GlobalKey<RefreshIndicatorState>();
     refreshList();
     super.initState();
@@ -72,7 +74,6 @@ class _DiscoveryListState extends State<DiscoveryList> {
     await Future.delayed(Duration(seconds: 1));
     setState(() {
       MyApp().controller.currentUser.Discovery;
-      print('test');
     });
     return null;
   }
@@ -110,7 +111,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(MyApp().controller.currentUser.Discovery[reversedIndex].name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                              Text('Laylow',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
+                              Text(MyApp().controller.currentUser.Discovery[reversedIndex].artist ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
 
                             ],
                           ),),

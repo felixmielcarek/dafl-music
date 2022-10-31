@@ -20,11 +20,6 @@ class SpotsWidget extends StatefulWidget {
 
 class _SpotsWidgetState extends State<SpotsWidget> {
 
-  final user = User(
-    chanteur: 'Khali',
-    titre: 'COULEURS',
-    urlImage: 'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg',
-  );
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -41,9 +36,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(provider.spotsList.isEmpty != true
-                          ?provider.spotsList.last.linkCover
-                          :"https://i.imgur.com/Uovh293.png"),
+                      image: NetworkImage(MyApp().controller.currentUser.Spots.isEmpty? "https://i.imgur.com/Uovh293.png":MyApp().controller.currentUser.Spots.last.linkCover),
                       fit: BoxFit.cover,
 
                     ),
@@ -55,7 +48,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 ),),
               Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: OpenContainer(
+                child: MyApp().controller.currentUser.Spots.isEmpty? Container():OpenContainer(
 
                   closedColor: Colors.transparent,
                   closedElevation: 0,
@@ -78,7 +71,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
               Positioned(
                 top: height*0.68,
                 width: width,
-                child: Row(
+                child: MyApp().controller.currentUser.Spots.isEmpty? Container():Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
@@ -158,8 +151,9 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(MyApp().controller.currentUser.Spots.last.name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                    Text(MyApp().controller.currentUser.Spots.last.artist ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
+                    Text(MyApp().controller.currentUser.Spots.isEmpty? '':
+                    MyApp().controller.currentUser.Spots.last.name,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                    Text(MyApp().controller.currentUser.Spots.isEmpty? '': MyApp().controller.currentUser.Spots.last.artist,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
                   ],
                 ),),
             ],

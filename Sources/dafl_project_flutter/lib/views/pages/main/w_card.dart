@@ -3,17 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import 'package:provider/provider.dart';
 
-class User{
-  final String chanteur;
-  final String titre;
-  final String urlImage;
-
-  const User({
-    required this.chanteur,
-    required this.titre,
-    required this.urlImage,
-  });
-}
 
 
 
@@ -58,7 +47,7 @@ class _CardWidgetState extends State<CardWidget>{
           height: double.infinity,
           width: double.infinity,
           fit: BoxFit.cover,
-          placeholder: "assets/images/loadingPlaceholder.gif", image: widget.urlImage),
+          placeholder: "assets/images/loadingPlaceholder.gif", image: widget.urlImage ),
     ),
   );
 
@@ -152,7 +141,7 @@ class _CardWidgetState extends State<CardWidget>{
     onPanEnd: (details) {
       final provider = Provider.of<CardProvider>(context, listen: false);
 
-      provider.endPosition(this.context);
+      provider.endPosition(context);
     },
 
 

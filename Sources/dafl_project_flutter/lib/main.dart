@@ -8,7 +8,7 @@ import './views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
+import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
 import '../model/music.dart';
 import 'model/music.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 enum CardStatus { like, disLike, discovery, message}
 
 class CardProvider extends ChangeNotifier{
-  List<Music> _spotsList = [];
+  List<Music> _spotsList = MyApp().controller.currentUser.Spots;
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
@@ -52,15 +52,8 @@ class CardProvider extends ChangeNotifier{
   Offset get position => _position;
   double get angle => _angle;
 
-  CardProvider() {
-    resetUsers();
-  }
 
-  void resetUsers() {
-    _spotsList = MyApp().controller.currentUser.Spots;
 
-    notifyListeners();
-  }
 
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
@@ -152,7 +145,6 @@ class CardProvider extends ChangeNotifier{
     }
   }
   void dislike() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     print("dislike");
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
@@ -162,13 +154,12 @@ class CardProvider extends ChangeNotifier{
   }
 
   void discovery() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
     _discovery_card();
     print("discovery");
-    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots.last)){
-      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots.last);
+    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots?.last)){
+      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots?.last);
       Fluttertoast.showToast(
       msg: 'Supprimer',
       toastLength: Toast.LENGTH_SHORT,
@@ -179,22 +170,24 @@ class CardProvider extends ChangeNotifier{
       );
     }
     else{
-      MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots.last);
-      Fluttertoast.showToast(
-      msg: 'Ajouté',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIosWeb: 2,
-      backgroundColor: Colors.deepPurple,
-      textColor: Colors.white
-      );
-      notifyListeners();
+      if(MyApp().controller.currentUser.Spots?.last != null){
+        MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots.last);
+        Fluttertoast.showToast(
+            msg: 'Ajouté',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.deepPurple,
+            textColor: Colors.white
+        );
+        notifyListeners();
+      }
+
     }
 
   }
 
   void message(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     print("message");
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
@@ -311,7 +304,6 @@ class CardProvider extends ChangeNotifier{
 
 
   void like(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
@@ -321,11 +313,17 @@ class CardProvider extends ChangeNotifier{
   }
 
   Future _nextCard() async {
-    if ( _spotsList.isEmpty) return;
-
-    await Future.delayed(Duration(milliseconds: 200));
-    _spotsList.removeLast();
-    resetPosition();
+    print(_spotsList.length);
+    if (_spotsList.isEmpty) {
+      print('dernier');
+      return;
+    }
+    else {
+      await Future.delayed(Duration(milliseconds: 200));
+      print(_spotsList.last.name);
+      _spotsList.removeLast();
+      resetPosition();
+    }
   }
 
   Future _discovery_card() async {
@@ -378,7 +376,7 @@ class _SplashState extends State<Splash> {
             Container(
               height: 300,
               width: 300,
-              child: RiveAnimation.asset('assets/images/new_file (2).riv'),
+              child: riv.RiveAnimation.asset('assets/images/new_file (2).riv'),
             ),
             SizedBox(height: 50),
           ],
@@ -387,3 +385,91 @@ class _SplashState extends State<Splash> {
     );
   }
 }
+
+Object errorNotify(int index, context){
+  String message;
+  switch(index){
+    case 0: {
+      message = "Ce nom d'utilisateur existe déjà ! Veuillez réessayer.";
+      break;
+    }
+    case 1: {
+      message = "Mots de passe différents ! Veuillez réessayer.";
+      break;
+    }
+    case 2: {
+      message = "Identifiant incorrect ! Veuillez réessayer.";
+      break;
+    }
+    case 3: {
+      message = "Mot de passe incorrect ! Votre mot de passe doit contenir 8 caractères minimum.";
+      break;
+    }
+    case 4: {
+      message = "Mot de passe incorrect ! Veuillez réessayer.";
+      break;
+    }
+    default:
+      message = "Une erreur est survenue pendant l'inscription. Veuillez réessayer.";
+      break;
+
+  }
+  return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+      dismissDirection: DismissDirection.down,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: Stack(
+        clipBehavior: Clip.none,
+        children: [
+
+          Container(
+            padding: EdgeInsets.all(16),
+            height: 90,
+            child: Row(
+              children: [
+                Container(
+                  height: 48,
+                  width: 48,
+                ),
+                Expanded(child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Oh oh !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Text(message,style: TextStyle(
+                    ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,),
+                  ],
+                ),),
+              ],
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/backgroundNotify.png"),
+                  fit: BoxFit.cover),
+              gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: Offset(4, 8), // Shadow position
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+              top: -50,
+              left: -20,
+              child: Container(
+                color:  Colors.transparent,
+                height: 110,
+                width: 110,
+                child: riv.RiveAnimation.asset("assets/images/error_icon.riv"),)),
+        ],
+      )
+  ));
+}
+
+

@@ -1,6 +1,7 @@
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rive/rive.dart' as riv;
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 import '../../../controller/controller.dart';
@@ -237,19 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
-                      if(passwordConfirmTextField.text == passwordTextField.text && userNameTextField.text != null){
-                        MyApp().controller.createUser(userNameTextField.text, passwordConfirmTextField.text);
-                        Navigator.of(context).push(
-                        PageTransition(
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        type: PageTransitionType.leftToRightJoined,
-                        childCurrent: widget,
-                        child: HomePage()),);
-                      }
-                      else{
-                        print('Null');
-                      }
+                       checkInformations(userNameTextField.text, passwordTextField.text, passwordConfirmTextField.text);
 
                     },
                     child:Ink(
@@ -307,4 +296,32 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+
+  void checkInformations(String username,String password, String confirmPassword){
+    if(username ==""){
+      errorNotify(2, context);
+    }
+    else if(password =="" || confirmPassword == ""){
+      errorNotify(4, context);
+    }
+    else if(password.length <8){
+      errorNotify(2, context);
+    }
+    else if(password != confirmPassword){
+      errorNotify(1, context);
+    }
+    else{
+      MyApp().controller.createUser(userNameTextField.text, passwordConfirmTextField.text);
+      Navigator.of(context).push(
+        PageTransition(
+            duration: Duration(milliseconds: 300),
+            reverseDuration: Duration(milliseconds: 300),
+            type: PageTransitionType.leftToRightJoined,
+            childCurrent: widget,
+            child: HomePage()),);
+
+    }
+
+  }
+
 }
