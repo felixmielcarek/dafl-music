@@ -230,10 +230,10 @@ class _SignInPageState extends State<SignInPage> {
 
   void checkInformations(String username,String password){
     if(username ==""){
-      errorNotify(2, context);
+      Notify(2, context);
     }
     else if(password ==""){
-      errorNotify(4, context);
+      Notify(4, context);
     }
     else{
       MyApp().controller.changeCurrentUser(MyApp().controller.createUser(userNameTextField.text, passwordTextField.text));

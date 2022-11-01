@@ -74,8 +74,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
                         MyApp().controller.changeUsernameCourant(userNameTextField.text);
+                        Notify(0,context,isError: false);
                       },
                     child: Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: Text('modifier',
@@ -128,6 +128,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
+                        MyApp().controller.changePasswordCourant(passwordTextField.text);
+                        Notify(1,context,isError: false);
                       },
                       child: Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                         child: Text('modifier',

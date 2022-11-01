@@ -299,16 +299,16 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void checkInformations(String username,String password, String confirmPassword){
     if(username ==""){
-      errorNotify(2, context);
+      Notify(2, context);
     }
     else if(password =="" || confirmPassword == ""){
-      errorNotify(4, context);
+      Notify(4, context);
     }
     else if(password.length <8){
-      errorNotify(2, context);
+      Notify(2, context);
     }
     else if(password != confirmPassword){
-      errorNotify(1, context);
+      Notify(1, context);
     }
     else{
       MyApp().controller.createUser(userNameTextField.text, passwordConfirmTextField.text);

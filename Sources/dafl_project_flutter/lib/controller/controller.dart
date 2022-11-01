@@ -32,4 +32,9 @@ class Controller{
       this.currentUser?.usernameDafl = newName;
     }
   }
+  void changePasswordCourant(String newPass){
+    if(newPass !=null){
+      this.currentUser?.passwDafl = newPass;
+    }
+  }
 }

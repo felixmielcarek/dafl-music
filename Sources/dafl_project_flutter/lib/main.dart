@@ -385,91 +385,166 @@ class _SplashState extends State<Splash> {
     );
   }
 }
-
-Object errorNotify(int index, context){
+Object Notify(int index, context, {bool isError = true}){
   String message;
-  switch(index){
-    case 0: {
-      message = "Ce nom d'utilisateur existe déjà ! Veuillez réessayer.";
-      break;
+  if(isError == true){
+    switch(index){
+      case 0: {
+        message = "Ce nom d'utilisateur existe déjà ! Veuillez réessayer.";
+        break;
+      }
+      case 1: {
+        message = "Mots de passe différents ! Veuillez réessayer.";
+        break;
+      }
+      case 2: {
+        message = "Identifiant incorrect ! Veuillez réessayer.";
+        break;
+      }
+      case 3: {
+        message = "Mot de passe incorrect ! Votre mot de passe doit contenir 8 caractères minimum.";
+        break;
+      }
+      case 4: {
+        message = "Mot de passe incorrect ! Veuillez réessayer.";
+        break;
+      }
+      default:
+        message = "Une erreur est survenue pendant l'inscription. Veuillez réessayer.";
+        break;
+
     }
-    case 1: {
-      message = "Mots de passe différents ! Veuillez réessayer.";
-      break;
+    return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        dismissDirection: DismissDirection.down,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: Stack(
+          clipBehavior: Clip.none,
+          children: [
+
+            Container(
+              padding: EdgeInsets.all(16),
+              height: 90,
+              child: Row(
+                children: [
+                  Container(
+                    height: 48,
+                    width: 48,
+                  ),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Oh oh !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(message,style: TextStyle(
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,),
+                    ],
+                  ),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/backgroundNotify.png"),
+                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+                top: -50,
+                left: -20,
+                child: Container(
+                  color:  Colors.transparent,
+                  height: 110,
+                  width: 110,
+                  child: riv.RiveAnimation.asset("assets/images/error_icon.riv"),)),
+          ],
+        )
+    ));
+  }
+  else{
+    switch(index){
+      case 0: {
+        message = "Vous avez changer votre identifiant avec succès";
+        break;
+      }
+      case 1: {
+        message = "Vous avez changer votre mot de passe avec succès";
+        break;
+      }
+      default:
+        message = "L'opération a bien été éxécutée";
+        break;
+
     }
-    case 2: {
-      message = "Identifiant incorrect ! Veuillez réessayer.";
-      break;
-    }
-    case 3: {
-      message = "Mot de passe incorrect ! Votre mot de passe doit contenir 8 caractères minimum.";
-      break;
-    }
-    case 4: {
-      message = "Mot de passe incorrect ! Veuillez réessayer.";
-      break;
-    }
-    default:
-      message = "Une erreur est survenue pendant l'inscription. Veuillez réessayer.";
-      break;
+    return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        dismissDirection: DismissDirection.down,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: Stack(
+          clipBehavior: Clip.none,
+          children: [
+
+            Container(
+              padding: EdgeInsets.all(16),
+              height: 90,
+              child: Row(
+                children: [
+                  Container(
+                    height: 48,
+                    width: 48,
+                  ),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Super !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(message,style: TextStyle(
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,),
+                    ],
+                  ),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/valid_background.png"),
+                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+                top: -50,
+                left: -20,
+                child: Container(
+                  color:  Colors.transparent,
+                  height: 110,
+                  width: 110,
+                  child: riv.RiveAnimation.asset("assets/images/valid_icon.riv"),)),
+          ],
+        )
+    ));
 
   }
-  return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-      dismissDirection: DismissDirection.down,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      content: Stack(
-        clipBehavior: Clip.none,
-        children: [
 
-          Container(
-            padding: EdgeInsets.all(16),
-            height: 90,
-            child: Row(
-              children: [
-                Container(
-                  height: 48,
-                  width: 48,
-                ),
-                Expanded(child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Oh oh !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                    Text(message,style: TextStyle(
-                    ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,),
-                  ],
-                ),),
-              ],
-            ),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/backgroundNotify.png"),
-                  fit: BoxFit.cover),
-              gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: Offset(4, 8), // Shadow position
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-              top: -50,
-              left: -20,
-              child: Container(
-                color:  Colors.transparent,
-                height: 110,
-                width: 110,
-                child: riv.RiveAnimation.asset("assets/images/error_icon.riv"),)),
-        ],
-      )
-  ));
 }
 
 
