@@ -8,7 +8,6 @@ class DatabaseLoader extends Loader{
 
   @override
   Future<User?> load(String? username, String? password) async {
-
     final connection = await dbConnexion.initConnexion();
 
     connection.query('select * from utilisateur where username = @username AND password = @password',

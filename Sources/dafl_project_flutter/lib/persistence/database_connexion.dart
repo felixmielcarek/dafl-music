@@ -18,7 +18,8 @@ class DatabaseConnexion{
   String? _psqlDataBase;
 
 
-  Future<void> _loadLogs() async {
+  Future<void> _loadLogs() async{
+    try{
       final _loadedData = await rootBundle.loadString(filePath);
 
       final _logs = LineSplitter.split(_loadedData).toList();
@@ -27,6 +28,10 @@ class DatabaseConnexion{
       _psqlPswd = _logs[1];
       _psqlHost = _logs[2];
       _psqlDataBase = _logs[3];
+    }
+    catch(e){
+      throw Exception('Logs file Not Found');
+    }
   }
 
 
