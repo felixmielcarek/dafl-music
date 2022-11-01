@@ -28,12 +28,30 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Spacer(),
+
               Image.asset(
                 'assets/images/Logo.png',
-                width: 230,
+                width: 200,
               ),
-              SizedBox(height: height*0.08,),
+              SizedBox(height: height*0.04,),
+              SizedBox(
+                height: 55,
+                width: width*0.75,
+                child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF24CF5F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),// background// foreground
+                ),
+                onPressed: () {
+                },
+                child: Text("CONTINUER AVEC SPOTIFY",
+                  style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),),
+              SizedBox(height: height*0.015,),
               SizedBox(
                 height: 55,
                 width: width*0.75,
@@ -58,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     textAlign: TextAlign.center,
                   ),
                 ),),
-              Spacer(),
+              SizedBox(height: 220,),
               GestureDetector(
                 onTap: (){
                   Navigator.of(context).push(
@@ -93,6 +111,15 @@ class _HomePageState extends State<HomePage> {
 
 
             ],
+          ),
+          Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
+                child: Text("v1.0",
+                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.5) ,fontSize: 17, fontWeight: FontWeight.w700),
+                ),
+              )
           ),
 
         ],

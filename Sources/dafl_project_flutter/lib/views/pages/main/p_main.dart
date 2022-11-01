@@ -4,7 +4,6 @@ import './w_settings.dart';
 import './w_spot.dart';
 import './w_discovery.dart';
 import './w_profile.dart';
-import './w_messages.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -22,14 +21,13 @@ class _MainPageState extends State<MainPage> {
     DiscoveryWidget(),
     SpotsWidget(),
     Center(child: Text('Tops'),),
-    MessagesWidget(),
+    Center(child: Text('Messages'),),
     SettingsWidget(),
   ];
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: screens[_index],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
