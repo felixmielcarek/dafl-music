@@ -43,6 +43,8 @@ dependencies:
   animations: ^2.0.7
   fluttertoast: ^8.1.1
   vibration: ^1.7.6
+  postgresql2: ^1.0.3
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +89,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/logs.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
