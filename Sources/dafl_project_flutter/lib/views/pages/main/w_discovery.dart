@@ -83,7 +83,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
         itemBuilder: (context, index){
           int itemCount = MyApp().controller.currentUser.Discovery.length ?? 0;
           int reversedIndex = itemCount - 1 - index;
-          return Container(
+          return Dismissible(key: Key(MyApp().controller.currentUser.Discovery[reversedIndex].name), child: Container(
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Column(
@@ -123,7 +123,10 @@ class _DiscoveryListState extends State<DiscoveryList> {
                 ],
               )
 
-          );
+          ), onDismissed: (direction) {
+            MyApp().controller.currentUser.Discovery.removeAt(reversedIndex);
+          },
+          background: Container(color: Colors.red,),);
         }
     ), onRefresh: () async {
       refreshList();

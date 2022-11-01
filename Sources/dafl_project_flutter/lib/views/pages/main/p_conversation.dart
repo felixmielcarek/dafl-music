@@ -48,6 +48,7 @@ class _ConversationPageState extends State<ConversationPage> {
               height: height*0.92,
               width: double.infinity,
               child: ListView(
+                reverse: true,
                 scrollDirection: Axis.vertical,
                 children: [
                   Message('Adolescebat autem obstinatum propositum erga haec et similia multa scrutanda, stimulos admovente regina, quae abrupte mariti fortunas trudebat in exitium praeceps, cum eum potius lenitate feminea ad veritatis humanitatisque viam reducere utilia suadendo deberet, ut in Gordianorum actibus factitasse Maximini truculenti illius imperatoris rettulimus coniugem.', 0),

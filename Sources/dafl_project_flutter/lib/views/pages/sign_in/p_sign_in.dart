@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dafl_project_flutter/views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';
@@ -169,18 +170,7 @@ class _SignInPageState extends State<SignInPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
-                      if(passwordTextField.text != "" && userNameTextField.text != ""){
-                        MyApp().controller.changeCurrentUser(MyApp().controller.createUser(userNameTextField.text, passwordTextField.text));
-                        Navigator.of(context).push(
-                          PageTransition(
-                              type: PageTransitionType.fade,
-                              childCurrent: widget,
-                              child: Splash()),
-                        );
-                      }
-                      else{
-                        print('probleme connexion');
-                      }
+                      checkInformations(userNameTextField.text, passwordTextField.text);
                     },
                     child:Ink(
                       child: Align(
@@ -236,5 +226,24 @@ class _SignInPageState extends State<SignInPage> {
         ],
       ),
     );
+  }
+
+  void checkInformations(String username,String password){
+    if(username ==""){
+      errorNotify(2, context);
+    }
+    else if(password ==""){
+      errorNotify(4, context);
+    }
+    else{
+      MyApp().controller.changeCurrentUser(MyApp().controller.createUser(userNameTextField.text, passwordTextField.text));
+      Navigator.of(context).push(
+        PageTransition(
+            type: PageTransitionType.fade,
+            childCurrent: widget,
+            child: Splash()),
+      );
+
+      }
   }
 }

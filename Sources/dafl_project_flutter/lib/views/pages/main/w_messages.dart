@@ -134,7 +134,7 @@ class MessagesButtonWidget extends StatelessWidget{
 
             Container(
               color: Colors.transparent,
-              margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Row(
                 children: [
                   Container(
