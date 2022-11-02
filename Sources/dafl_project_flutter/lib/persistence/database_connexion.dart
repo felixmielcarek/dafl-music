@@ -10,7 +10,7 @@ import 'package:postgresql2/pool.dart';
 import 'package:postgresql2/postgresql.dart';
 
 class DatabaseConnexion{
-  final String filePath = '../../assets/logs.txt';
+  final String filePath = 'assets/logs.txt';
 
   String? _psqlUser;
   String? _psqlPswd;

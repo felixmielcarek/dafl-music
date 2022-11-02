@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dafl_project_flutter/model/user.dart';
 import 'package:dafl_project_flutter/views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -236,7 +237,8 @@ class _SignInPageState extends State<SignInPage> {
       Notify(4, context);
     }
     else{
-      MyApp().controller.load(userNameTextField.text, passwordTextField.text);
+      //MyApp().controller.load(userNameTextField.text, passwordTextField.text);
+      MyApp().controller.currentUser = User(userNameTextField.text, passwordTextField.text);
       Navigator.of(context).push(
         PageTransition(
             type: PageTransitionType.fade,

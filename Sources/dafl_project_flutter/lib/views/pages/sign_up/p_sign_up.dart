@@ -306,7 +306,7 @@ class _SignUpPageState extends State<SignUpPage> {
       Notify(4, context);
     }
     else if(password.length <8){
-      Notify(2, context);
+      Notify(3, context);
     }
     else if(password != confirmPassword){
       Notify(1, context);

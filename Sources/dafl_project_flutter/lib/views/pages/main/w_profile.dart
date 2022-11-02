@@ -64,13 +64,13 @@ class MainPageProfil extends StatelessWidget {
 
               ),
               child: Center(
-                child: Text(MyApp().controller.currentUser?.usernameDafl![0] ?? '',
+                child: Text(MyApp().controller.currentUser.usernameDafl![0] ?? '',
                   style: TextStyle(color: Colors.white ,fontSize: 60, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            Text(MyApp().controller.currentUser?.usernameDafl ?? '',
+            Text(MyApp().controller.currentUser.usernameDafl ?? '',
               style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
