@@ -1,16 +1,22 @@
-import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:tuple/tuple.dart';
 
-class Location{
-  static Tuple2<double, double> getCurrentLocation() {
-    Position currentPosition = Position();
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true)
-    .then((Position position) {currentPosition = position;}).catchError((e) {
-      if (kDebugMode) {
-        print(e);
+class Location {
+  static Future<Tuple2<double, double>> getCurrentLocation() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        return Future.error('Location Not Available');
       }
-    });
-    return Tuple2(currentPosition.longitude, currentPosition.latitude);
+    }
+    Position current = await Geolocator.getCurrentPosition();
+    double long = current.longitude;
+    double lat = current.latitude;
+    return Tuple2(long,lat);
   }
 }
+
+
+
