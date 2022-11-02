@@ -236,7 +236,7 @@ class _SignInPageState extends State<SignInPage> {
       Notify(4, context);
     }
     else{
-      MyApp().controller.changeCurrentUser(MyApp().controller.createUser(userNameTextField.text, passwordTextField.text));
+      MyApp().controller.load(userNameTextField.text, passwordTextField.text);
       Navigator.of(context).push(
         PageTransition(
             type: PageTransitionType.fade,

@@ -2,6 +2,7 @@ import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rive/rive.dart' as riv;
+import '../../../model/user.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 import '../../../controller/controller.dart';
@@ -310,8 +311,11 @@ class _SignUpPageState extends State<SignUpPage> {
     else if(password != confirmPassword){
       Notify(1, context);
     }
+    else if(password != confirmPassword){
+      Notify(1, context);
+    }
     else{
-      MyApp().controller.createUser(userNameTextField.text, passwordConfirmTextField.text);
+      MyApp().controller.save(User(userNameTextField.text, passwordConfirmTextField.text));
       Navigator.of(context).push(
         PageTransition(
             duration: Duration(milliseconds: 300),

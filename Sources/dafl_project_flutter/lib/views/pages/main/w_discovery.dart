@@ -113,8 +113,8 @@ class _DiscoveryListState extends State<DiscoveryList> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(MyApp().controller.currentUser.Discovery[reversedIndex].name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                              Text(MyApp().controller.currentUser.Discovery[reversedIndex].artist ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
+                              Text(MyApp().controller.currentUser?.Discovery[reversedIndex].name ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                              Text(MyApp().controller.currentUser?.Discovery[reversedIndex].artist ?? '',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
 
                             ],
                           ),),
@@ -128,7 +128,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
 
           ), onDismissed: (direction) {
             if(direction == DismissDirection.startToEnd)
-              MyApp().controller.currentUser.Discovery.removeAt(reversedIndex);
+              MyApp().controller.currentUser?.Discovery.removeAt(reversedIndex);
           },
           background: Container(decoration: BoxDecoration(
             image: DecorationImage(image: AssetImage("assets/images/delete_background.png"), fit: BoxFit.cover),

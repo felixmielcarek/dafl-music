@@ -24,6 +24,12 @@
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
