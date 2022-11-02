@@ -1,9 +1,8 @@
-
 import 'dart:ui';
-import 'package:dafl_project_flutter/persistence/database_saver.dart';
+import 'package:dafl_project_flutter/model/user.dart';
+import 'package:dafl_project_flutter/views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../controller/controller.dart';
 import '../../../main.dart';
 import '../sign_up/p_sign_up.dart';
 
@@ -16,13 +15,11 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   var boxColor = Colors.white;
-  Controller ctrl = Controller();
-
-  TextEditingController password = new TextEditingController();
-  TextEditingController username = new TextEditingController();
 
   @override
   bool isChecked = false;
+  final userNameTextField = TextEditingController();
+  final passwordTextField = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -75,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                       child: TextField(
-                        controller: username,
+                        controller: userNameTextField,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -119,7 +116,8 @@ class _SignInPageState extends State<SignInPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
-                          controller: password,
+                          controller: passwordTextField,
+                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -173,23 +171,15 @@ class _SignInPageState extends State<SignInPage> {
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
                     onTap: (){
-
-                      ctrl.load(username.text, password.text);
-
-
-                      Navigator.of(context).push(
-                        PageTransition(
-                          type: PageTransitionType.fade,
-                            childCurrent: widget,
-                            child: Splash()),
-                      );
+                      checkInformations(userNameTextField.text, passwordTextField.text);
                     },
                     child:Ink(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          'assets/images/valid_logo.png',
-                          width: 40,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
                         ),
                       ),
                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -215,7 +205,7 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Tu n’as pas de compte?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                    Text('Tu n’as pas de compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -233,18 +223,29 @@ class _SignInPageState extends State<SignInPage> {
               SizedBox(height: 60,),
             ],
           ),
-          Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                child: Text("v1.0",
-                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.5) ,fontSize: 17, fontWeight: FontWeight.w700),
-                ),
-              )
-          ),
 
         ],
       ),
     );
+  }
+
+  void checkInformations(String username,String password){
+    if(username ==""){
+      Notify(2, context);
+    }
+    else if(password ==""){
+      Notify(4, context);
+    }
+    else{
+      //MyApp().controller.load(userNameTextField.text, passwordTextField.text);
+      MyApp().controller.currentUser = User(userNameTextField.text, passwordTextField.text);
+      Navigator.of(context).push(
+        PageTransition(
+            type: PageTransitionType.fade,
+            childCurrent: widget,
+            child: Splash()),
+      );
+
+      }
   }
 }

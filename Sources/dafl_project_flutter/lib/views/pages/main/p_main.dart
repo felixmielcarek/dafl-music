@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   int get index => _index;
   final screens = [
     ProfilWidget(),
-    DiscoveryWidget(),
+    new DiscoveryWidget(),
     SpotsWidget(),
     Center(child: Text('Tops'),),
     Center(child: Text('Messages'),),

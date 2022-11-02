@@ -6,6 +6,30 @@
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/build" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/vibration/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_native_splash/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/fluttertoast/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

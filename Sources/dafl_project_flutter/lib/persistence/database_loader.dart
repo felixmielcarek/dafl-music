@@ -1,4 +1,6 @@
-import '../persistence/loader.dart';
+import 'dart:async';
+
+import 'loader.dart';
 import '../model/user.dart';
 import 'database_connexion.dart';
 
@@ -14,7 +16,6 @@ class DatabaseLoader extends Loader{
         {'username': username,
           'password': password}).toList()
         .then((result) {
-          print(result); });
+      print(result); });
   }
 }
-

@@ -36,7 +36,7 @@ class DatabaseConnexion{
 
 
   //Initialise connexion to the database
-   Future<Connection> initConnexion() async{
+  Future<Connection> initConnexion() async{
     await _loadLogs();
 
     var uri = 'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
