@@ -1,10 +1,12 @@
 import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
+import '../persistence/database_searcher.dart';
 import '../persistence/loader.dart';
 
 import '../persistence/saver.dart';
 import '../persistence/loader.dart';
 import '../model/user.dart';
+import '../persistence/searcher.dart';
 
 
 class Controller{
@@ -12,6 +14,7 @@ class Controller{
 
   static Saver? saver = DatabaseSaver();
   static Loader? loader = DatabaseLoader();
+  static Searcher _searcher = DatabaseSearcher();
 
   User currentUser = User(null, null);
 
@@ -47,5 +50,9 @@ class Controller{
     if(newPass !=null){
       this.currentUser?.passwDafl = newPass;
     }
+  }
+
+  Future<bool> searchByUsername(String username) async{
+    return _searcher.searchByUsername(username);
   }
 }

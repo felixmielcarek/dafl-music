@@ -298,10 +298,14 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void checkInformations(String username,String password, String confirmPassword){
+  Future<void> checkInformations(String username,String password, String confirmPassword) async {
     if(username ==""){
       Notify(2, context);
     }
+    else if(! await MyApp().controller.searchByUsername(username)){
+      Notify(0, context);
+    }
+    /*
     else if(password =="" || confirmPassword == ""){
       Notify(4, context);
     }
@@ -314,6 +318,7 @@ class _SignUpPageState extends State<SignUpPage> {
     else if(password != confirmPassword){
       Notify(1, context);
     }
+     */
     else{
       MyApp().controller.save(User(userNameTextField.text, passwordConfirmTextField.text));
       Navigator.of(context).push(
