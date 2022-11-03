@@ -11,6 +11,8 @@ import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
 import '../model/music.dart';
 import 'model/music.dart';
+import 'model/spot.dart';
+import 'model/user.dart';
 
 void main() {
   MyApp mainApp = MyApp();
@@ -40,13 +42,13 @@ class MyApp extends StatelessWidget {
 enum CardStatus { like, disLike, discovery, message}
 
 class CardProvider extends ChangeNotifier{
-  List<Music> _spotsList = MyApp().controller.currentUser.Spots;
+  List<Spot> _spotsList = MyApp().controller.currentUser.Spots2;
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
 
-  List<Music> get spotsList => _spotsList;
+  List<Spot> get spotsList => _spotsList;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
@@ -157,8 +159,8 @@ class CardProvider extends ChangeNotifier{
     _position -= Offset(0, -_screenSize.height);
     _discovery_card();
     print("discovery");
-    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots?.last)){
-      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots?.last);
+    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots2?.last.music)){
+      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots2?.last.music);
       Fluttertoast.showToast(
       msg: 'Supprimer',
       toastLength: Toast.LENGTH_SHORT,
@@ -169,8 +171,8 @@ class CardProvider extends ChangeNotifier{
       );
     }
     else{
-      if(MyApp().controller.currentUser.Spots?.last != null){
-        MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots.last);
+      if(MyApp().controller.currentUser.Spots2?.last != null){
+        MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots2.last.music);
         Fluttertoast.showToast(
             msg: 'Ajouté',
             toastLength: Toast.LENGTH_SHORT,
@@ -204,79 +206,84 @@ class CardProvider extends ChangeNotifier{
       builder: (context) => buildSheet(),);
     notifyListeners();
   }
-  Widget buildSheet() => Container(
-    height: 550,
-    width: 350,
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.4),
-          offset: const Offset(
-            0,
-            0,
+  Widget buildSheet(){
+    final messageTextField = TextEditingController();
+    return Container(
+      height: 550,
+      width: 350,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            offset: const Offset(
+              0,
+              0,
+            ),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
           ),
-          blurRadius: 10.0,
-          spreadRadius: 2.0,
+          BoxShadow(
+            color: Colors.white.withOpacity(0.3),
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ),//BoxShadow//BoxShadow
+        ],
+        color: Color(0xFF232123),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
         ),
-        BoxShadow(
-          color: Colors.white.withOpacity(0.3),
-          offset: const Offset(0.0, 0.0),
-          blurRadius: 0.0,
-          spreadRadius: 0.0,
-        ),//BoxShadow//BoxShadow
-      ],
-      color: Color(0xFF232123),
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30),
-        topLeft: Radius.circular(30),
       ),
-    ),
-    child: Padding(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      child: Column(
-        children: [
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        child: Column(
+          children: [
 
-          Container(
-            height: 5,
-            width: 130,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF8A8A8A),
+            Container(
+              height: 5,
+              width: 130,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xFF8A8A8A),
+              ),
             ),
-          ),
-          SizedBox(height: 30,),
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF302C30),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: TextField(
-                maxLength: 300,
-                style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
-                expands: true,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(
-                    color: Colors.white,
+            SizedBox(height: 30,),
+            Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xFF302C30),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: TextField(
+                  controller: messageTextField,
+                  maxLength: 300,
+                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                  expands: true,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    border: InputBorder.none,
+                    hintText: "Mon message",
                   ),
-                  border: InputBorder.none,
-                  hintText: "Mon message",
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 20,),
-          SizedBox(
-            width: double.infinity,
-            height: 70,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
+            SizedBox(height: 20,),
+            SizedBox(
+              width: double.infinity,
+              height: 70,
+              child: ElevatedButton(
+                onPressed: () {
+                  sendMessage(messageTextField.text, MyApp().controller.currentUser.Spots2.last.user);
+                },
+                style: ElevatedButton.styleFrom(
                   primary: Color(0xFF3F1DC3),
                   textStyle: TextStyle(
                       fontSize: 20,
@@ -284,22 +291,29 @@ class CardProvider extends ChangeNotifier{
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(17)
                   ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Envoyer"),
+                    Opacity(opacity: 0.2,
+                      child: Image.asset("assets/images/send_logo.png",),)
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Envoyer"),
-                  Opacity(opacity: 0.2,
-                    child: Image.asset("assets/images/send_logo.png",),)
-                ],
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
-    ),
 
-  );
+    );
+
+
+  }
+  void sendMessage(String message, User destinataire){
+    print(MyApp().controller.currentUser.Spots2.last.user.usernameDafl);
+  }
+
 
 
   void like(context) {
@@ -319,7 +333,7 @@ class CardProvider extends ChangeNotifier{
     }
     else {
       await Future.delayed(Duration(milliseconds: 200));
-      print(_spotsList.last.name);
+      print(_spotsList.last.music.name);
       _spotsList.removeLast();
       resetPosition();
     }

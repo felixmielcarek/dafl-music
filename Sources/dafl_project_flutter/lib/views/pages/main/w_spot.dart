@@ -36,7 +36,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(MyApp().controller.currentUser.Spots.isEmpty? "https://i.imgur.com/Uovh293.png":MyApp().controller.currentUser.Spots.last.linkCover),
+                      image: NetworkImage(MyApp().controller.currentUser.Spots2.isEmpty? "https://i.imgur.com/Uovh293.png":MyApp().controller.currentUser.Spots2.last.music.linkCover),
                       fit: BoxFit.cover,
 
                     ),
@@ -48,7 +48,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 ),),
               Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: MyApp().controller.currentUser.Spots.isEmpty? Container():OpenContainer(
+                child: MyApp().controller.currentUser.Spots2.isEmpty? Container():OpenContainer(
 
                   closedColor: Colors.transparent,
                   closedElevation: 0,
@@ -71,7 +71,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
               Positioned(
                 top: height*0.68,
                 width: width,
-                child: MyApp().controller.currentUser.Spots.isEmpty? Container():Row(
+                child: MyApp().controller.currentUser.Spots2.isEmpty? Container():Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
@@ -151,9 +151,9 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(MyApp().controller.currentUser.Spots.isEmpty? '':
-                    MyApp().controller.currentUser.Spots.last.name,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
-                    Text(MyApp().controller.currentUser.Spots.isEmpty? '': MyApp().controller.currentUser.Spots.last.artist,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
+                    Text(MyApp().controller.currentUser.Spots2.isEmpty? '':
+                    MyApp().controller.currentUser.Spots2.last.music.name,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 20, fontWeight: FontWeight.w800),),
+                    Text(MyApp().controller.currentUser.Spots2.isEmpty? '': MyApp().controller.currentUser.Spots2.last.music.artist,style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),),
                   ],
                 ),),
             ],
@@ -169,7 +169,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
     return Stack(
       children: urlImages
           .map((urlImage) => CardWidget(
-        urlImage: urlImage.linkCover,
+        urlImage: urlImage.music.linkCover,
         isFront: urlImages.last == urlImage,
       ))
           .toList(),
