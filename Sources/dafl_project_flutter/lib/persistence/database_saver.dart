@@ -9,11 +9,12 @@ class DatabaseSaver extends Saver{
 
   @override
   void save(User userToSave) async{
-    final connection = await dbConnexion.initConnexion();
+    final connection = await DatabaseConnexion.initConnexion();
 
     connection.execute('insert into utilisateur (username, password) values (@username, @password)',
         { 'id' : '',
           'username': userToSave.usernameDafl,
           'password' : userToSave.passwDafl}).then((_) {});
   }
+
 }

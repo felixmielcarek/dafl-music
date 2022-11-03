@@ -10,6 +10,6 @@ Future<void> main() async {
 
   DatabaseConnexion d = DatabaseConnexion();
 
-  d.initConnexion();
+  DatabaseConnexion.initConnexion();
 
 }
