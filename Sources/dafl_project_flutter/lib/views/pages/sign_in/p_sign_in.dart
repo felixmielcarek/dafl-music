@@ -229,6 +229,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+
   void checkInformations(String username,String password){
     if(username ==""){
       Notify(2, context);
@@ -238,7 +239,7 @@ class _SignInPageState extends State<SignInPage> {
     }
     else{
       //MyApp().controller.load(userNameTextField.text, passwordTextField.text);
-      MyApp().controller.currentUser = User(userNameTextField.text, passwordTextField.text);
+      MyApp().controller.currentUser = User(username, password);
       Navigator.of(context).push(
         PageTransition(
             type: PageTransitionType.fade,

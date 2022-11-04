@@ -6,19 +6,40 @@ import 'music.dart';
 
 class User{
   //attributes from DAFL
-  int? idDafl;
-  String? usernameDafl;
-  String? passwDafl;
+  late int _idDafl;
+  late String _usernameDafl;
+  late String _passwDafl;
+
   //attributes to link with API
-  String? usernameAPI;
-  String? passwAPI;
+  late String _usernameAPI;
+  late String _passwAPI;
+
+
+
+  // Getters for attributes
+  int get idDafl => _idDafl;
+  String get passwAPI => _passwAPI;
+  String get usernameDafl => _usernameDafl;
+  String get passwDafl => _passwDafl;
+  String get usernameAPI => _usernameAPI;
+
+  // Setters for attributes
+  set idDafl(int value) { _idDafl = value; }
+  set usernameDafl(String value) { _usernameDafl = value; }
+  set passwDafl(String value) { _passwDafl = value; }
+  set usernameAPI(String value) { _usernameAPI = value; }
+  set passwAPI(String value) { _passwAPI = value; }
+
+
 
   //constructors
-  User(this.usernameDafl, this.passwDafl);
+  User(this._usernameDafl, this._passwDafl);
 
-  User.name(this.usernameDafl);
+  User.name(this._usernameDafl);
 
-  User.fromDatabase(this.idDafl, this.usernameDafl);
+  User.fromDatabase(this._idDafl, this._usernameDafl);
+
+
 
   //lists
   Set<User> likedUsers={};
@@ -37,6 +58,10 @@ class User{
     Music('Deux frères','PNL','https://cdns-images.dzcdn.net/images/cover/65147b581f2ace9e0f0723ee76e70fda/500x500.jpg'),
     Music('Paradis','Sopico','https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg')].reversed.toList();
   Map<User,Conversation> conversations={};
+
+
+
+
 
   void addDiscovery(Music newmusic){
     if(MyApp().controller?.currentUser?.Discovery == null){

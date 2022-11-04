@@ -298,15 +298,17 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Future<void> checkInformations(String username,String password, String confirmPassword) async {
-    if(username ==""){
+
+  Future<void> checkInformations(String username, String password, String confirmPassword) async {
+
+    if(username == ""){
       Notify(2, context);
     }
     else if(! await MyApp().controller.searchByUsername(username)){
       Notify(0, context);
     }
-    /*
-    else if(password =="" || confirmPassword == ""){
+
+    if(password == "" || confirmPassword == ""){
       Notify(4, context);
     }
     else if(password.length <8){
@@ -315,12 +317,9 @@ class _SignUpPageState extends State<SignUpPage> {
     else if(password != confirmPassword){
       Notify(1, context);
     }
-    else if(password != confirmPassword){
-      Notify(1, context);
-    }
-     */
     else{
-      MyApp().controller.save(User(userNameTextField.text, passwordConfirmTextField.text));
+      MyApp().controller.save(User(username, password));
+
       Navigator.of(context).push(
         PageTransition(
             duration: Duration(milliseconds: 300),

@@ -5,7 +5,6 @@ import '../model/user.dart';
 
 
 class DatabaseSaver extends Saver{
-  DatabaseConnexion dbConnexion = DatabaseConnexion();
 
   @override
   void save(User userToSave) async{

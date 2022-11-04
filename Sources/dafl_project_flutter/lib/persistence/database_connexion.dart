@@ -21,12 +21,12 @@ class DatabaseConnexion{
   static String? _psqlDataBase;
 
 
+
+
   // Read the database connection identifiers in a file
   static Future<void> _loadLogs() async{
     try{
       final _loadedData = await rootBundle.loadString(filePath);
-
-      print('appel de -readLogs');
 
       final _logs = LineSplitter.split(_loadedData).toList();
 
@@ -42,14 +42,19 @@ class DatabaseConnexion{
 
 
 
-  //Initialise connexion to the database
+  //Initialise and open a connection to the database
   static Future<Connection> initConnexion() async{
     if(_psqlHost == null || _psqlPswd == null || _psqlUser == null || _psqlDataBase == null){
       await _loadLogs();
     }
 
-    var uri = 'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
+    try{
+      var uri = 'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
 
-    return connect(uri);
+      return connect(uri);
+    }
+    catch(e){
+      throw Exception('Connection to database : IMPOSSIBLE');
+    }
   }
 }

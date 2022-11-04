@@ -16,7 +16,7 @@ class Controller{
   static Loader? loader = DatabaseLoader();
   static Searcher _searcher = DatabaseSearcher();
 
-  User currentUser = User(null, null);
+  User currentUser = User("", "");
 
   factory Controller(){
     if (_this == null) _this = Controller._();
