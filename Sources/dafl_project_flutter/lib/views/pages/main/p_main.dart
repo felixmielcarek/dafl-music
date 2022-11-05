@@ -1,4 +1,5 @@
 import 'package:dafl_project_flutter/presentation/custom_icons_icons.dart';
+import 'package:dafl_project_flutter/views/pages/main/w_top.dart';
 import 'package:flutter/material.dart';
 import './w_settings.dart';
 import './w_spot.dart';
@@ -19,9 +20,9 @@ class _MainPageState extends State<MainPage> {
   int get index => _index;
   final screens = [
     ProfilWidget(),
-    new DiscoveryWidget(),
+    DiscoveryWidget(),
     SpotsWidget(),
-    Center(child: Text('Tops'),),
+    TopsWidget(),
     MessagesWidget(),
     SettingsWidget(),
   ];
@@ -60,6 +61,31 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
+    );
+  }
+
+
+}
+
+class GradientText extends StatelessWidget {
+  const GradientText(
+      this.text, {
+        required this.gradient,
+        this.style,
+      });
+
+  final String text;
+  final TextStyle? style;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: Text(text, style: style),
     );
   }
 }
