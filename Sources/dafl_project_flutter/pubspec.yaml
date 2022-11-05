@@ -67,7 +67,7 @@ flutter_native_splash:
 
   color: "#141414"
   #background_image: "assets/images/background_blur.png"
-  image: "assets/images/Logo_launcher_2.png"
+  image: "assets/images/icon_App.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -75,9 +75,10 @@ flutter_native_splash:
 # The following section is specific to Flutter packages.
 
 flutter_icons:
+  image_path_android: "assets/images/icon_App.png"
+  image_path_ios: "assets/images/icon_App.png"
   android: true
   ios: true
-  image_path: "assets/images/Logo_launcher_2.png"
 
 flutter:
 
