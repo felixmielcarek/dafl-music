@@ -1,17 +1,17 @@
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 
 class Api {
   var clientId = '7ceb49d874b9404492246027e4d68cf8';
-  var redirectUri =
-      'https://codefirst.iut.uca.fr/containers/apiredirect-felixmielcarek/callback/';
+  var redirectUri = 'https://daflmusic.000webhostapp.com/callback/';
   var state;
   var scopes = 'user-read-private';
   var url;
 
+  var code;
+
   Api() {
     state = generateRandomString();
-    url = Uri.https('accounts.spotify.com', 'en/authorize', {
+    url = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': clientId,
       'response_type': 'code',
       'redirect_uri': redirectUri,
@@ -21,14 +21,13 @@ class Api {
     });
   }
 
-  Future<void> launchInBrowser() async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.inAppWebView,
-    )) {
-      throw 'Could not launch $url';
+  verifyLogIn(Uri url) {
+    if (verifyState(url.queryParameters['state'])) {
+      code = url.queryParameters['code'];
     }
   }
+
+  bool verifyState(String? newState) => state == newState;
 
   // for state value
   String generateRandomString() {

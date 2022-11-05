@@ -1,10 +1,13 @@
-import 'package:dafl_project_flutter/spotify_api/api.dart';
+import 'package:dafl_project_flutter/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../api/w_in_app_browser.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
+  static Api api = Api();
+
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
@@ -16,8 +19,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isHovering = false;
   TextEditingController passwordconfirm = TextEditingController();
   bool isChecked = false;
-  Api apiSptfy = Api();
-  Future<void>? _launched;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -215,19 +217,19 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: width * 0.75,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF24CF5F),
+                              backgroundColor: const Color(0xFF24CF5F),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(100),
                               ), // background// foreground
                             ),
-                            onPressed: () => setState(() {
-                                  _launched = apiSptfy.launchInBrowser();
-                                }),
+                            onPressed: () {
+                              MyInAppBrowser(SignUpPage.api);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "Lier compte ",
+                                const Text(
+                                  "Lier compte",
                                   style: TextStyle(
                                       fontFamily: 'DMSans',
                                       color: Colors.white,
@@ -268,14 +270,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       );
                     },
                     child: Ink(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.check,
-                          color: Color(0xFF406DE1),
-                          size: 60.0,
-                        ),
-                      ),
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       width: 83,
                       height: 83,
@@ -290,6 +284,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                 0, 3), // changes position of shadow
                           ),
                         ],
+                      ),
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
+                        ),
                       ),
                     ),
                   ),
