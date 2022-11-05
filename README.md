@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://codefirst.iut.uca.fr/git/DAFLDev/DAFLMusic/raw/branch/master/Documentation/Images/banner.png" />
+  <img src="https://codefirst.iut.uca.fr/git/DAFLDev/DAFLMusic/raw/branch/master/Documentation/Images/Banner_DAFL.png" />
 </p>
 
 [![Build Status](https://codefirst.iut.uca.fr/api/badges/DAFLDev/DAFLMusic/status.svg)](https://codefirst.iut.uca.fr/DAFLDev/DAFLMusic)
@@ -11,14 +11,16 @@
 [![Security Rating](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=DAFLMusic&metric=security_rating&token=d36308dfacfc3cb26e1944ec2441cd9563e0c912)](https://codefirst.iut.uca.fr/sonar/dashboard?id=DAFLMusic)
 [![Vulnerabilities](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=DAFLMusic&metric=vulnerabilities&token=d36308dfacfc3cb26e1944ec2441cd9563e0c912)](https://codefirst.iut.uca.fr/sonar/dashboard?id=DAFLMusic)
 
-<p>
+<p align="center">
   <img src="https://codefirst.iut.uca.fr/git/DAFLDev/DAFLMusic/raw/branch/master/Documentation/Images/Banner_contexte2.png" />
 </p>
 Ce projet est un travail universitaire pour la deuxième année du B.U.T Informatique de Clermont-Ferrand. Il correspond au travail demandé pour la SAE 3.01, nous disposons de 480 heures théoriques pour le réaliser.
 
 <br>
 
-# <div align="center">L'application</div>
+<p align="center">
+  <img src="https://codefirst.iut.uca.fr/git/DAFLDev/DAFLMusic/raw/branch/master/Documentation/Images/Banner_App.png" />
+</p>
 
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 
