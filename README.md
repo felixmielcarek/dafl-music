@@ -11,8 +11,9 @@
 [![Security Rating](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=DAFLMusic&metric=security_rating&token=d36308dfacfc3cb26e1944ec2441cd9563e0c912)](https://codefirst.iut.uca.fr/sonar/dashboard?id=DAFLMusic)
 [![Vulnerabilities](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=DAFLMusic&metric=vulnerabilities&token=d36308dfacfc3cb26e1944ec2441cd9563e0c912)](https://codefirst.iut.uca.fr/sonar/dashboard?id=DAFLMusic)
 
-# <div align="center">Le contexte du projet</div>
-
+<p align="center">
+  <img src="https://codefirst.iut.uca.fr/git/DAFLDev/DAFLMusic/raw/branch/master/Documentation/Images/Banner_contexte.png" />
+</p>
 Ce projet est un travail universitaire pour la deuxième année du B.U.T Informatique de Clermont-Ferrand. Il correspond au travail demandé pour la SAE 3.01, nous disposons de 480 heures théoriques pour le réaliser.
 
 <br>
