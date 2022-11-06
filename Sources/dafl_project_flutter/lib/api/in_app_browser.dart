@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import './api.dart';
 
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
@@ -10,11 +9,10 @@ class MyInAppBrowser extends InAppBrowser {
       inAppWebViewGroupOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(javaScriptEnabled: true)));
 
-  Api api;
-
-  MyInAppBrowser(this.api) {
+  MyInAppBrowser() {
     _debugBrowser();
-    launchBrowser();
+    openUrlRequest(
+        urlRequest: URLRequest(url: MyApp.api.urlAuthorize), options: options);
   }
 
   _debugBrowser() async {
@@ -23,30 +21,11 @@ class MyInAppBrowser extends InAppBrowser {
     }
   }
 
-  launchBrowser() {
-    openUrlRequest(urlRequest: URLRequest(url: api.url), options: options);
-  }
-
-  @override
-  Future onBrowserCreated() async {}
-
   @override
   Future onLoadStart(url) async {
-    if (url!.origin + url!.path == api.redirectUri) {
-      api.verifyLogIn(url);
+    if (url!.origin + url.path == MyApp.api.redirectUri) {
+      MyApp.api.requestUserAuthorization(url);
+      close();
     }
-    close();
   }
-
-  @override
-  Future onLoadStop(url) async {}
-
-  @override
-  void onLoadError(url, code, message) {}
-
-  @override
-  void onProgressChanged(progress) {}
-
-  @override
-  void onExit() {}
 }

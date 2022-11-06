@@ -1,13 +1,12 @@
 import 'package:dafl_project_flutter/api/api.dart';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../api/w_in_app_browser.dart';
+import '../../../api/in_app_browser.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
-  static Api api = Api();
-
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
@@ -223,7 +222,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ), // background// foreground
                             ),
                             onPressed: () {
-                              MyInAppBrowser(SignUpPage.api);
+                              MyInAppBrowser();
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

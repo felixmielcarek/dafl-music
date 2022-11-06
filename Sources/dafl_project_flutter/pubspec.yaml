@@ -21,6 +21,7 @@ dependencies:
   fluttertoast: ^8.1.1
   vibration: ^1.7.6
   flutter_inappwebview: ^5.7.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
