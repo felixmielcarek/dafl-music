@@ -27,45 +27,51 @@ class _ConversationPageState extends State<ConversationPage> {
   void SendMessage(String content){
     setState(() {
       messages.add(MessageWidget(Message(MyApp().controller.currentUser,content)));
+      messages.add(MessageWidget(Message(destinataire,"reponse test gyegryzgrgz zyegruhzb hvhbzy vhu ry z yrzrv ze vhv hzvh z zv zz ev")));
     });
   }
   Widget MessageWidget(Message message) {
     if(message.sender != MyApp().controller.currentUser){
-      return Container(
-        margin: EdgeInsets.fromLTRB(40, 7, 80, 7),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(40, 7, 80, 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+            ),
+            border: Border.all(width: 1.5,
+                color: Color(0xFF9C9C9C).withOpacity(0.3)),
+            color: Color(0xFF191919),
           ),
-          border: Border.all(width: 1.5,
-              color: Color(0xFF9C9C9C).withOpacity(0.3)),
-          color: Color(0xFF191919),
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+              child:       Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
+              )),
         ),
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child:       Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
-            )),
       );
     }
     else{
-      return Container(
-        margin: EdgeInsets.fromLTRB(80, 7, 40, 7),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      return Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(80, 7, 40, 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+            color: Color(0xFF2F2F2F),
           ),
-          color: Color(0xFF2F2F2F),
-        ),
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child:       Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
-            )),
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),),
+          ),),
       );
     }
 
@@ -84,6 +90,7 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    ScrollController listScrollController = ScrollController();
 
 
     return Scaffold(
@@ -127,6 +134,7 @@ class _ConversationPageState extends State<ConversationPage> {
                 ],
               ),*/
               ListView.builder(
+                controller: listScrollController,
                   physics: BouncingScrollPhysics(),
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
@@ -177,6 +185,11 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: () {
 
                   SendMessage(messageTextField.text);
+                  if (listScrollController.hasClients) {
+                    final position = listScrollController.position.maxScrollExtent;
+                    listScrollController.jumpTo(position+40);
+                  }
+                  messageTextField.clear();
 
                 },
               child: Container(
