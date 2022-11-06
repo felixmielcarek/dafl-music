@@ -163,7 +163,7 @@ class MessagesButtonWidget extends StatelessWidget{
                             Text('1 jour(s)',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.8) ,fontSize: 15, fontWeight: FontWeight.w400),),
                           ],
                         ),
-                        Text('A envoyé un musique.',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
+                        Text('A envoyé une musique.',style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(0.6) ,fontSize: 16, fontWeight: FontWeight.w400),),
 
                       ],
                     ),),
@@ -187,7 +187,6 @@ class ListConfirmedWidget extends StatelessWidget{
     return ListView(
 
       children: [
-        SizedBox(height: 40,),
         MessagesButtonWidget(),
         MessagesButtonWidget(),
         MessagesButtonWidget(),
@@ -208,7 +207,6 @@ class ListWaitingWidget extends StatelessWidget{
     return ListView(
 
       children: [
-        SizedBox(height: 40,),
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(PageTransition(

@@ -1,6 +1,12 @@
+import 'package:dafl_project_flutter/main.dart';
+import 'package:dafl_project_flutter/model/user.dart';
+import 'package:dafl_project_flutter/views/pages/main/w_messages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+
+import 'package:dafl_project_flutter/model/message.dart';
+
 
 class ConversationPage extends StatefulWidget {
   const ConversationPage({Key? key}) : super(key: key);
@@ -10,10 +16,76 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
+
+
+  User destinataire = new User("test1", '1234');
+  List<Widget> messages= [];
+
+  final messageTextField = TextEditingController();
+
+
+  void SendMessage(String content){
+    setState(() {
+      messages.add(MessageWidget(Message(MyApp().controller.currentUser,content)));
+    });
+  }
+  Widget MessageWidget(Message message) {
+    if(message.sender != MyApp().controller.currentUser){
+      return Container(
+        margin: EdgeInsets.fromLTRB(40, 7, 80, 7),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+          ),
+          border: Border.all(width: 1.5,
+              color: Color(0xFF9C9C9C).withOpacity(0.3)),
+          color: Color(0xFF191919),
+        ),
+        child: Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child:       Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
+            )),
+      );
+    }
+    else{
+      return Container(
+        margin: EdgeInsets.fromLTRB(80, 7, 40, 7),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          color: Color(0xFF2F2F2F),
+        ),
+        child: Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child:       Text(message.content,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
+            )),
+      );
+    }
+
+
+  }
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    print("INITSATE");
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
@@ -47,18 +119,19 @@ class _ConversationPageState extends State<ConversationPage> {
               color: Color(0xFF141414),
               height: height*0.92,
               width: double.infinity,
-              child: ListView(
+              child: /*ListView(
                 reverse: true,
                 scrollDirection: Axis.vertical,
                 children: [
-                  Message('Adolescebat autem obstinatum propositum erga haec et similia multa scrutanda, stimulos admovente regina, quae abrupte mariti fortunas trudebat in exitium praeceps, cum eum potius lenitate feminea ad veritatis humanitatisque viam reducere utilia suadendo deberet, ut in Gordianorum actibus factitasse Maximini truculenti illius imperatoris rettulimus coniugem.', 0),
-                  Message('Claudiopolis olim Seleucia Caesar potens quidem olim interneciva enim et.', 1),
-                  Message('Quae quae praeceps feminea quae truculenti humanitatisque cum humanitatisque in truculenti abrupte imperatoris mariti regina regina ad lenitate veritatis veritatis.', 1),
-                  Message('Quae quae praeceps feminea quae truculenti humanitatisque cum humanitatisque in truculenti abrupte imperatoris mariti regina regina ad lenitate veritatis veritatis.', 0),
-                  Message('Quae quae praeceps feminea quae truculenti humanitatisque cum humanitatisque in truculenti abrupte imperatoris mariti regina regina ad lenitate veritatis veritatis.', 0),
-                  Message('Quae quae praeceps feminea quae truculenti humanitatisque cum humanitatisque in truculenti abrupte imperatoris mariti regina regina ad lenitate veritatis veritatis.', 1),
+                  messages;
                 ],
-              ),
+              ),*/
+              ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    return messages[index];
+                  })
 
             ),
       ),
@@ -87,6 +160,7 @@ class _ConversationPageState extends State<ConversationPage> {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: TextField(
+                    controller: messageTextField,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                         hintStyle: TextStyle(color: Colors.white),
@@ -99,63 +173,27 @@ class _ConversationPageState extends State<ConversationPage> {
                 ),
               ),
             ),
-            Container(
-              width: 40,
-              height: 40,
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.blue,
+            GestureDetector(
+              onTap: () {
+
+                  SendMessage(messageTextField.text);
+
+                },
+              child: Container(
+                width: 40,
+                height: 40,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.purple,
+                ),
+                child: Icon(Icons.send, size: 20, color: Colors.white,),
               ),
-              child: Icon(Icons.send, size: 20, color: Colors.white,),
             )
           ],
         ),
       ),
 
     );
-  }
-
-  Widget Message(String message, int user) {
-    if(user == 0){
-      return Container(
-        margin: EdgeInsets.fromLTRB(40, 7, 80, 7),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-          ),
-          border: Border.all(width: 1.5,
-              color: Color(0xFF9C9C9C).withOpacity(0.3)),
-          color: Color(0xFF191919),
-        ),
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
-            )),
-      );
-    }
-    else{
-      return Container(
-        margin: EdgeInsets.fromLTRB(80, 7, 40, 7),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          color: Color(0xFF2F2F2F),
-        ),
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-            child:       Text(message,style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 15, fontWeight: FontWeight.w400),
-            )),
-      );
-    }
-
-
   }
 }
