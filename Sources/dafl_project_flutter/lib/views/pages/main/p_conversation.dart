@@ -20,6 +20,7 @@ class _ConversationPageState extends State<ConversationPage> {
 
   User destinataire = new User("test1", '1234');
   List<Widget> messages= [];
+  bool isNull = true;
 
   final messageTextField = TextEditingController();
 
@@ -82,8 +83,27 @@ class _ConversationPageState extends State<ConversationPage> {
   void initState() {
 
     super.initState();
-
+    messageTextField.addListener(_checkIfNull);
     print("INITSATE");
+  }
+
+  @override
+  void dispose() {
+    messageTextField.dispose();
+    super.dispose();
+  }
+
+  void _checkIfNull(){
+    if(messageTextField.text.length > 0){
+      setState(() {
+        isNull = false;
+      });
+    }
+    else{
+      setState(() {
+        isNull = true;
+      });
+    }
   }
 
   @override
@@ -146,16 +166,16 @@ class _ConversationPageState extends State<ConversationPage> {
       bottomSheet: BottomAppBar(
         color: Color(0xFF141414),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
             Container(
               height: height*0.08,
               color: Colors.transparent,
-              width: width*0.8,
+              width: width*0.9,
               child: Container(
-                margin: EdgeInsets.fromLTRB(20, 10, 0, 10),
+                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
@@ -182,7 +202,9 @@ class _ConversationPageState extends State<ConversationPage> {
               ),
             ),
             GestureDetector(
-              onTap: () {
+              onTap: isNull?
+                  null:
+                  () {
 
                   SendMessage(messageTextField.text);
                   if (listScrollController.hasClients) {
@@ -192,15 +214,27 @@ class _ConversationPageState extends State<ConversationPage> {
                   messageTextField.clear();
 
                 },
-              child: Container(
+              child: isNull == true?
+              Container(
+                height: 1,
+                width: 1,
+              ):
+              Container(
                 width: 40,
                 height: 40,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: Colors.purple,
+                  gradient: LinearGradient(
+                    colors: [Color(0xff8e24a1), Color(0xff8163ff)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+
+
                 ),
-                child: Icon(Icons.send, size: 20, color: Colors.white,),
+                child: Transform.rotate(angle: -300,
+                child: Icon(Icons.arrow_back, size: 26, color: Colors.white,),)
               ),
             )
           ],
