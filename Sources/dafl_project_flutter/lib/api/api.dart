@@ -58,12 +58,14 @@ class Api {
 
   getCurrentlyPlayingTrack() async {
     var url = Uri.https('api.spotify.com', 'v1/me/player/currently-playing');
+    print('$token_type $access_token');
     var response = await client.post(url, headers: <String, String>{
       'Authorization': '$token_type $access_token',
       'Content-Type': 'application/json'
     });
     // Problem while trying to get body
-    print(response.body);
+    print(access_token);
+    print(response.statusCode);
   }
 
   // for state value
