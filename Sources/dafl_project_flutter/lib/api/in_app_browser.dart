@@ -24,7 +24,8 @@ class MyInAppBrowser extends InAppBrowser {
   @override
   Future onLoadStart(url) async {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
-      MyApp.api.requestUserAuthorization(url);
+      await MyApp.api.requestUserAuthorization(url);
+      await MyApp.api.getCurrentlyPlayingTrack();
       close();
     }
   }
