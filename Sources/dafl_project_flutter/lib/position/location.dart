@@ -8,13 +8,12 @@ class Location {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.deniedForever) {
+        //faire l'interface graphique pour gérer ça
         return Future.error('Location Not Available');
       }
     }
     Position current = await Geolocator.getCurrentPosition();
-    double long = current.longitude;
-    double lat = current.latitude;
-    return Tuple2(long,lat);
+    return Tuple2(current.longitude,current.latitude);
   }
 }
 

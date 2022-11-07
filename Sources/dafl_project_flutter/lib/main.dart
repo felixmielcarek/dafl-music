@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:dafl_project_flutter/views/pages/main/w_bottomsheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import './model/location.dart';
+import 'position/location.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
