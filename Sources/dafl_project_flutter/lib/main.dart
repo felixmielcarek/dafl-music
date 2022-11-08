@@ -171,7 +171,7 @@ class CardProvider extends ChangeNotifier{
       );
     }
     else{
-      if(MyApp().controller.currentUser.Spots2?.last != null){
+      if(MyApp().controller.currentUser.Spots2.last != null){
         MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots2.last.music);
         Fluttertoast.showToast(
             msg: 'Ajouté',
@@ -264,7 +264,7 @@ class CardProvider extends ChangeNotifier{
                   style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
                   expands: true,
                   maxLines: null,
-                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.send,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
                       color: Colors.white,

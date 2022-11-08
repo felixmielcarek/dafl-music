@@ -28,7 +28,6 @@ class _ConversationPageState extends State<ConversationPage> {
   void SendMessage(String content){
     setState(() {
       messages.add(MessageWidget(Message(MyApp().controller.currentUser,content)));
-      messages.add(MessageWidget(Message(destinataire,"reponse test gyegryzgrgz zyegruhzb hvhbzy vhu ry z yrzrv ze vhv hzvh z zv zz ev")));
     });
   }
   Widget MessageWidget(Message message) {
@@ -117,6 +116,7 @@ class _ConversationPageState extends State<ConversationPage> {
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        elevation: 20,
         backgroundColor: Color(0xFF141414),
         toolbarHeight: 70,
         title: Container(
@@ -133,12 +133,30 @@ class _ConversationPageState extends State<ConversationPage> {
               ),
               SizedBox(width: 20,),
               Text("Max"),
+              Spacer(),
+             IconButton(
+               splashColor: Colors.grey.withOpacity(0.2),
+               splashRadius: 30,
+                onPressed: () {
+                  showModalBottomSheet(
+                    isDismissible: true,
+                    useRootNavigator: true,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    constraints: BoxConstraints(
+                      maxWidth:  600,
+                      maxHeight: double.infinity,
+                    ),
+                    builder: (context) => buildSheet(),);
+
+                },
+                icon: Icon(Icons.report_problem, color: Colors.grey.withOpacity(0.3),size: 25,),
+              ),
 
             ],
           ),
         ),
-
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child:
@@ -186,14 +204,14 @@ class _ConversationPageState extends State<ConversationPage> {
 
                 ),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: TextField(
                     controller: messageTextField,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
                         border: InputBorder.none,
-                        hintText: "Envoyer un message...",
+                        hintText: "Votre message...",
                     ),
                     cursorColor: Colors.purple,
                     textAlign: TextAlign.left,
@@ -209,7 +227,7 @@ class _ConversationPageState extends State<ConversationPage> {
                   SendMessage(messageTextField.text);
                   if (listScrollController.hasClients) {
                     final position = listScrollController.position.maxScrollExtent;
-                    listScrollController.jumpTo(position+40);
+                    listScrollController.jumpTo(position);
                   }
                   messageTextField.clear();
 
@@ -241,6 +259,169 @@ class _ConversationPageState extends State<ConversationPage> {
         ),
       ),
 
+    );
+
+
+
+
+  }
+
+  Widget buildSheet(){
+    String dropdownValue = list.first;
+    final messageTextField = TextEditingController();
+    return Container(
+      height: 550,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            offset: const Offset(
+              0,
+              0,
+            ),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+          ),
+          BoxShadow(
+            color: Colors.white.withOpacity(0.3),
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ),//BoxShadow//BoxShadow
+        ],
+        color: Color(0xFF232123),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+
+            Container(
+              height: 5,
+              width: 130,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xFF8A8A8A),
+              ),
+            ),
+            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            child: Text('Signaler', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),),),
+            Container(
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade900,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                Text('Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.', style: TextStyle(color: Colors.grey), textAlign: TextAlign.center,),
+                Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    child: DropdownButtonReason(),),
+                ],
+              ),),
+            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            child: Column(
+              children: [
+                Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.07),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                child: TextField(
+                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                  maxLines: 3,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    hintText: '* Commentaires',
+                    hintStyle: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),),
+              ],
+            )),
+            Spacer(),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+            child: SizedBox(
+              width: double.infinity,
+              height: 70,
+              child: ElevatedButton(
+                onPressed: () {
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(17)
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Envoyer le signalement"),
+                  ],
+                ),
+              ),
+            ),),
+          ],
+        ),
+      ),
+
+    );
+
+    }
+}
+
+class DropdownButtonReason extends StatefulWidget {
+  const DropdownButtonReason({super.key});
+
+  @override
+  State<DropdownButtonReason> createState() => _DropdownButtonReasonState();
+}
+
+const List<String> list = <String>['Insulte', 'Racisme', 'Messages inappropriés', "Usurpation d'identité"];
+
+class _DropdownButtonReasonState extends State<DropdownButtonReason> {
+  String dropdownValue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      dropdownColor: Colors.grey.shade900.withOpacity(1),
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward, color: Colors.grey,),
+      elevation: 16,
+      style: const TextStyle(color: Colors.white),
+      underline: Container(
+        height: 2,
+        color: Colors.grey.withOpacity(0.6),
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
