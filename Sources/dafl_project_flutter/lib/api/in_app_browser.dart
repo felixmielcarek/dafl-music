@@ -27,9 +27,9 @@ class MyInAppBrowser extends InAppBrowser {
   Future onLoadStart(url) async {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       await MyApp.api.requestUserAuthorization(url);
-      /*String id = await MyApp.api.getCurrentlyPlayingTrack();
+      String id = await MyApp.api.getCurrentlyPlayingTrack();
       Track track = await MyApp.api.getTrackInfo(id);
-      print('${track.artist} ${track.name} ${track.albumImage}');*/
+      print('${track.artist} ${track.name} ${track.albumImage}');
       close();
     }
   }

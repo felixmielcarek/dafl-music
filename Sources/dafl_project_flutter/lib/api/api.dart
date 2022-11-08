@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart';
 
 import 'track.dart';
 
@@ -12,9 +13,10 @@ class Api {
   //for web api
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
   final _scopes = 'user-read-playback-state user-read-currently-playing';
-  String? _state;
-  String? _codeChallenge;
-  String? _encodedLogs;
+  late String _state;
+  dynamic _codeVerifier;
+  dynamic _codeChallenge;
+  late String _encodedLogs;
   final _tokenType = 'Bearer ';
 
   //from web api
@@ -26,13 +28,17 @@ class Api {
   //other
   final _client = http.Client();
   Uri? _urlAuthorize;
+
   get urlAuthorize => _urlAuthorize;
   DateTime? _tokenEnd;
   Random rng = Random();
 
   Api() {
     _state = _generateRandomString(16);
-    _codeChallenge = _generateRandomString(rng.nextInt(85) + 43);
+    _codeVerifier =
+        base64UrlEncode(_generateRandomString(rng.nextInt(85) + 43).codeUnits);
+    _codeChallenge =
+        base64UrlEncode(sha256.convert(utf8.encode(_codeVerifier)).bytes);
     _encodedLogs = base64.encode(utf8.encode("$_clientId:$_clientSecret"));
     _urlAuthorize = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': _clientId,
@@ -53,6 +59,10 @@ class Api {
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_.-~';
     return String.fromCharCodes(Iterable.generate(
         length, (_) => chars.codeUnitAt(rng.nextInt(chars.length))));
+    /*var test = String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(rng.nextInt(chars.length))));
+    print(test);
+    return test;*/
   }
 
   //session management
@@ -69,13 +79,16 @@ class Api {
     var urlToken = Uri.https('accounts.spotify.com', 'api/token', {
       'code': _code,
       'redirect_uri': redirectUri,
-      'grant_type': 'authorization_code'
+      'grant_type': 'authorization_code',
+      'client_id': _clientId,
+      'code_verifier': _codeVerifier
     });
     var response = await _client.post(urlToken, headers: <String, String>{
       'Authorization': 'Basic $_encodedLogs',
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    print(decodedResponse);
     _accessToken = decodedResponse['access_token'];
     _expiresIn = decodedResponse['expires_in'];
     _tokenEnd = DateTime.now().add(Duration(seconds: _expiresIn!));
@@ -94,10 +107,12 @@ class Api {
   }
 
   _getRefreshedAccessToken() async {
-    var urlToken = Uri.https('accounts.spotify.com', 'api/token',
-        {'grant_type': 'refresh_token', 'refresh_token': '$_refreshToken'});
+    var urlToken = Uri.https('accounts.spotify.com', 'api/token', {
+      'grant_type': 'refresh_token',
+      'refresh_token': _refreshToken,
+      'client_id': _clientId
+    });
     var response = await _client.post(urlToken, headers: <String, String>{
-      'Authorization': 'Basic $_encodedLogs',
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
