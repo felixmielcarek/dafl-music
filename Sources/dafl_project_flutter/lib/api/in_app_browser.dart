@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:dafl_project_flutter/api/track.dart';
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+import 'track.dart';
 
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
@@ -26,6 +27,9 @@ class MyInAppBrowser extends InAppBrowser {
   Future onLoadStart(url) async {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       await MyApp.api.requestUserAuthorization(url);
+      /*String id = await MyApp.api.getCurrentlyPlayingTrack();
+      Track track = await MyApp.api.getTrackInfo(id);
+      print('${track.artist} ${track.name} ${track.albumImage}');*/
       close();
     }
   }

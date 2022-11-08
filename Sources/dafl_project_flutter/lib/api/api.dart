@@ -13,6 +13,7 @@ class Api {
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
   final _scopes = 'user-read-playback-state user-read-currently-playing';
   String? _state;
+  String? _codeChallenge;
   String? _encodedLogs;
   final _tokenType = 'Bearer ';
 
@@ -27,9 +28,11 @@ class Api {
   Uri? _urlAuthorize;
   get urlAuthorize => _urlAuthorize;
   DateTime? _tokenEnd;
+  Random rng = Random();
 
   Api() {
-    _state = _generateRandomString();
+    _state = _generateRandomString(16);
+    _codeChallenge = _generateRandomString(rng.nextInt(85) + 43);
     _encodedLogs = base64.encode(utf8.encode("$_clientId:$_clientSecret"));
     _urlAuthorize = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': _clientId,
@@ -37,15 +40,19 @@ class Api {
       'redirect_uri': redirectUri,
       'state': _state,
       'scope': _scopes,
-      'show_dialog': 'true'
+      'show_dialog': 'false',
+      'code_challenge_method': 'S256',
+      'code_challenge': _codeChallenge
     });
   }
 
-  // for state value
-  String _generateRandomString() {
-    var r = Random();
-    return String.fromCharCodes(
-        List.generate(16, (index) => r.nextInt(33) + 89));
+  //random string generation
+
+  String _generateRandomString(int length) {
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_.-~';
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(rng.nextInt(chars.length))));
   }
 
   //session management
@@ -108,7 +115,6 @@ class Api {
       'Authorization': '$_tokenType $token',
       'Content-Type': 'application/json'
     });
-    print(response.statusCode);
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
     return decodedResponse['item']['id'];
   }
