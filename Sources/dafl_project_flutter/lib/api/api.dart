@@ -107,6 +107,7 @@ class Api {
       'Content-Type': 'application/json'
     });
     // Implement treatment of data's
-    //print(response.body);
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    print(decodedResponse['item']['href']);
   }
 }
