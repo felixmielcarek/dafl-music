@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dafl_project_flutter/api/track.dart';
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -25,7 +26,6 @@ class MyInAppBrowser extends InAppBrowser {
   Future onLoadStart(url) async {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       await MyApp.api.requestUserAuthorization(url);
-      await MyApp.api.getCurrentlyPlayingTrack();
       close();
     }
   }

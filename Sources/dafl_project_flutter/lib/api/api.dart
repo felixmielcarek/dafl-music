@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 
+import 'track.dart';
+
 class Api {
   //from dashboard
   final _clientId = '7ceb49d874b9404492246027e4d68cf8';
@@ -99,15 +101,30 @@ class Api {
 
   //functional methods
 
-  getCurrentlyPlayingTrack() async {
+  Future<String> getCurrentlyPlayingTrack() async {
     var url = Uri.https('api.spotify.com', 'v1/me/player/currently-playing');
     var token = await _getToken();
     var response = await _client.get(url, headers: <String, String>{
       'Authorization': '$_tokenType $token',
       'Content-Type': 'application/json'
     });
-    // Implement treatment of data's
+    print(response.statusCode);
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-    print(decodedResponse['item']['href']);
+    return decodedResponse['item']['id'];
+  }
+
+  Future<Track> getTrackInfo(String id) async {
+    var url = Uri.https('api.spotify.com', 'v1/tracks/$id');
+    var token = await _getToken();
+    var response = await _client.get(url, headers: <String, String>{
+      'Authorization': '$_tokenType $token',
+      'Content-Type': 'application/json'
+    });
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    return Track(
+        decodedResponse['artists'][0]['name'],
+        decodedResponse['name'],
+        decodedResponse['album']['images']
+            [decodedResponse['album']['images'].length - 1]['url']);
   }
 }
