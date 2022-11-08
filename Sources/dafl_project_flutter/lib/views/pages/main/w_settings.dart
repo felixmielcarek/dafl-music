@@ -10,8 +10,8 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  final userNameTextField = TextEditingController(text: MyApp().controller.currentUser?.usernameDafl);
-  final passwordTextField = TextEditingController(text: MyApp().controller.currentUser?.passwDafl);
+  final userNameTextField = TextEditingController(text: MyApp().controller.currentUser.usernameDafl);
+  final passwordTextField = TextEditingController(text: MyApp().controller.currentUser.passwDafl);
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -58,6 +58,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     SizedBox(
                       width: 230,
                       child: TextField(
+                        keyboardAppearance: Brightness.dark,
                         controller: userNameTextField,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -111,6 +112,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     SizedBox(
                       width: 230,
                       child: TextField(
+                        keyboardAppearance: Brightness.dark,
                         controller: passwordTextField,
                         obscureText: true,
                         style: TextStyle(color: Colors.white),

@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   child: Text("S’INSCRIRE MAINTENANT",
-                    style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold,fontFamily: "DMSans"),
                     textAlign: TextAlign.center,
                   ),
                 ),),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text("SE CONNECTER",
-                      style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white ,fontFamily: "DMSans",fontSize: 17, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),

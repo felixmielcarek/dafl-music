@@ -164,14 +164,7 @@ class _ConversationPageState extends State<ConversationPage> {
               color: Color(0xFF141414),
               height: height*0.92,
               width: double.infinity,
-              child: /*ListView(
-                reverse: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  messages;
-                ],
-              ),*/
-              ListView.builder(
+              child: ListView.builder(
                 controller: listScrollController,
                   physics: BouncingScrollPhysics(),
                   itemCount: messages.length,
@@ -269,119 +262,127 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget buildSheet(){
     String dropdownValue = list.first;
     final messageTextField = TextEditingController();
-    return Container(
-      height: 550,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            offset: const Offset(
-              0,
-              0,
+    return SingleChildScrollView(
+      padding:
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child:Container(
+        height: 500,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              offset: const Offset(
+                0,
+                0,
+              ),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
             ),
-            blurRadius: 10.0,
-            spreadRadius: 2.0,
+            BoxShadow(
+              color: Colors.white.withOpacity(0.3),
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),//BoxShadow//BoxShadow
+          ],
+          color: Color(0xFF232123),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            topLeft: Radius.circular(30),
           ),
-          BoxShadow(
-            color: Colors.white.withOpacity(0.3),
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 0.0,
-            spreadRadius: 0.0,
-          ),//BoxShadow//BoxShadow
-        ],
-        color: Color(0xFF232123),
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30),
-          topLeft: Radius.circular(30),
         ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
 
-            Container(
-              height: 5,
-              width: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color(0xFF8A8A8A),
+              Container(
+                height: 5,
+                width: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFF8A8A8A),
+                ),
               ),
-            ),
-            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: Text('Signaler', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),),),
-            Container(
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                children: [
-                Text('Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.', style: TextStyle(color: Colors.grey), textAlign: TextAlign.center,),
-                Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: DropdownButtonReason(),),
-                ],
-              ),),
-            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: Column(
-              children: [
-                Container(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.07),
-                      borderRadius: BorderRadius.circular(15),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                child: Text('Signaler', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),),),
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade900,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Text('Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.', style: TextStyle(color: Colors.grey), textAlign: TextAlign.center,),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+                      child: DropdownButtonReason(),),
+                  ],
+                ),),
+              Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.07),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextField(
+                          keyboardAppearance: Brightness.dark,
+                          onTap: (){
+                          },
+                          style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                          maxLines: 3,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            hintText: '* Commentaires',
+                            hintStyle: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),),
+                    ],
+                  )),
+              Spacer(),
+              Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 70,
+                  child: ElevatedButton(
+                    onPressed: () {
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      textStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(17)
+                      ),
                     ),
-                child: TextField(
-                  style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
-                  maxLines: 3,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    hintText: '* Commentaires',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            top: -10,
+                            right: 0,
+                            child: Icon(Icons.report,size: 100,color: Colors.white.withOpacity(0.2),)),
+                        Center(child: Text("Envoyer le signalement"),),
+                      ],
                     ),
-                    border: InputBorder.none,
                   ),
                 ),),
-              ],
-            )),
-            Spacer(),
-            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
-            child: SizedBox(
-              width: double.infinity,
-              height: 70,
-              child: ElevatedButton(
-                onPressed: () {
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
-                  textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(17)
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Envoyer le signalement"),
-                  ],
-                ),
-              ),
-            ),),
-          ],
+            ],
+          ),
         ),
-      ),
 
-    );
+      ) ,);
 
     }
 }

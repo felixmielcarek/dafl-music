@@ -43,11 +43,11 @@ class User{
   Map<User,Conversation> conversations={};
 
   void addDiscovery(Music newmusic){
-    if(MyApp().controller?.currentUser?.Discovery == null){
+    if(MyApp().controller.currentUser.Discovery == null){
 
     }
     else{
-      MyApp().controller.currentUser?.Discovery.add(newmusic);
+      MyApp().controller.currentUser.Discovery.add(newmusic);
     }
 
 

@@ -56,7 +56,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
               margin: EdgeInsets.fromLTRB(30, 50, 0, 0),
               child: Text(
                 "Profil",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white, fontFamily: "DMSans"),),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -76,7 +76,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
 
               ),
               child: Center(
-                child: Text(username![0] ?? '',
+                child: Text(username![0],
                   style: TextStyle(color: Colors.white ,fontSize: 60, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),

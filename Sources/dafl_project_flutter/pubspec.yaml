@@ -46,6 +46,7 @@ dependencies:
   postgresql2: ^1.0.3
   path_provider: ^2.0.11
   font_awesome_flutter: ^10.2.1
+  home_indicator: ^2.0.2
 
 dev_dependencies:
   flutter_test:

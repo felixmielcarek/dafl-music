@@ -75,6 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          keyboardAppearance: Brightness.dark,
                           controller: userNameTextField,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -119,6 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          keyboardAppearance: Brightness.dark,
                           controller: passwordTextField,
                           obscureText: true,
                           decoration: InputDecoration(
