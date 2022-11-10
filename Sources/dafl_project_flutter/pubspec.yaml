@@ -44,6 +44,7 @@ dependencies:
   vibration: ^1.7.6
   geolocator: ^9.0.2
   tuple: ^2.0.1
+  http: ^0.13.5
 
 
 dev_dependencies:
