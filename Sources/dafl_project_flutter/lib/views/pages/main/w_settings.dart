@@ -30,21 +30,21 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                margin: EdgeInsets.fromLTRB(30, height*0.07, 30, 0),
-                width: double.infinity,
-                height: 30,
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  color: Color(0xFFD9D9D9).withOpacity(0.16),
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Text('Pseudo',
-                    style: TextStyle(
-                        color: Color(0xFFAEAEAE)
-                    ),),
-                )
+              margin: EdgeInsets.fromLTRB(30, height*0.07, 30, 0),
+              width: double.infinity,
+              height: 30,
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: Color(0xFFD9D9D9).withOpacity(0.16),
+                borderRadius: BorderRadius.circular(7.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Text('Pseudo',
+                  style: TextStyle(
+                      color: Color(0xFFAEAEAE)
+                  ),),
+              )
             ),
             Padding(padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: SizedBox(
@@ -68,8 +68,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                     Spacer(),
                     Padding(padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: Text('modifier',
-                        style: TextStyle( color: Colors.blue, fontSize: 17),),),
+                    child: Text('modifier',
+                      style: TextStyle( color: Colors.blue, fontSize: 17),),),
 
                   ],
                 ),
@@ -129,4 +129,3 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     );
   }
 }
-
