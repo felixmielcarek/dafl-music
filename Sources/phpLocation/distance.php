@@ -56,13 +56,5 @@ class ListUser
     }
 }
 
-/*
-echo "Normalement pas beaucoup = ";
-echo (new distance)->meters(45.762595,3.108837,45.762524,3.1088743);
-
-echo "Normalement pas beaucoup = ";
-echo (new distance)->distentre2co(45.891773, 4.662613,45.777222,3.087025);
-*/
-echo "\nListe User = ";
 echo implode(",",(new ListUser)->ListOfUser());
 

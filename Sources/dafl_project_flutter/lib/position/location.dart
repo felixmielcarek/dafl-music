@@ -1,10 +1,13 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:tuple/tuple.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:developer';
 
 class Location {
-  static Future<Tuple2<double, double>> getCurrentLocation() async {
+
+
+  static Future sendCurrentLocation() async {
+    Uri uri = Uri.parse("http://82.216.56.128/phpmyadmin/dafldev/insert.php");
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -15,16 +18,18 @@ class Location {
       }
     }
     Position current = await Geolocator.getCurrentPosition();
-    return Tuple2(current.longitude, current.latitude);
+    await http.post(uri, body: {
+      "id" : "5".toString(),
+      "latitude" : current.latitude.toString(),
+      "longitude" : current.longitude.toString(),
+    });
   }
 
   static Future getData() async {
-    var url = 'http://localhost:63342/phpLocation/get.php';
-    http.Response response = await http.get(Uri.parse(url));
+    Uri uri = Uri.parse("http://82.216.56.128/phpmyadmin/dafldev/distance.php");
+    http.Response response = await http.get(uri);
     var data = jsonDecode(response.body);
-    print(data.toString());
+    log(data.toString());
+    return data.toString();
   }
 }
-
-
-

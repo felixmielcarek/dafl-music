@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
-    Location.getCurrentLocation();
+    Location.sendCurrentLocation();
     Location.getData();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return ChangeNotifierProvider(
