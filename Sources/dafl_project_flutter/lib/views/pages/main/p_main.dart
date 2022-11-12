@@ -4,6 +4,8 @@ import './w_settings.dart';
 import './w_spot.dart';
 import './w_discovery.dart';
 import './w_profile.dart';
+import '../../../position/location.dart';
+
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -26,6 +28,8 @@ class _MainPageState extends State<MainPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    Location.sendCurrentLocation();
+    Location.getData();
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: screens[_index],

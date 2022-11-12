@@ -35,7 +35,7 @@ class DatabaseConnexion{
   }
 
 
-  //Initialise connexion to the database
+  //Initialise connection to the database
    Future<Connection> initConnexion() async{
     await _loadLogs();
 
