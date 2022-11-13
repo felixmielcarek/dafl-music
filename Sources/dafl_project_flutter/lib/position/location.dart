@@ -7,7 +7,7 @@ class Location {
 
 
   static Future sendCurrentLocation() async {
-    Uri uri = Uri.parse("http://82.216.56.128/phpmyadmin/dafldev/insert.php");
+    Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -19,14 +19,14 @@ class Location {
     }
     Position current = await Geolocator.getCurrentPosition();
     await http.post(uri, body: {
-      "id" : "5".toString(),
+      "id" : "1".toString(),
       "latitude" : current.latitude.toString(),
       "longitude" : current.longitude.toString(),
     });
   }
 
   static Future getData() async {
-    Uri uri = Uri.parse("http://82.216.56.128/phpmyadmin/dafldev/distance.php");
+    Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
     http.Response response = await http.get(uri);
     var data = jsonDecode(response.body);
     log(data.toString());

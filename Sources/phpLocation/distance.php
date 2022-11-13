@@ -33,13 +33,13 @@ class ListUser
         $lat1=0;
         $lng1=0;
         Foreach ($row as $col) {
-            if ($col['id']==1){                 //1 est lid de l'user qui execute la commande le recup grâce à driko
+            if ($col['id']==0){                 //1 est lid de l'user qui execute la commande le recup grâce à driko
                 $lat1=$col['latitude'];
                 $lng1=$col['longitude'];
-            }if ($lat1==0 && $lng1==0){
+            }/*if ($lat1==0 && $lng1==0){
                 print ("ERROR No user found in the database (normally not supposed to happen)");
                 exit(666);
-            }
+            }*/
         }
         Foreach ($row as $col) {
             if ($col['id']!=1) {                //1 est lid de l'user qui execute la commande le recup grâce à driko

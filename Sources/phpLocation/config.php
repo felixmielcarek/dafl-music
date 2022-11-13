@@ -1,7 +1,7 @@
 <?php
 
 $username="dafldev";
-$host="82.216.56.128";
+$host="89.83.53.34";
 $password="wrap";
 $db_name="positiondaflmusic";
 

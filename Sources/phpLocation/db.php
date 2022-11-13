@@ -1,5 +1,5 @@
 <?php
-$dns = 'mysql:host=82.216.56.128;dbname=positiondaflmusic';
+$dns = 'mysql:host=89.83.53.34;dbname=positiondaflmusic';
 $user = 'dafldev';
 $password = 'wrap';
 try{
