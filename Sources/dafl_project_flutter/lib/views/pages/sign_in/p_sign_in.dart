@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:dafl_project_flutter/model/user.dart';
-import 'package:dafl_project_flutter/views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';

@@ -307,7 +307,6 @@ class _SignUpPageState extends State<SignUpPage> {
     else if(! await MyApp().controller.searchByUsername(username)){
       Notify(0, context);
     }
-
     if(password == "" || confirmPassword == ""){
       Notify(4, context);
     }

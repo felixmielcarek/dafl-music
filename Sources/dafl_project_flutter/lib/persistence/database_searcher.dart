@@ -2,24 +2,24 @@ import 'package:dafl_project_flutter/persistence/database_connexion.dart';
 
 import 'searcher.dart';
 
-class DatabaseSearcher extends Searcher{
 
+
+class DatabaseSearcher extends Searcher{
   Future<bool> searchUser(String? username, String? password) async { return true; }
 
 
+
+  // Search an user in the database by username
   @override
-  Future<bool> searchByUsername(String? username) async{
+  Future<bool> searchByUsername(String? usernameToSearch) async{
     final connection = await DatabaseConnexion.initConnexion();
-    bool isHere  = true;
 
-    connection.query('select * from utilisateur where username = $username').toList().then((rows) {
-      if(rows.isEmpty){
-        isHere = false;
-      }
-    }).whenComplete(() {
-      print('close');
-    });
+    bool queryResult = await connection.query('select * from utilisateur where username = @username',{ 'username' : usernameToSearch})
+        .toList()
+        .then((rows) { return rows.isEmpty; });
 
-    return isHere;
+
+    return queryResult;
   }
+
 }
