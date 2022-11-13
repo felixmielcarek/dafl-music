@@ -229,7 +229,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
 
-  void checkInformations(String username,String password){
+  void checkInformations(String username,String password) async{
     if(username ==""){
       Notify(2, context);
     }
@@ -237,14 +237,21 @@ class _SignInPageState extends State<SignInPage> {
       Notify(4, context);
     }
     else{
-      //MyApp().controller.load(userNameTextField.text, passwordTextField.text);
-      MyApp().controller.currentUser = User(username, password);
-      Navigator.of(context).push(
-        PageTransition(
-            type: PageTransitionType.fade,
-            childCurrent: widget,
-            child: Splash()),
-      );
+      await MyApp().controller.load(userNameTextField.text, passwordTextField.text);
+
+      if(MyApp().controller.currentUser.usernameDafl != ""){
+        Navigator.of(context).push(
+          PageTransition(
+              type: PageTransitionType.fade,
+              childCurrent: widget,
+              child: Splash()),
+        );
+      }
+      else{
+        Notify(2, context);
+      }
+
+
 
       }
   }

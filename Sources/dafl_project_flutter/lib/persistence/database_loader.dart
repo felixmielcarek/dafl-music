@@ -9,20 +9,19 @@ class DatabaseLoader extends Loader{
 
   // Load an user from database
   @override
-  Future<User?> load(String username, String password) async {
-    User? userToReturn = null;
+  Future<User> load(String username, String password) async {
     final connection = await DatabaseConnexion.initConnexion();
 
-    connection.query('select * from utilisateur where username = @username AND password = @password',
+    var queryResult = await connection.query('select * from utilisateur where username = @username AND password = @password',
         {'username': username,
           'password': password}).toList()
         .then((result) {
-          if(result.isNotEmpty){
-            userToReturn =  User(username, password);
-          }
+          print(result);
+          if(result.isNotEmpty) return User(username, password);
+          else return User("", "");
         }).whenComplete(() {
       connection.close();});
 
-    return userToReturn;
+    return queryResult;
   }
 }

@@ -16,7 +16,8 @@ class DatabaseSearcher extends Searcher{
 
     bool queryResult = await connection.query('select * from utilisateur where username = @username',{ 'username' : usernameToSearch})
         .toList()
-        .then((rows) { return rows.isEmpty; });
+        .then((rows) { return rows.isEmpty; }).whenComplete(() {
+      connection.close();});
 
 
     return queryResult;

@@ -31,8 +31,8 @@ class Controller{
     saver.save(userToSave);
   }
 
-  void load(String username, String password) async{
-    currentUser =  await loader.load(username, password) as User;
+  Future<void> load(String username, String password) async{
+    changeCurrentUser(await loader.load(username, password));
   }
 
   User createUser(String username, String password){
