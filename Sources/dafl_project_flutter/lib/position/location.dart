@@ -2,7 +2,6 @@ import 'package:dafl_project_flutter/main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:async';
 
 class Location {
@@ -36,7 +35,6 @@ class Location {
       "id" : actualUser.toString(),
     });
     var data = jsonDecode(response.body);
-    log(data.toString());
     return data.toString();
   }
 }
