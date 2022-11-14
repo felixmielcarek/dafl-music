@@ -13,9 +13,10 @@ import '../model/music.dart';
 import 'model/music.dart';
 import 'model/spot.dart';
 import 'model/user.dart';
+import 'package:rive/rive.dart';
+import 'api/api.dart';
 
 void main() {
-  MyApp mainApp = MyApp();
   runApp(MyApp());
 }
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   Controller controller = Controller();
 
 
+  static Api api = Api();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-enum CardStatus { like, disLike, discovery, message}
+enum CardStatus { like, disLike, discovery, message }
 
 class CardProvider extends ChangeNotifier{
   List<Spot> _spotsList = MyApp().controller.currentUser.Spots2;
@@ -52,10 +54,6 @@ class CardProvider extends ChangeNotifier{
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
-
-
-
-
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
 
@@ -79,7 +77,6 @@ class CardProvider extends ChangeNotifier{
 
     final status = getStatus(force: true);
 
-
     switch (status) {
       case CardStatus.like:
         like(context);
@@ -97,6 +94,7 @@ class CardProvider extends ChangeNotifier{
         resetPosition();
     }
   }
+
   void resetPosition() {
     _isDragging = false;
     _position = Offset.zero;
@@ -119,33 +117,35 @@ class CardProvider extends ChangeNotifier{
     final forceDiscovery = x.abs() < 80;
     final forceMessage = x.abs() < 100;
 
-    if(force) {
+    if (force) {
       final delta = 100;
 
       if (x >= delta) {
         return CardStatus.like;
-      } else if ( x <= -delta){
+      } else if (x <= -delta) {
         return CardStatus.disLike;
-      } else if ( y <= -delta/2 && forceDiscovery){
+      } else if (y <= -delta / 2 && forceDiscovery) {
         return CardStatus.message;
       } else if (y >= delta * 2 && x.abs() < 100) {
         return CardStatus.discovery;
       }
-    } else{
+    } else {
       final delta = 20;
 
-      if(y <= -delta * 2 && forceDiscovery) {
+      if (y <= -delta * 2 && forceDiscovery) {
         return CardStatus.message;
-      } else if (y >= delta *2 && x.abs() < 80) {
+      } else if (y >= delta * 2 && x.abs() < 80) {
         return CardStatus.discovery;
-      }else  if ( x >= delta) {
+      } else if (x >= delta) {
         return CardStatus.like;
-      } else if ( x <= -delta) {
+      } else if (x <= -delta) {
         return CardStatus.disLike;
       }
     }
   }
+
   void dislike() {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("dislike");
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
@@ -155,6 +155,8 @@ class CardProvider extends ChangeNotifier{
   }
 
   void discovery() {
+    Vibration.vibrate(duration: 20, amplitude: 60);
+    print("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
     _discovery_card();
@@ -189,6 +191,7 @@ class CardProvider extends ChangeNotifier{
   }
 
   void message(context) {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("message");
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
@@ -200,10 +203,11 @@ class CardProvider extends ChangeNotifier{
       backgroundColor: Colors.transparent,
       context: context,
       constraints: BoxConstraints(
-        maxWidth:  600,
+        maxWidth: 600,
         maxHeight: double.infinity,
       ),
-      builder: (context) => buildSheet(),);
+      builder: (context) => buildSheet(),
+    );
     notifyListeners();
   }
   Widget buildSheet(){
@@ -317,12 +321,12 @@ class CardProvider extends ChangeNotifier{
 
 
   void like(context) {
+    Vibration.vibrate(duration: 20, amplitude: 60);
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
     notifyListeners();
-
   }
 
   Future _nextCard() async {
@@ -348,9 +352,7 @@ class CardProvider extends ChangeNotifier{
     await Future.delayed(Duration(milliseconds: 200));
     resetPosition();
   }
-
 }
-
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -360,7 +362,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
   void initState() {
     super.initState();
@@ -373,10 +374,7 @@ class _SplashState extends State<Splash> {
         );
       });
     });
-
-
   }
-
 
   @override
   Widget build(BuildContext context) {

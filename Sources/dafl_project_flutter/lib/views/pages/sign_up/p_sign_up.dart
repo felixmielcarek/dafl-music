@@ -1,6 +1,9 @@
 import 'package:dafl_project_flutter/main.dart';
+import 'package:dafl_project_flutter/api/api.dart';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../api/in_app_browser.dart';
 import 'package:rive/rive.dart' as riv;
 import '../../../model/user.dart';
 import '../home/p_home.dart';
@@ -15,7 +18,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
   Color boxColor = Colors.white;
   bool isHovering = false;
   @override
@@ -24,9 +26,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final passwordTextField = TextEditingController();
   final passwordConfirmTextField = TextEditingController();
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFF141414),
+      backgroundColor: const Color(0xFF141414),
       body: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: <Widget>[
@@ -40,40 +43,49 @@ class _SignUpPageState extends State<SignUpPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               Image.asset(
                 'assets/images/Logo.png',
                 width: 250,
               ),
-              SizedBox(height: 45,),
-              Text(
+              const SizedBox(
+                height: 45,
+              ),
+              const Text(
                 "S'INSCRIRE",
-                style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 23, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontFamily: 'DMSans',
+                    color: Colors.white,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w700),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                   width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                  padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
                   child: Stack(
                     children: [
                       Container(
                         height: 43,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
                         ),
                       ),
-                      Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
                           controller: userNameTextField,
                           decoration: InputDecoration(
@@ -84,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
                         child: Image.asset(
                           'assets/images/profil_logo.png',
                           height: 16,
@@ -93,31 +105,31 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ],
-                  )
-              ),
+                  )),
               Container(
                   width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                  padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                   child: Stack(
                     children: [
                       Container(
                         height: 43,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
-
                         ),
-
-                      ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
                           controller: passwordTextField,
                           obscureText: true,
@@ -129,7 +141,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
                         child: Image.asset(
                           'assets/images/password_logo.png',
                           height: 16,
@@ -138,31 +150,31 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ],
-                  )
-              ),
+                  )),
               Container(
                   width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                  padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                   child: Stack(
                     children: [
                       Container(
                         height: 43,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
-
                         ),
-
-                      ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
                           obscureText: true,
                           controller: passwordConfirmTextField,
@@ -174,7 +186,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
                         child: Image.asset(
                           'assets/images/password_logo.png',
                           height: 16,
@@ -183,58 +195,70 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ],
-                  )
-              ),
+                  )),
               Container(
                   width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                  padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                   child: Stack(
                     children: [
                       Container(
                         height: 43,
                         decoration: BoxDecoration(
-                          color: Color(0xFF24CF5F),
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
+                          color: const Color(0xFF24CF5F),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.3),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ],
-
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                        child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Lier compte ",
-                            style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 18, fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.center,
-                          ),
-                          Image.asset(
-                            'assets/images/spotify_logo.png',
-                            height: 25,
-                            width: 25,
-                            fit: BoxFit.cover,
-                          ),
-                        ],
-                      ),),
-
+                      SizedBox(
+                        height: 43,
+                        width: width * 0.75,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF24CF5F),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ), // background// foreground
+                            ),
+                            onPressed: () {
+                              MyInAppBrowser();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Lier compte",
+                                  style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Image.asset(
+                                  'assets/images/spotify_logo.png',
+                                  height: 25,
+                                  width: 25,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            )),
+                      ),
                     ],
-                  )
+                  )),
+              const SizedBox(
+                height: 30,
               ),
-              SizedBox(height: 30,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(22),
-
                 child: Material(
-
                   child: InkWell(
                     highlightColor: Colors.grey.shade100,
                     splashColor: Color(0xFF406DE1),
@@ -255,13 +279,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       width: 83,
                       height: 83,
                       decoration: BoxDecoration(
-                        color: Colors.white,// Set rounded corner radius
+                        color: Colors.white, // Set rounded corner radius
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.3),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -270,26 +295,39 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 100,),
+              const SizedBox(
+                height: 100,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Tu as déjà un compte ?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 17)),
+                  const Text('Tu as déjà un compte ?',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 17)),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         PageTransition(
                             type: PageTransitionType.fade,
                             childCurrent: widget,
-                            child: SignInPage()),
+                            child: const SignInPage()),
                       );
                     },
-                    child: Text(' se connecter', style: TextStyle(color: Color(0xFF406DE1), fontWeight: FontWeight.normal, fontSize: 16),
+                    child: const Text(
+                      ' se connecter',
+                      style: TextStyle(
+                          color: Color(0xFF406DE1),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 60,),
+              const SizedBox(
+                height: 60,
+              ),
             ],
           ),
 
