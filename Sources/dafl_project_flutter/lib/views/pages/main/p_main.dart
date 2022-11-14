@@ -32,10 +32,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     Location.sendCurrentLocation();
     double height = MediaQuery.of(context).size.height;
-    double height = MediaQuery
-        .of(context)
-        .size
-        .height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: screens[_index],
