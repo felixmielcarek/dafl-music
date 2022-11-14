@@ -28,8 +28,8 @@ class Location {
   }
 
   static Future getData() async {
+    String actualUser = MyApp.controller.currentUser.usernameDafl;
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
-    String actualUser = MyApp().controller.currentUser.usernameDafl;
     http.Response response = await http.post(uri, body : {
       "id" : actualUser.toString(),
     });
