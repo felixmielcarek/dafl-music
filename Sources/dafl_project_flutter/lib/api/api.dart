@@ -8,7 +8,7 @@ import 'track.dart';
 class Api {
   //from dashboard
   final _clientId = '7ceb49d874b9404492246027e4d68cf8';
-  final _clientSecret = '98f9cb960bf54ebbb9ad306e7ff919cb'; // TODO : hide it
+  final _clientSecret = '98f9cb960bf54ebbb9ad306e7ff919cb';
 
   //for web api
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
@@ -27,18 +27,16 @@ class Api {
 
   //other
   final _client = http.Client();
-  Uri? _urlAuthorize;
+  late Uri _urlAuthorize;
 
   get urlAuthorize => _urlAuthorize;
   DateTime? _tokenEnd;
-  Random rng = Random();
 
   Api() {
     _state = _generateRandomString(16);
-    _codeVerifier =
-        base64UrlEncode(_generateRandomString(rng.nextInt(85) + 43).codeUnits);
-    _codeChallenge =
-        base64UrlEncode(sha256.convert(utf8.encode(_codeVerifier)).bytes);
+    _codeVerifier = _generateRandomString(_generateRandomInt(43, 128));
+    _codeChallenge = _generateCodeChallenge();
+    print(_codeChallenge);
     _encodedLogs = base64.encode(utf8.encode("$_clientId:$_clientSecret"));
     _urlAuthorize = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': _clientId,
@@ -52,17 +50,25 @@ class Api {
     });
   }
 
-  //random string generation
+  //PKCE generations
 
-  String _generateRandomString(int length) {
+  _generateRandomInt(int min, int max) {
+    return min + Random().nextInt(max - min);
+  }
+
+  _generateRandomString(int length) {
     const chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890_.-~';
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     return String.fromCharCodes(Iterable.generate(
-        length, (_) => chars.codeUnitAt(rng.nextInt(chars.length))));
-    /*var test = String.fromCharCodes(Iterable.generate(
-        length, (_) => chars.codeUnitAt(rng.nextInt(chars.length))));
-    print(test);
-    return test;*/
+        length, (_) => chars.codeUnitAt(Random().nextInt(chars.length))));
+  }
+
+  _generateCodeChallenge() {
+    //care : base64Url doesn't work
+    return base64Encode(sha256.convert(utf8.encode(_codeVerifier)).bytes)
+        .replaceAll('+', '-')
+        .replaceAll('/', '_')
+        .replaceAll('=', '');
   }
 
   //session management
@@ -88,7 +94,6 @@ class Api {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-    print(decodedResponse);
     _accessToken = decodedResponse['access_token'];
     _expiresIn = decodedResponse['expires_in'];
     _tokenEnd = DateTime.now().add(Duration(seconds: _expiresIn!));
