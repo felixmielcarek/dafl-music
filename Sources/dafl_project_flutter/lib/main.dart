@@ -405,6 +405,8 @@ class _SplashState extends State<Splash> {
   }
 }
 Object Notify(int index, context, {bool isError = true}){
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
   String message;
   if(isError == true){
     switch(index){
@@ -443,7 +445,7 @@ Object Notify(int index, context, {bool isError = true}){
           children: [
 
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.fromLTRB(20,height/110,20,0),
               height: 90,
               child: Row(
                 children: [
@@ -454,7 +456,7 @@ Object Notify(int index, context, {bool isError = true}){
                   Expanded(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Oh oh !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text("Ho ho !", style: TextStyle( fontWeight: FontWeight.bold),),
                       Text(message,style: TextStyle(
                       ),
                         overflow: TextOverflow.ellipsis,
@@ -515,7 +517,7 @@ Object Notify(int index, context, {bool isError = true}){
           children: [
 
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.fromLTRB(20,height/110,20,0),
               height: 90,
               child: Row(
                 children: [

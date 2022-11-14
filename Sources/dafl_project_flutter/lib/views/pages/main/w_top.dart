@@ -55,6 +55,8 @@ class _TopsWidgetState extends State<TopsWidget> {
 class TopWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       width: double.infinity,
@@ -102,10 +104,12 @@ class TopWidget extends StatelessWidget{
                       placeholder: "assets/images/loadingPlaceholder.gif", image: 'https://images.genius.com/ef4849be3da5fdb22ea9e656679be3a3.600x600x1.jpg'),
                 ),
               ),
-              Stack(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(12, 5, 80, 60),
+                    margin: EdgeInsets.fromLTRB(12, 5, 0, 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,30 +119,21 @@ class TopWidget extends StatelessWidget{
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                      right: 0,
-                      child: Row(
-                        children: [
-                          GradientText(
-                            '7,2%',
-                            style: const TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                            gradient: LinearGradient(colors: [
-                              Colors.orange,
-                              Colors.red,
-                              Colors.purple,
-                            ]),
-                          ),
-                        ],
-                      ),
-                  ),
+                  GradientText(
+                          '7,2%',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                          gradient: LinearGradient(colors: [
+                            Colors.orange,
+                            Colors.red,
+                            Colors.purple,
+                          ]),
+                        ),
+                  ],
+                ),
                 ],
               ),
-
             ],
           ),
-        ],
-      ),
     );
   }
 }
