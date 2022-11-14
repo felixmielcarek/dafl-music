@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
-
+import 'dart:developer' as dev;
 import 'track.dart';
 
 class Api {
@@ -36,7 +36,7 @@ class Api {
     _state = _generateRandomString(16);
     _codeVerifier = _generateRandomString(_generateRandomInt(43, 128));
     _codeChallenge = _generateCodeChallenge();
-    print(_codeChallenge);
+    dev.log(_codeChallenge);
     _encodedLogs = base64.encode(utf8.encode("$_clientId:$_clientSecret"));
     _urlAuthorize = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': _clientId,

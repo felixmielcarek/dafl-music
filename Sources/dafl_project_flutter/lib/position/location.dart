@@ -1,13 +1,12 @@
-import 'package:dafl_project_flutter/main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:async';
 
+import '../main.dart';
+
 class Location {
-
-
   static Future sendCurrentLocation() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
     LocationPermission permission;
@@ -19,12 +18,12 @@ class Location {
         return Future.error('Location Not Available');
       }
     }
-    String actualUser = MyApp().controller.currentUser.usernameDafl;
+    String actualUser = MyApp.controller.currentUser.usernameDafl;
     Position current = await Geolocator.getCurrentPosition();
     await http.post(uri, body: {
-      "id" : actualUser.toString(),
-      "latitude" : current.latitude.toString(),
-      "longitude" : current.longitude.toString(),
+      "id": actualUser.toString(),
+      "latitude": current.latitude.toString(),
+      "longitude": current.longitude.toString(),
     });
   }
 

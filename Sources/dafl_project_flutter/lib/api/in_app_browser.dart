@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-import 'track.dart';
-
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
       crossPlatform:
