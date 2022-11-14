@@ -14,7 +14,7 @@ class Location {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.deniedForever) {
-        //faire l'interface graphique pour gérer ça
+        //faire l'interface gra pour gérer ça
         return Future.error('Location Not Available');
       }
     }
@@ -25,11 +25,15 @@ class Location {
       "latitude": current.latitude.toString(),
       "longitude": current.longitude.toString(),
     });
+    return getData();
   }
 
   static Future getData() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
-    http.Response response = await http.get(uri);
+    String actualUser = MyApp().controller.currentUser.usernameDafl;
+    http.Response response = await http.post(uri, body : {
+      "id" : actualUser.toString(),
+    });
     var data = jsonDecode(response.body);
     log(data.toString());
     return data.toString();

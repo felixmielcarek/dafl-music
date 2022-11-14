@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1ed76d84-2c54-4e1a-8caa-f86af4db1c95" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/lib/position/location.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/lib/position/location.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../dafl_project_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distance.php" beforeDir="false" afterPath="$PROJECT_DIR$/distance.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.1.10">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2HVWauERG20kz8Pq7zhxXhD4vJI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/xampp/phpMyAdmin/dafldev",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="config.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/config.php">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ed76d84-2c54-4e1a-8caa-f86af4db1c95" name="Changes" comment="" />
+      <created>1668370798748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668370798748</updated>
+      <workItem from="1668370800437" duration="2828000" />
+      <workItem from="1668379291041" duration="549000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
