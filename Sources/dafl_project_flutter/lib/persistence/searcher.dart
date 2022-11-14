@@ -1,6 +1,6 @@
 import '../model/user.dart';
 
-abstract class Search{
-  bool searchUser(String? username, String? password);
-  bool searchUsername(String? username);
+abstract class Searcher{
+  Future<bool> searchUser(String? username, String? password);
+  Future<bool> searchByUsername(String? username);
 }
