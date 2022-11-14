@@ -1,5 +1,6 @@
 import 'package:dafl_project_flutter/presentation/custom_icons_icons.dart';
 import 'package:flutter/material.dart';
+import '../../../position/location.dart';
 import './w_settings.dart';
 import './w_spot.dart';
 import './w_discovery.dart';
@@ -27,6 +28,8 @@ class _MainPageState extends State<MainPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    Location.sendCurrentLocation();
+    Location.getData();
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,

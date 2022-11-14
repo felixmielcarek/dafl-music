@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
 import '../model/music.dart';
-import 'model/music.dart';
 
 void main() {
   MyApp mainApp = MyApp();

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'loader.dart';
 import '../model/user.dart';
 import 'database_connexion.dart';
