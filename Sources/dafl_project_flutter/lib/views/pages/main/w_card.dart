@@ -3,17 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../main.dart';
 import 'package:provider/provider.dart';
 
-class User{
-  final String chanteur;
-  final String titre;
-  final String urlImage;
-
-  const User({
-    required this.chanteur,
-    required this.titre,
-    required this.urlImage,
-});
-}
 
 
 
@@ -44,21 +33,21 @@ class _CardWidgetState extends State<CardWidget>{
   }
   @override
   Widget build(BuildContext context) => SizedBox.expand(
-        child: widget.isFront ? buildFrontCard() : buildCard(),
-      );
+    child: widget.isFront ? buildFrontCard() : buildCard(),
+  );
 
   Widget buildCard() => ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: Container(
       decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(widget.urlImage),
-            fit: BoxFit.cover,
-            alignment:  Alignment(0,0),
-          ),
 
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
+      child: FadeInImage.assetNetwork(
+          height: double.infinity,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          placeholder: "assets/images/loadingPlaceholder.gif", image: widget.urlImage ),
     ),
   );
 
@@ -77,6 +66,9 @@ class _CardWidgetState extends State<CardWidget>{
       case CardStatus.discovery:
         final child = buildStamp(image: 'assets/images/icon_discovery.png', opacity: opacity);
         return child;
+      case CardStatus.message:
+        final child = buildStamp(image: 'assets/images/icon_messages.png', opacity: opacity);
+        return child;
       default:
         return Container();
 
@@ -84,29 +76,29 @@ class _CardWidgetState extends State<CardWidget>{
   }
 
   Widget buildStamp({
-  double angle = 0,
+    double angle = 0,
     required String image,
     required double opacity,
-}) {
+  }) {
     return Opacity(opacity: opacity,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.75),
-            border: Border.all(color: Color(0xFF3F1DC3), width: 6),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.75),
+              border: Border.all(color: Color(0xFF3F1DC3), width: 6),
 
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        ),
-        child: Center(
-          child: Image.asset(
-            image,
-            width: 100,
+              borderRadius: BorderRadius.all(Radius.circular(20))
           ),
+          child: Center(
+            child: Image.asset(
+              image,
+              width: 100,
+            ),
 
+          ),
         ),
-      ),
-    ),);
+      ),);
   }
 
   Widget buildFrontCard() => GestureDetector(
@@ -124,7 +116,7 @@ class _CardWidgetState extends State<CardWidget>{
           ..translate(-center.dx, -center.dy);
 
         return AnimatedContainer(
-          curve: Curves.easeInOut,
+          curve: Curves.easeOut,
           duration: Duration(milliseconds: milliseconds),
           transform: rotatedMatrix..translate(position.dx, position.dy),
           child: Stack(
@@ -149,7 +141,7 @@ class _CardWidgetState extends State<CardWidget>{
     onPanEnd: (details) {
       final provider = Provider.of<CardProvider>(context, listen: false);
 
-      provider.endPosition();
+      provider.endPosition(context);
     },
 
 

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -9,16 +8,23 @@ import 'package:postgresql2/constants.dart';
 import 'package:postgresql2/pool.dart';
 import 'package:postgresql2/postgresql.dart';
 
+
 class DatabaseConnexion{
-  final String filePath = 'assets/logs.txt';
-
-  String? _psqlUser;
-  String? _psqlPswd;
-  String? _psqlHost;
-  String? _psqlDataBase;
+  // Path to the file containing the database identifiers
+  static final String filePath = 'assets/logs.txt';
 
 
-  Future<void> _loadLogs() async{
+  // Database identifiers
+  static String? _psqlUser;
+  static String? _psqlPswd;
+  static String? _psqlHost;
+  static String? _psqlDataBase;
+
+
+
+
+  // Read the database connection identifiers in a file
+  static Future<void> _loadLogs() async{
     try{
       final _loadedData = await rootBundle.loadString(filePath);
 
@@ -35,12 +41,20 @@ class DatabaseConnexion{
   }
 
 
-  //Initialise connection to the database
-   Future<Connection> initConnexion() async{
-    await _loadLogs();
 
-    var uri = 'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
+  //Initialise and open a connection to the database
+  static Future<Connection> initConnexion() async{
+    if(_psqlHost == null || _psqlPswd == null || _psqlUser == null || _psqlDataBase == null){
+      await _loadLogs();
+    }
 
-    return connect(uri);
+    try{
+      var uri = 'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
+
+      return connect(uri);
+    }
+    catch(e){
+      throw Exception('Connection to database : IMPOSSIBLE');
+    }
   }
 }

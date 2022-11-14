@@ -1,30 +1,30 @@
 import 'dart:async';
-import 'package:dafl_project_flutter/persistence/database_saver.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:vibration/vibration.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
 import './views/pages/main/p_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
-import 'package:dafl_project_flutter/controller/controller.dart';
-
-
+import 'package:rive/rive.dart' as riv;
+import '../controller/controller.dart';
+import '../model/music.dart';
+import 'model/music.dart';
 
 void main() {
   MyApp mainApp = MyApp();
-
-  runApp(mainApp);
+  runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
+  Controller controller = Controller();
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context){
+    Paint.enableDithering = true;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return ChangeNotifierProvider(
       create: (context) => CardProvider(),
@@ -37,38 +37,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-enum CardStatus { like, disLike, discovery}
+enum CardStatus { like, disLike, discovery, message}
 
 class CardProvider extends ChangeNotifier{
-  List<String> _urlImages = [];
+  List<Music> _spotsList = MyApp().controller.currentUser.Spots;
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
 
-  List<String> get urlImages => _urlImages;
+  List<Music> get spotsList => _spotsList;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
 
-  CardProvider() {
-    resetUsers();
-  }
 
-  void resetUsers() {
-    _urlImages = <String>[
-      'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg',
-      'https://m.media-amazon.com/images/I/61aUOMzwS8L._SL1440_.jpg',
-      'https://pbs.twimg.com/media/ExJ-My-XMAE3Ko2.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/2818a661c6d533155ce6dffc256b1f51/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/b351f0e935c9c3901f8d893b92ab952a/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/65147b581f2ace9e0f0723ee76e70fda/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/173b96be8ac025fb9578b0139010bc80/500x500.jpg',
-      'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg',
-    ].reversed.toList();
 
-    notifyListeners();
-  }
 
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
@@ -87,7 +71,7 @@ class CardProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  void endPosition() {
+  void endPosition(context) {
     _isDragging = false;
     notifyListeners();
 
@@ -96,13 +80,16 @@ class CardProvider extends ChangeNotifier{
 
     switch (status) {
       case CardStatus.like:
-        like();
+        like(context);
         break;
       case CardStatus.disLike:
         dislike();
         break;
       case CardStatus.discovery:
         discovery();
+        break;
+      case CardStatus.message:
+        message(context);
         break;
       default:
         resetPosition();
@@ -127,7 +114,8 @@ class CardProvider extends ChangeNotifier{
   CardStatus? getStatus({bool force = false}) {
     final x = _position.dx;
     final y = _position.dy;
-    final forceDiscovery = x.abs() < 20;
+    final forceDiscovery = x.abs() < 80;
+    final forceMessage = x.abs() < 100;
 
     if(force) {
       final delta = 100;
@@ -136,15 +124,19 @@ class CardProvider extends ChangeNotifier{
         return CardStatus.like;
       } else if ( x <= -delta){
         return CardStatus.disLike;
-      } else if ( y <= -delta / 2 && forceDiscovery){
+      } else if ( y <= -delta/2 && forceDiscovery){
+        return CardStatus.message;
+      } else if (y >= delta * 2 && x.abs() < 100) {
         return CardStatus.discovery;
       }
     } else{
       final delta = 20;
 
       if(y <= -delta * 2 && forceDiscovery) {
+        return CardStatus.message;
+      } else if (y >= delta *2 && x.abs() < 80) {
         return CardStatus.discovery;
-      } else  if ( x >= delta) {
+      }else  if ( x >= delta) {
         return CardStatus.like;
       } else if ( x <= -delta) {
         return CardStatus.disLike;
@@ -161,43 +153,188 @@ class CardProvider extends ChangeNotifier{
   }
 
   void discovery() {
-    print("discovery");
     _angle = 0;
-    _position -= Offset(0, _screenSize.height);
+    _position -= Offset(0, -_screenSize.height);
     _discovery_card();
-    Fluttertoast.showToast(
-        msg: 'Ajouté',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.deepPurple,
-        textColor: Colors.white
-    );
+    print("discovery");
+    if(MyApp().controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots?.last)){
+      MyApp().controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots?.last);
+      Fluttertoast.showToast(
+      msg: 'Supprimer',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.red,
+      textColor: Colors.white
+      );
+    }
+    else{
+      if(MyApp().controller.currentUser.Spots?.last != null){
+        MyApp().controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots.last);
+        Fluttertoast.showToast(
+            msg: 'Ajouté',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.deepPurple,
+            textColor: Colors.white
+        );
+        notifyListeners();
+      }
 
-    notifyListeners();
+    }
+
   }
 
-  void like() {
+  void message(context) {
+    print("message");
+    _angle = 0;
+    _position -= Offset(0, _screenSize.height);
+    _message_card();
+    showModalBottomSheet(
+      isDismissible: false,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      constraints: BoxConstraints(
+        maxWidth:  600,
+        maxHeight: double.infinity,
+      ),
+      builder: (context) => buildSheet(),);
+    notifyListeners();
+  }
+  Widget buildSheet() => Container(
+    height: 550,
+    width: 350,
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.4),
+          offset: const Offset(
+            0,
+            0,
+          ),
+          blurRadius: 10.0,
+          spreadRadius: 2.0,
+        ),
+        BoxShadow(
+          color: Colors.white.withOpacity(0.3),
+          offset: const Offset(0.0, 0.0),
+          blurRadius: 0.0,
+          spreadRadius: 0.0,
+        ),//BoxShadow//BoxShadow
+      ],
+      color: Color(0xFF232123),
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30),
+        topLeft: Radius.circular(30),
+      ),
+    ),
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Column(
+        children: [
+
+          Container(
+            height: 5,
+            width: 130,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF8A8A8A),
+            ),
+          ),
+          SizedBox(height: 30,),
+          Container(
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF302C30),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                maxLength: 300,
+                style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                expands: true,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  border: InputBorder.none,
+                  hintText: "Mon message",
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          SizedBox(
+            width: double.infinity,
+            height: 70,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF3F1DC3),
+                  textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(17)
+                  ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("Envoyer"),
+                  Opacity(opacity: 0.2,
+                    child: Image.asset("assets/images/send_logo.png",),)
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ),
+
+  );
+
+
+  void like(context) {
     print("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
-
     notifyListeners();
+
   }
 
   Future _nextCard() async {
-    if ( _urlImages.isEmpty) return;
-
-    await Future.delayed(Duration(milliseconds: 200));
-    _urlImages.removeLast();
-    resetPosition();
+    print(_spotsList.length);
+    if (_spotsList.isEmpty) {
+      print('dernier');
+      return;
+    }
+    else {
+      await Future.delayed(Duration(milliseconds: 200));
+      print(_spotsList.last.name);
+      _spotsList.removeLast();
+      resetPosition();
+    }
   }
 
   Future _discovery_card() async {
     await Future.delayed(Duration(milliseconds: 200));
     resetPosition();
   }
+
+  Future _message_card() async {
+    await Future.delayed(Duration(milliseconds: 200));
+    resetPosition();
+  }
+
 }
 
 
@@ -238,7 +375,7 @@ class _SplashState extends State<Splash> {
             Container(
               height: 300,
               width: 300,
-              child: RiveAnimation.asset('assets/images/new_file (2).riv'),
+              child: riv.RiveAnimation.asset('assets/images/new_file (2).riv'),
             ),
             SizedBox(height: 50),
           ],
@@ -247,3 +384,166 @@ class _SplashState extends State<Splash> {
     );
   }
 }
+Object Notify(int index, context, {bool isError = true}){
+  String message;
+  if(isError == true){
+    switch(index){
+      case 0: {
+        message = "Ce nom d'utilisateur existe déjà ! Veuillez réessayer.";
+        break;
+      }
+      case 1: {
+        message = "Mots de passe différents ! Veuillez réessayer.";
+        break;
+      }
+      case 2: {
+        message = "Identifiant incorrect ! Veuillez réessayer.";
+        break;
+      }
+      case 3: {
+        message = "Mot de passe incorrect ! Votre mot de passe doit contenir 8 caractères minimum.";
+        break;
+      }
+      case 4: {
+        message = "Mot de passe incorrect ! Veuillez réessayer.";
+        break;
+      }
+      default:
+        message = "Une erreur est survenue pendant l'inscription. Veuillez réessayer.";
+        break;
+
+    }
+    return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        dismissDirection: DismissDirection.down,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: Stack(
+          clipBehavior: Clip.none,
+          children: [
+
+            Container(
+              padding: EdgeInsets.all(16),
+              height: 90,
+              child: Row(
+                children: [
+                  Container(
+                    height: 48,
+                    width: 48,
+                  ),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Oh oh !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(message,style: TextStyle(
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,),
+                    ],
+                  ),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/backgroundNotify.png"),
+                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+                top: -50,
+                left: -20,
+                child: Container(
+                  color:  Colors.transparent,
+                  height: 110,
+                  width: 110,
+                  child: riv.RiveAnimation.asset("assets/images/error_icon.riv"),)),
+          ],
+        )
+    ));
+  }
+  else{
+    switch(index){
+      case 0: {
+        message = "Vous avez changer votre identifiant avec succès";
+        break;
+      }
+      case 1: {
+        message = "Vous avez changer votre mot de passe avec succès";
+        break;
+      }
+      default:
+        message = "L'opération a bien été éxécutée";
+        break;
+
+    }
+    return ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        dismissDirection: DismissDirection.down,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: Stack(
+          clipBehavior: Clip.none,
+          children: [
+
+            Container(
+              padding: EdgeInsets.all(16),
+              height: 90,
+              child: Row(
+                children: [
+                  Container(
+                    height: 48,
+                    width: 48,
+                  ),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Super !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                      Text(message,style: TextStyle(
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,),
+                    ],
+                  ),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/valid_background.png"),
+                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+                top: -50,
+                left: -20,
+                child: Container(
+                  color:  Colors.transparent,
+                  height: 110,
+                  width: 110,
+                  child: riv.RiveAnimation.asset("assets/images/valid_icon.riv"),)),
+          ],
+        )
+    ));
+
+  }
+
+}
+
+

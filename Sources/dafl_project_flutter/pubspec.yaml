@@ -45,9 +45,6 @@ dependencies:
   vibration: ^1.7.6
   postgresql2: ^1.0.3
   path_provider: ^2.0.11
-  font_awesome_flutter: ^10.2.1
-  geolocator: ^9.0.2
-  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +66,7 @@ flutter_native_splash:
 
   color: "#141414"
   #background_image: "assets/images/background_blur.png"
-  image: "assets/images/icon_App.png"
+  image: "assets/images/Logo_launcher_2.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,10 +74,9 @@ flutter_native_splash:
 # The following section is specific to Flutter packages.
 
 flutter_icons:
-  image_path_android: "assets/images/icon_App.png"
-  image_path_ios: "assets/images/icon_App.png"
   android: true
   ios: true
+  image_path: "assets/images/Logo_launcher_2.png"
 
 flutter:
 
@@ -93,6 +89,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
