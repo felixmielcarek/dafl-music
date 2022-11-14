@@ -8,19 +8,40 @@ import 'music.dart';
 
 class User{
   //attributes from DAFL
-  int? idDafl;
-  String? usernameDafl;
-  String? passwDafl;
+  late int _idDafl;
+  late String _usernameDafl;
+  late String _passwDafl;
+
   //attributes to link with API
-  String? usernameAPI;
-  String? passwAPI;
+  late String _usernameAPI;
+  late String _passwAPI;
+
+
+
+  // Getters for attributes
+  int get idDafl => _idDafl;
+  String get passwAPI => _passwAPI;
+  String get usernameDafl => _usernameDafl;
+  String get passwDafl => _passwDafl;
+  String get usernameAPI => _usernameAPI;
+
+  // Setters for attributes
+  set idDafl(int value) { _idDafl = value; }
+  set usernameDafl(String value) { _usernameDafl = value; }
+  set passwDafl(String value) { _passwDafl = value; }
+  set usernameAPI(String value) { _usernameAPI = value; }
+  set passwAPI(String value) { _passwAPI = value; }
+
+
 
   //constructors
-  User(this.usernameDafl, this.passwDafl);
+  User(this._usernameDafl, this._passwDafl);
 
-  User.name(this.usernameDafl);
+  User.name(this._usernameDafl);
 
-  User.fromDatabase(this.idDafl, this.usernameDafl);
+  User.fromDatabase(this._idDafl, this._usernameDafl);
+
+
 
   //lists
   Set<User> likedUsers={};
@@ -42,12 +63,14 @@ class User{
   List<Spot> Spots2= [];
   Map<User,Conversation> conversations={};
 
+
+
   void addDiscovery(Music newmusic){
-    if(MyApp().controller?.currentUser?.Discovery == null){
+    if(MyApp().controller.currentUser.Discovery == null){
 
     }
     else{
-      MyApp().controller.currentUser?.Discovery.add(newmusic);
+      MyApp().controller.currentUser.Discovery.add(newmusic);
     }
 
 
@@ -73,5 +96,5 @@ class User{
   }
 
   @override
-  String toString() => "$usernameDafl ($idDafl)";
+  String toString() => "$usernameDafl ($passwDafl)";
 }
