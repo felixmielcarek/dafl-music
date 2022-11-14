@@ -8,11 +8,20 @@ import '../model/user.dart';
 import '../persistence/searcher.dart';
 
 class Controller {
+  static Controller? _this;
+
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
-  static final Searcher _searcher = DatabaseSearcher();
+  static Searcher _searcher = DatabaseSearcher();
 
   User currentUser = User("", "");
+
+  factory Controller() {
+    if (_this == null) _this = Controller._();
+    return _this!;
+  }
+
+  Controller._();
 
   void save(User userToSave) {
     saver.save(userToSave);
@@ -27,17 +36,22 @@ class Controller {
   }
 
   void changeCurrentUser(User user) {
-    currentUser = user;
+    this.currentUser = user;
   }
 
-  void changeUsernameCourant(String newName){
-    if(newName !=null){
+  void changeUsernameCourant(String newName) {
+    if (newName != null) {
       this.currentUser.usernameDafl = newName;
     }
   }
-  void changePasswordCourant(String newPass){
-    if(newPass !=null){
+
+  void changePasswordCourant(String newPass) {
+    if (newPass != null) {
       this.currentUser.passwDafl = newPass;
     }
+  }
+
+  Future<bool> searchByUsername(String username) async {
+    return await _searcher.searchByUsername(username);
   }
 }

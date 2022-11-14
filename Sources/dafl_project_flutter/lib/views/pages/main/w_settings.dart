@@ -10,8 +10,11 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  final userNameTextField = TextEditingController(text: MyApp().controller.currentUser.usernameDafl);
-  final passwordTextField = TextEditingController(text: MyApp().controller.currentUser.passwDafl);
+  final userNameTextField =
+      TextEditingController(text: MyApp.controller.currentUser.usernameDafl);
+  final passwordTextField =
+      TextEditingController(text: MyApp.controller.currentUser.passwDafl);
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

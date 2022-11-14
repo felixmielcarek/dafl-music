@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';
-import '../../../model/music.dart';
-import '../../../model/spot.dart';
-import '../../../model/user.dart';
 import '../sign_up/p_sign_up.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,11 +12,12 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   var boxColor = Colors.white;
+
+  @override
   bool isChecked = false;
   final userNameTextField = TextEditingController();
   final passwordTextField = TextEditingController();
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -57,49 +55,49 @@ class _SignInPageState extends State<SignInPage> {
                 height: 10,
               ),
               Container(
-                width: 500,
-                padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 43,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(50)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
-                      child: TextField(
-                        keyboardAppearance: Brightness.dark,
-                        controller: userNameTextField,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                  width: 500,
+                  padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 43,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
                         ),
-                        cursorColor: Colors.purple,
-                        textAlign: TextAlign.left,
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
-                      child: Image.asset(
-                        'assets/images/profil_logo.png',
-                        height: 16,
-                        width: 16,
-                        fit: BoxFit.cover,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
+                        child: TextField(
+                          controller: userNameTextField,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          cursorColor: Colors.purple,
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
+                        child: Image.asset(
+                          'assets/images/profil_logo.png',
+                          height: 16,
+                          width: 16,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  )),
               Container(
                   width: 500,
                   padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
@@ -125,7 +123,6 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
-                          keyboardAppearance: Brightness.dark,
                           controller: passwordTextField,
                           obscureText: true,
                           decoration: const InputDecoration(
@@ -149,7 +146,7 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              Container(
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -190,6 +187,14 @@ class _SignInPageState extends State<SignInPage> {
                           userNameTextField.text, passwordTextField.text);
                     },
                     child: Ink(
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.check,
+                          color: Color(0xFF406DE1),
+                          size: 60.0,
+                        ),
+                      ),
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       width: 83,
                       height: 83,
@@ -204,14 +209,6 @@ class _SignInPageState extends State<SignInPage> {
                                 0, 3), // changes position of shadow
                           ),
                         ],
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.check,
-                          color: Color(0xFF406DE1),
-                          size: 60.0,
-                        ),
                       ),
                     ),
                   ),
@@ -257,51 +254,25 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void checkInformations(String username, String password) {
+  void checkInformations(String username, String password) async {
     if (username == "") {
       notify(2, context);
     } else if (password == "") {
       notify(4, context);
     } else {
-      //MyApp().controller.load(userNameTextField.text, passwordTextField.text);
-      MyApp.controller.currentUser =
-          User(userNameTextField.text, passwordTextField.text);
-      MyApp.controller.currentUser.spots = [
-        Spot(
-            User('Félix', '1234'),
-            Music('Couleurs', 'Khali',
-                'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg')),
-        Spot(
-            User('Audric', '1234'),
-            Music("J'suis PNL", 'PNL',
-                'https://m.media-amazon.com/images/I/61aUOMzwS8L._SL1440_.jpg')),
-        Spot(
-            User('Dorian', '1234'),
-            Music('Sundance', 'Nepal',
-                'https://pbs.twimg.com/media/ExJ-My-XMAE3Ko2.jpg')),
-        Spot(
-            User('Lucas', '1234'),
-            Music('Eternelle 2', 'So La Lune',
-                'https://cdns-images.dzcdn.net/images/cover/2818a661c6d533155ce6dffc256b1f51/500x500.jpg')),
-        Spot(
-            User('David', '1234'),
-            Music('M.I.L.S 3', 'Ninho',
-                'https://cdns-images.dzcdn.net/images/cover/b351f0e935c9c3901f8d893b92ab952a/500x500.jpg')),
-        Spot(
-            User('Hugo', '1234'),
-            Music('Deux frères', 'PNL',
-                'https://cdns-images.dzcdn.net/images/cover/65147b581f2ace9e0f0723ee76e70fda/500x500.jpg')),
-        Spot(
-            User('Alban', '1234'),
-            Music('Paradis', 'Sopico',
-                'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg')),
-      ].reversed.toList();
-      Navigator.of(context).push(
-        PageTransition(
-            type: PageTransitionType.fade,
-            childCurrent: widget,
-            child: const Splash()),
-      );
+      await MyApp.controller
+          .load(userNameTextField.text, passwordTextField.text);
+
+      if (MyApp.controller.currentUser.usernameDafl != "") {
+        Navigator.of(context).push(
+          PageTransition(
+              type: PageTransitionType.fade,
+              childCurrent: widget,
+              child: const Splash()),
+        );
+      } else {
+        notify(2, context);
+      }
     }
   }
 }

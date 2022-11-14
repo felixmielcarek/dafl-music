@@ -39,71 +39,73 @@ class _HomePageState extends State<HomePage> {
                   height: height * 0.04,
                 ),
                 SizedBox(
-                  height: 55,
-                  width: width * 0.75,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF24CF5F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ), // background// foreground
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "CONTINUER AVEC SPOTIFY",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(PageTransition(
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        type: PageTransitionType.rightToLeftJoined,
-                        childCurrent: widget,
-                        child: SignUpPage()),
+                    height: 55,
+                    width: width * 0.75,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF24CF5F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ) // background// foreground
+                          ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          PageTransition(
+                              duration: const Duration(milliseconds: 300),
+                              reverseDuration:
+                                  const Duration(milliseconds: 300),
+                              type: PageTransitionType.rightToLeftJoined,
+                              childCurrent: widget,
+                              child: const SignUpPage()),
+                        );
+                      },
+                      child: const Text(
+                        "S’INSCRIRE MAINTENANT",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "DMSans"),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      PageTransition(
+                          duration: const Duration(milliseconds: 300),
+                          reverseDuration: const Duration(milliseconds: 300),
+                          type: PageTransitionType.rightToLeftJoined,
+                          childCurrent: widget,
+                          child: const SignInPage()),
                     );
                   },
-                  child: Text("S’INSCRIRE MAINTENANT",
-                    style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.bold,fontFamily: "DMSans"),
-                    textAlign: TextAlign.center,
-                  ),
-                ),),
-              Spacer(),
-              GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(
-                    PageTransition(
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        type: PageTransitionType.rightToLeftJoined,
-                        childCurrent: widget,
-                        child: SignInPage()),
-                  );
-                },
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text("SE CONNECTER",
-                      style: TextStyle(color: Colors.white ,fontFamily: "DMSans",fontSize: 17, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    width: double.infinity,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF232123),
+                      border: Border(
+                        top: BorderSide(width: 1.5, color: Color(0xFF3C3C3C)),
+                      ), // Set rounded corner radius
+                    ),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "SE CONNECTER",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "DMSans",
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  width: double.infinity,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF232123),
-                    border: Border(
-                      top: BorderSide(width: 1.5, color: Color(0xFF3C3C3C)),
-                    ),// Set rounded corner radius
-
-                  ),
-                ),
-              )),
+                )
+              ]),
         ],
       ),
     );

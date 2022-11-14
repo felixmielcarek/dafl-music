@@ -25,12 +25,12 @@ class MainPageProfil extends StatefulWidget {
 }
 
 class _MainPageProfilState extends State<MainPageProfil> {
+  String? username = MyApp.controller.currentUser.usernameDafl;
 
-  String? username = MyApp().controller.currentUser.usernameDafl;
   @override
   void initState() {
     super.initState();
-    String username = MyApp().controller.currentUser.usernameDafl ?? "default";
+    String username = MyApp.controller.currentUser.usernameDafl ?? "default";
   }
 
   @override
@@ -48,13 +48,12 @@ class _MainPageProfilState extends State<MainPageProfil> {
             Container(
               width: double.infinity,
               margin: const EdgeInsets.fromLTRB(30, 50, 0, 0),
-              child: const Text(
-                "Profil",
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white), fontFamily: "DMSans")
-              ),
+              child: const Text("Profil",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontFamily: "DMSans")),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -74,14 +73,22 @@ class _MainPageProfilState extends State<MainPageProfil> {
                 ],
               ),
               child: Center(
-                child: Text(username![0],
-                  style: TextStyle(color: Colors.white ,fontSize: 60, fontWeight: FontWeight.w500),
+                child: Text(
+                  username![0],
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            Text(username!,
-              style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.w400),
+            Text(
+              username!,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
             Container(
@@ -284,9 +291,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
                       ), // background// foreground
                     ),
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=> SettingsWidget())).then((value) => setState(() {
-                        username = MyApp.controller.currentUser.usernameDafl!;
-                      }));
+                      Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingsWidget()))
+                          .then((value) => setState(() {
+                                username =
+                                    MyApp.controller.currentUser.usernameDafl!;
+                              }));
                     },
                     child: Row(
                       children: [
@@ -322,4 +334,3 @@ class _MainPageProfilState extends State<MainPageProfil> {
     );
   }
 }
-

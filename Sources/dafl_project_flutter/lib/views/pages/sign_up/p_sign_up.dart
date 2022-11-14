@@ -36,132 +36,137 @@ class _SignUpPageState extends State<SignUpPage> {
             fit: BoxFit.cover,
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-
-              Image.asset(
-                'assets/images/Logo.png',
-                width: 250,
-              ),
-              SizedBox(height: 45,),
-              Text(
-                "S'INSCRIRE",
-                style: TextStyle(fontFamily: 'DMSans', color: Colors.white ,fontSize: 23, fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 10,),
-              Container(
-                  width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
-                        child: TextField(
-                          keyboardAppearance: Brightness.dark,
-                          controller: userNameTextField,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image.asset(
+                  'assets/images/Logo.png',
+                  width: 250,
+                ),
+                SizedBox(
+                  height: 45,
+                ),
+                Text(
+                  "S'INSCRIRE",
+                  style: TextStyle(
+                      fontFamily: 'DMSans',
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 500,
+                    padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 43,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
                           ),
-                          cursorColor: Colors.purple,
-                          textAlign: TextAlign.left,
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
-                        child: Image.asset(
-                          'assets/images/profil_logo.png',
-                          height: 16,
-                          width: 16,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
-                  )
-              ),
-              Container(
-                  width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                          child: TextField(
+                            keyboardAppearance: Brightness.dark,
+                            controller: userNameTextField,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
                             ),
-                          ],
-
-                        ),
-
-                      ),Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
-                        child: TextField(
-                          keyboardAppearance: Brightness.dark,
-                          controller: passwordTextField,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
+                            cursorColor: Colors.purple,
+                            textAlign: TextAlign.left,
                           ),
-                          cursorColor: Colors.purple,
-                          textAlign: TextAlign.left,
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
-                        child: Image.asset(
-                          'assets/images/password_logo.png',
-                          height: 16,
-                          width: 16,
-                          fit: BoxFit.cover,
+                        Container(
+                          margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                          child: Image.asset(
+                            'assets/images/profil_logo.png',
+                            height: 16,
+                            width: 16,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-              ),
-              Container(
-                  width: 500,
-                  padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(50)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                      ],
+                    )),
+                Container(
+                    width: 500,
+                    padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 43,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                          child: TextField(
+                            keyboardAppearance: Brightness.dark,
+                            controller: passwordTextField,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
                             ),
-                          ],
-
+                            cursorColor: Colors.purple,
+                            textAlign: TextAlign.left,
+                          ),
                         ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                          child: Image.asset(
+                            'assets/images/password_logo.png',
+                            height: 16,
+                            width: 16,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
+                    )),
+                Container(
+                    width: 500,
+                    padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                    child: Stack(
+                      children: [
+                        Container(
+                            height: 43,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ])),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                           child: TextField(
