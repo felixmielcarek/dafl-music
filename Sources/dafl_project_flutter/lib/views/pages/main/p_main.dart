@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     Location.sendCurrentLocation();
-    Location.getData();
+    double height = MediaQuery.of(context).size.height;
     double height = MediaQuery
         .of(context)
         .size
