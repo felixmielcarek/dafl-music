@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                     width: width * 0.75,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF24CF5F),
+                          backgroundColor: const Color(0xFF951DDE),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ) // background// foreground

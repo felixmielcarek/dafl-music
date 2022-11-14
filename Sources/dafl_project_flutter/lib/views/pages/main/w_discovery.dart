@@ -164,6 +164,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                 if (direction == DismissDirection.startToEnd)
                   MyApp.controller.currentUser.discovery
                       .removeAt(reversedIndex);
+                setState(() {
+                  itemCount -= 1;
+                });
               },
               background: Container(
                   decoration: BoxDecoration(

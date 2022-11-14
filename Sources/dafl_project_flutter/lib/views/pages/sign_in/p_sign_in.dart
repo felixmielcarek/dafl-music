@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';
+import '../../../model/music.dart';
+import '../../../model/user.dart';
 import '../sign_up/p_sign_up.dart';
 
 class SignInPage extends StatefulWidget {
@@ -264,6 +266,7 @@ class _SignInPageState extends State<SignInPage> {
           .load(userNameTextField.text, passwordTextField.text);
 
       if (MyApp.controller.currentUser.usernameDafl != "") {
+        MyApp.controller.chargeExample();
         Navigator.of(context).push(
           PageTransition(
               type: PageTransitionType.fade,
