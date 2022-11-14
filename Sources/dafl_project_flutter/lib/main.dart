@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:math';
@@ -9,6 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
+import 'package:home_indicator/home_indicator.dart';
+import '../model/music.dart';
+import 'model/music.dart';
 import 'model/spot.dart';
 import 'model/user.dart';
 import 'api/api.dart';
@@ -29,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Paint.enableDithering = true;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     return ChangeNotifierProvider(
       create: (context) => CardProvider(),
       child: const MaterialApp(
@@ -147,7 +151,6 @@ class CardProvider extends ChangeNotifier {
   }
 
   void dislike() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     dev.log("dislike");
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
@@ -157,39 +160,40 @@ class CardProvider extends ChangeNotifier {
   }
 
   void discovery() {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     dev.log("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
-    _discoveryCard();
+    _discovery_card();
     dev.log("discovery");
-    if (MyApp.controller.currentUser.discovery
-        .contains(MyApp.controller.currentUser.spots.last.music)) {
-      MyApp.controller.currentUser.discovery
-          .remove(MyApp.controller.currentUser.spots.last.music);
+    if(MyApp.controller.currentUser.Discovery.contains(MyApp().controller.currentUser.Spots2.last.music)){
+      MyApp.controller.currentUser.Discovery.remove(MyApp().controller.currentUser.Spots2.last.music);
       Fluttertoast.showToast(
-          msg: 'Supprimer',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white);
-    } else {
-      MyApp.controller.currentUser
-          .addDiscovery(MyApp.controller.currentUser.spots.last.music);
-      Fluttertoast.showToast(
-          msg: 'Ajouté',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white);
-      notifyListeners();
+      msg: 'Supprimer',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.red,
+      textColor: Colors.white
+      );
+    }
+    else{
+      if(MyApp.controller.currentUser.Spots2.last != null){
+        MyApp.controller.currentUser.addDiscovery(MyApp().controller.currentUser.Spots2.last.music);
+        Fluttertoast.showToast(
+            msg: 'Ajouté',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.deepPurple,
+            textColor: Colors.white
+        );
+        notifyListeners();
+      }
+
     }
   }
 
   void message(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     dev.log("message");
     _angle = 0;
     _position -= Offset(0, _screenSize.height);
@@ -204,119 +208,113 @@ class CardProvider extends ChangeNotifier {
         maxWidth: 600,
         maxHeight: double.infinity,
       ),
-      builder: (context) => buildSheet(),
-    );
+      builder: (context) => buildSheet(context),);
     notifyListeners();
   }
-
-  Widget buildSheet() {
+  Widget buildSheet(context){
     final messageTextField = TextEditingController();
-    return Container(
-      height: 550,
-      width: 350,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            offset: const Offset(
-              0,
-              0,
+    return SingleChildScrollView(
+      padding:
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        height: 500,
+        width: 380,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              offset: const Offset(
+                0,
+                0,
+              ),
+              blurRadius: 10.0,
+              spreadRadius: 2.0,
             ),
-            blurRadius: 10.0,
-            spreadRadius: 2.0,
+            BoxShadow(
+              color: Colors.white.withOpacity(0.3),
+              offset: const Offset(0.0, 0.0),
+              blurRadius: 0.0,
+              spreadRadius: 0.0,
+            ),//BoxShadow//BoxShadow
+          ],
+          color: Color(0xFF232123),
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            topLeft: Radius.circular(30),
           ),
-          BoxShadow(
-            color: Colors.white.withOpacity(0.3),
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 0.0,
-            spreadRadius: 0.0,
-          ), //BoxShadow//BoxShadow
-        ],
-        color: const Color(0xFF232123),
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(30),
-          topLeft: Radius.circular(30),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Column(
-          children: [
-            Container(
-              height: 5,
-              width: 130,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFF8A8A8A),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          child: Column(
+            children: [
+
+              Container(
+                height: 5,
+                width: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFF8A8A8A),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: double.infinity,
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: const Color(0xFF302C30),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: TextField(
-                  controller: messageTextField,
-                  maxLength: 300,
-                  style: TextStyle(
-                      fontFamily: 'DMSans',
-                      color: Colors.white.withOpacity(1),
-                      fontSize: 17,
-                      fontWeight: FontWeight.w200),
-                  expands: true,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                    hintStyle: TextStyle(
-                      color: Colors.white,
+              SizedBox(height: 30,),
+              Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFF302C30),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: TextField(
+                    keyboardAppearance: Brightness.dark,
+                    controller: messageTextField,
+                    maxLength: 300,
+                    style: TextStyle(fontFamily: 'DMSans', color: Colors.white.withOpacity(1) ,fontSize: 17, fontWeight: FontWeight.w200),
+                    expands: true,
+                    maxLines: null,
+                    textInputAction: TextInputAction.send,
+                    decoration: InputDecoration(
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
+                      border: InputBorder.none,
+                      hintText: "Mon message",
                     ),
-                    border: InputBorder.none,
-                    hintText: "Mon message",
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 70,
-              child: ElevatedButton(
-                onPressed: () {
-                  sendMessage(messageTextField.text,
-                      MyApp.controller.currentUser.spots.last.user);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3F1DC3),
-                  textStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(17)),
+              SizedBox(height: 20,),
+              SizedBox(
+                width: double.infinity,
+                height: 70,
+                child: ElevatedButton(
+                  onPressed: () {
+                    sendMessage(messageTextField.text, MyApp().controller.currentUser.Spots2.last.user);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF3F1DC3),
+                    textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17)
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text("Envoyer"),
+                      Opacity(opacity: 0.2,
+                        child: Image.asset("assets/images/send_logo.png",),)
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text("Envoyer"),
-                    Opacity(
-                      opacity: 0.2,
-                      child: Image.asset(
-                        "assets/images/send_logo.png",
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
+
       ),
     );
   }
@@ -326,7 +324,6 @@ class CardProvider extends ChangeNotifier {
   }
 
   void like(context) {
-    Vibration.vibrate(duration: 20, amplitude: 60);
     dev.log("like");
     _angle = 20;
     _position += Offset(2 * _screenSize.width, 0);
@@ -397,8 +394,9 @@ class _SplashState extends State<Splash> {
     );
   }
 }
-
-Object notify(int index, context, {bool isError = true}) {
+Object Notify(int index, context, {bool isError = true}){
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
   String message;
   if (isError == true) {
     switch (index) {
@@ -442,47 +440,41 @@ Object notify(int index, context, {bool isError = true}) {
           clipBehavior: Clip.none,
           children: [
             Container(
-                padding: const EdgeInsets.all(16),
-                height: 90,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage("assets/images/backgroundNotify.png"),
-                      fit: BoxFit.cover),
-                  gradient: const LinearGradient(
-                      colors: [Color(0xFF81052a), Color(0xFF810548)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight),
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(4, 8), // Shadow position
-                    ),
-                  ],
-                ),
-                child: Row(children: [
-                  const SizedBox(
+              padding: EdgeInsets.fromLTRB(20,height/110,20,0),
+              height: 90,
+              child: Row(
+                children: [
+                  Container(
                     height: 48,
                     width: 48,
                   ),
-                  Expanded(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                        const Text(
-                          "Oh oh !",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          message,
-                          style: const TextStyle(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        )
-                      ]))
-                ])),
+                  Expanded(child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Ho ho !", style: TextStyle( fontWeight: FontWeight.bold),),
+                      Text(message,style: TextStyle(
+                      ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,),
+                    ],
+                  ),),
+                ],
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/backgroundNotify.png"),
+                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [Color(0xFF81052a),Color(0xFF810548)],begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 10,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+              ),
+            ),
             Positioned(
                 top: -50,
                 left: -20,
@@ -520,7 +512,7 @@ Object notify(int index, context, {bool isError = true}) {
           clipBehavior: Clip.none,
           children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.fromLTRB(20,height/110,20,0),
               height: 90,
               decoration: BoxDecoration(
                 image: const DecorationImage(

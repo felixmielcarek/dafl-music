@@ -65,6 +65,8 @@ class TopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
       width: double.infinity,
@@ -126,10 +128,12 @@ class TopWidget extends StatelessWidget {
                           'https://images.genius.com/ef4849be3da5fdb22ea9e656679be3a3.600x600x1.jpg'),
                 ),
               ),
-              Stack(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(12, 5, 80, 60),
+                    margin: EdgeInsets.fromLTRB(12, 5, 0, 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,30 +155,21 @@ class TopWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Row(
-                      children: const [
-                        GradientText(
+                  GradientText(
                           '7,2%',
-                          style: TextStyle(
-                              fontSize: 60, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                           gradient: LinearGradient(colors: [
                             Colors.orange,
                             Colors.red,
                             Colors.purple,
                           ]),
                         ),
-                      ],
-                    ),
-                  ),
+                  ],
+                ),
                 ],
               ),
             ],
           ),
-        ],
-      ),
     );
   }
 }

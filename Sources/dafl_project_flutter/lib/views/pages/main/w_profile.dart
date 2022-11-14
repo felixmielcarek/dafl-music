@@ -17,12 +17,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 }
 
-class MainPageProfil extends StatelessWidget {
-  const MainPageProfil({super.key});
+class MainPageProfil extends StatefulWidget {
+  const MainPageProfil({Key? key}) : super(key: key);
+
+  @override
+  State<MainPageProfil> createState() => _MainPageProfilState();
+}
+
+class _MainPageProfilState extends State<MainPageProfil> {
+
+  String? username = MyApp().controller.currentUser.usernameDafl;
+  @override
+  void initState() {
+    super.initState();
+    String username = MyApp().controller.currentUser.usernameDafl ?? "default";
+  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       color: const Color(0xFF141414),
       child: SizedBox(
@@ -39,7 +53,7 @@ class MainPageProfil extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white),
+                    color: Colors.white), fontFamily: "DMSans")
               ),
             ),
             Container(
@@ -60,22 +74,14 @@ class MainPageProfil extends StatelessWidget {
                 ],
               ),
               child: Center(
-                child: Text(
-                  MyApp.controller.currentUser.usernameDafl[0],
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.w500),
+                child: Text(username![0],
+                  style: TextStyle(color: Colors.white ,fontSize: 60, fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            Text(
-              MyApp.controller.currentUser.usernameDafl,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400),
+            Text(username!,
+              style: TextStyle(color: Colors.white ,fontSize: 17, fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
             Container(
@@ -278,10 +284,9 @@ class MainPageProfil extends StatelessWidget {
                       ), // background// foreground
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SettingsWidget()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=> SettingsWidget())).then((value) => setState(() {
+                        username = MyApp.controller.currentUser.usernameDafl!;
+                      }));
                     },
                     child: Row(
                       children: [
@@ -317,3 +322,4 @@ class MainPageProfil extends StatelessWidget {
     );
   }
 }
+

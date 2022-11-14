@@ -47,11 +47,11 @@ class _MainPageState extends State<MainPage> {
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            minHeight: height * 0.1,
+            minHeight: 100,
             maxHeight: 100,
           ),
           child: NavigationBar(
-            animationDuration: const Duration(seconds: 1),
+            animationDuration: Duration(microseconds: 800),
             selectedIndex: index,
             height: height * 0.1,
             onDestinationSelected: (index) => setState(() => _index = index),

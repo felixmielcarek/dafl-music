@@ -30,15 +30,14 @@ class Controller {
     currentUser = user;
   }
 
-  void changeUsernameCourant(String newName) {
-    currentUser.usernameDafl = newName;
+  void changeUsernameCourant(String newName){
+    if(newName !=null){
+      this.currentUser.usernameDafl = newName;
+    }
   }
-
-  void changePasswordCourant(String newPass) {
-    currentUser.passwDafl = newPass;
-  }
-
-  Future<bool> searchByUsername(String username) async {
-    return await _searcher.searchByUsername(username);
+  void changePasswordCourant(String newPass){
+    if(newPass !=null){
+      this.currentUser.passwDafl = newPass;
+    }
   }
 }

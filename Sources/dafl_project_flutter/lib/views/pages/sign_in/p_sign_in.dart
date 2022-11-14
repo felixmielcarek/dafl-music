@@ -57,49 +57,49 @@ class _SignInPageState extends State<SignInPage> {
                 height: 10,
               ),
               Container(
-                  width: 500,
-                  padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 43,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(50)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
-                        child: TextField(
-                          controller: userNameTextField,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
+                width: 500,
+                padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 43,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(50)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
-                          cursorColor: Colors.purple,
-                          textAlign: TextAlign.left,
-                        ),
+                        ],
                       ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
-                        child: Image.asset(
-                          'assets/images/profil_logo.png',
-                          height: 16,
-                          width: 16,
-                          fit: BoxFit.cover,
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                      child: TextField(
+                        keyboardAppearance: Brightness.dark,
+                        controller: userNameTextField,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
                         ),
+                        cursorColor: Colors.purple,
+                        textAlign: TextAlign.left,
                       ),
-                    ],
-                  )),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                      child: Image.asset(
+                        'assets/images/profil_logo.png',
+                        height: 16,
+                        width: 16,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                )
+              ),
               Container(
                   width: 500,
                   padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
@@ -125,6 +125,7 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          keyboardAppearance: Brightness.dark,
                           controller: passwordTextField,
                           obscureText: true,
                           decoration: const InputDecoration(
