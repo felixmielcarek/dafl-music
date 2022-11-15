@@ -27,6 +27,7 @@ class MyInAppBrowser extends InAppBrowser {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       try {
         await MyApp.api.requestUserAuthorization(url);
+
         //await MyApp.api.getPlaylists();
       } on ApiException {
         // TODO : add notification to show that an error occured

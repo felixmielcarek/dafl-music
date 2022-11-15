@@ -65,7 +65,7 @@ class User {
 
   _actualiseTrack() async {
     try {
-      _id = await MyApp.api.getRecentlyPlayedTrack();
+      _id = await MyApp.api.getCurrentlyPlayingTrack();
       track = await MyApp.api.getTrackInfo(_id);
     } on ApiException {
       // TODO : add notification to show that an error occured

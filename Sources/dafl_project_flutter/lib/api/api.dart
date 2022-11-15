@@ -139,6 +139,20 @@ class Api {
 
   //functional methods
 
+  Future<String> getCurrentlyPlayingTrack() async {
+    var url = Uri.https('api.spotify.com', 'v1/me/player/currently-playing');
+    var token = await _getAccessToken();
+    var response = await _client.get(url, headers: <String, String>{
+      'Authorization': '$_tokenType $token',
+      'Content-Type': 'application/json'
+    });
+    if (response.statusCode == 204) {
+      return getRecentlyPlayedTrack();
+    }
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    return decodedResponse['item']['id'];
+  }
+
   Future<String> getRecentlyPlayedTrack() async {
     var url = Uri.https(
         'api.spotify.com', 'v1/me/player/recently-played', {'limit': '1'});
