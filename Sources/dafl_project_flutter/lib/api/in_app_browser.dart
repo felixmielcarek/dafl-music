@@ -1,6 +1,9 @@
 import 'dart:io';
-import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'dart:developer' as dev;
+import '../exceptions/api_exception.dart';
+import '../main.dart';
+import 'track.dart';
 
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
@@ -24,11 +27,19 @@ class MyInAppBrowser extends InAppBrowser {
   @override
   Future onLoadStart(url) async {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
-      await MyApp.api.requestUserAuthorization(url);
-      /*String id = await MyApp.api.getCurrentlyPlayingTrack();
-      Track track = await MyApp.api.getTrackInfo(id);
-      print('${track.artist} ${track.name} ${track.albumImage}');*/
-      close();
+      try {
+        await MyApp.api.requestUserAuthorization(url);
+
+        /*String id = await MyApp.api.getRecentlyPlayedTrack();
+        Track track = await MyApp.api.getTrackInfo(id);
+        dev.log('${track.artist} ${track.name} ${track.albumImage}');*/
+
+        await MyApp.api.getPlaylists();
+      } on ApiException {
+        // TODO : add notification to show that an error occured
+      } finally {
+        close();
+      }
     }
   }
 }
