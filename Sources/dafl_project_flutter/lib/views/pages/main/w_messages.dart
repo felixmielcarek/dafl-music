@@ -12,10 +12,10 @@ class MessagesWidget extends StatefulWidget {
 
 class _MessagesWidgetState extends State<MessagesWidget> {
   int indexSectedButton = 0;
-  Widget currentList = ListConfirmedWidget();
+  Widget currentList = const ListConfirmedWidget();
 
-  var colorConfirm = Color(0xFFFFFFFF);
-  var colorWaiting = Color(0xFFA8A8A8);
+  var colorConfirm = const Color(0xFFFFFFFF);
+  var colorWaiting = const Color(0xFFA8A8A8);
 
   void changeSelected(int num) {
     if (indexSectedButton == num) {
@@ -23,16 +23,16 @@ class _MessagesWidgetState extends State<MessagesWidget> {
     } else {
       if (num == 0) {
         setState(() {
-          colorConfirm = Color(0xFFFFFFFF);
-          colorWaiting = Color(0xFFA8A8A8);
-          currentList = ListConfirmedWidget();
+          colorConfirm = const Color(0xFFFFFFFF);
+          colorWaiting = const Color(0xFFA8A8A8);
+          currentList = const ListConfirmedWidget();
           indexSectedButton = num;
         });
       } else {
         setState(() {
-          colorConfirm = Color(0xFFA8A8A8);
-          colorWaiting = Color(0xFFFFFFFF);
-          currentList = ListWaitingWidget();
+          colorConfirm = const Color(0xFFA8A8A8);
+          colorWaiting = const Color(0xFFFFFFFF);
+          currentList = const ListWaitingWidget();
           indexSectedButton = num;
         });
       }
@@ -44,83 +44,81 @@ class _MessagesWidgetState extends State<MessagesWidget> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      color: Color(0xFF141414),
+      color: const Color(0xFF141414),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(30, 50, 30, 0),
+        padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Messages',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 25)),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0)),
-                  Text(
-                    'Retrouvez ici vos discussions.',
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Messages',
                     style: TextStyle(
-                        color: Colors.grey.withOpacity(0.4), fontSize: 15),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, height * 0.01, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          height: 35,
-                          width: width * 0.35,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: colorConfirm,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ), // background// foreground
-                            ),
-                            onPressed: () {
-                              changeSelected(0);
-                            },
-                            child: Text(
-                              "Validées",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25)),
+                const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0)),
+                Text(
+                  'Retrouvez ici vos discussions.',
+                  style: TextStyle(
+                      color: Colors.grey.withOpacity(0.4), fontSize: 15),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, height * 0.01, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        height: 35,
+                        width: width * 0.35,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorConfirm,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ), // background// foreground
+                          ),
+                          onPressed: () {
+                            changeSelected(0);
+                          },
+                          child: const Text(
+                            "Validées",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        SizedBox(
-                          height: 35,
-                          width: width * 0.35,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: colorWaiting,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ), // background// foreground
-                            ),
-                            onPressed: () {
-                              changeSelected(1);
-                            },
-                            child: Text(
-                              "En attente",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
+                      ),
+                      SizedBox(
+                        height: 35,
+                        width: width * 0.35,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorWaiting,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ), // background// foreground
+                          ),
+                          onPressed: () {
+                            changeSelected(1);
+                          },
+                          child: const Text(
+                            "En attente",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(
               child: currentList,
@@ -133,36 +131,37 @@ class _MessagesWidgetState extends State<MessagesWidget> {
 }
 
 class MessagesButtonWidget extends StatelessWidget {
+  const MessagesButtonWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: Column(
           children: [
             Container(
               color: Colors.transparent,
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Row(
                 children: [
                   Container(
                     height: 60,
                     width: 60,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(
                           width: 0, color: Colors.grey.withOpacity(0)),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
                   ),
                   Container(
                     width: width - 160,
-                    margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,38 +208,36 @@ class MessagesButtonWidget extends StatelessWidget {
 }
 
 class ListConfirmedWidget extends StatelessWidget {
+  const ListConfirmedWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return ListView(
-      children: [
-        MessagesButtonWidget(),
-        MessagesButtonWidget(),
-        MessagesButtonWidget(),
-        MessagesButtonWidget(),
-      ],
-    );
+    return ListView(children: const [
+      MessagesButtonWidget(),
+      MessagesButtonWidget(),
+      MessagesButtonWidget(),
+      MessagesButtonWidget(),
+    ]);
   }
 }
 
 class ListWaitingWidget extends StatelessWidget {
+  const ListWaitingWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return ListView(
       children: [
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(PageTransition(
-                duration: Duration(milliseconds: 200),
-                reverseDuration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
+                reverseDuration: const Duration(milliseconds: 200),
                 type: PageTransitionType.rightToLeftWithFade,
                 childCurrent: context.widget,
-                child: ConversationPage()));
+                child: const ConversationPage()));
           },
-          child: MessagesButtonWidget(),
+          child: const MessagesButtonWidget(),
         ),
       ],
     );

@@ -42,12 +42,12 @@ class _MainPageState extends State<MainPage> {
               fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey)),
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minHeight: 100,
             maxHeight: 100,
           ),
           child: NavigationBar(
-            animationDuration: Duration(microseconds: 800),
+            animationDuration: const Duration(microseconds: 800),
             selectedIndex: index,
             height: height * 0.1,
             onDestinationSelected: (index) => setState(() => _index = index),
@@ -77,12 +77,12 @@ class _MainPageState extends State<MainPage> {
               NavigationDestination(
                 icon: Icon(CustomIcons.spot, color: Colors.grey),
                 selectedIcon:
-                Icon(CustomIcons.spot_outline, color: Colors.white),
+                    Icon(CustomIcons.spotOutline, color: Colors.white),
                 label: 'Spots',
               ),
               NavigationDestination(
                 icon: Icon(
-                  CustomIcons.podium_outline,
+                  CustomIcons.podiumOutline,
                   color: Colors.grey,
                 ),
                 label: 'Tops',
@@ -111,7 +111,9 @@ class _MainPageState extends State<MainPage> {
 }
 
 class GradientText extends StatelessWidget {
-  const GradientText(this.text, {super.key,
+  const GradientText(
+    this.text, {
+    super.key,
     required this.gradient,
     this.style,
   });
@@ -124,10 +126,9 @@ class GradientText extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) =>
-          gradient.createShader(
-            Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-          ),
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
       child: Text(text, style: style),
     );
   }

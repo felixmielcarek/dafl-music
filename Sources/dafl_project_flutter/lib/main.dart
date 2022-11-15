@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
@@ -20,7 +19,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static Controller controller = Controller();
-
   static Api api = Api();
 
   const MyApp({super.key});
@@ -29,15 +27,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Paint.enableDithering = true;
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]);
     return ChangeNotifierProvider(
-      create: (context) => CardProvider(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: HomePage(),
-      ),
-    );
+        create: (context) => CardProvider(),
+        child: const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          home: HomePage(),
+        ));
   }
 }
 
@@ -131,19 +129,19 @@ class CardProvider extends ChangeNotifier {
       } else if (y >= delta * 2 && x.abs() < 100) {
         return CardStatus.discovery;
       }
-    } else {
-      const delta = 20;
-
-      if (y <= -delta * 2 && forceDiscovery) {
-        return CardStatus.message;
-      } else if (y >= delta * 2 && x.abs() < 80) {
-        return CardStatus.discovery;
-      } else if (x >= delta) {
-        return CardStatus.like;
-      } else if (x <= -delta) {
-        return CardStatus.disLike;
-      }
     }
+    const delta = 20;
+
+    if (y <= -delta * 2 && forceDiscovery) {
+      return CardStatus.message;
+    } else if (y >= delta * 2 && x.abs() < 80) {
+      return CardStatus.discovery;
+    } else if (x >= delta) {
+      return CardStatus.like;
+    } else if (x <= -delta) {
+      return CardStatus.disLike;
+    }
+    return null;
   }
 
   void dislike() {
@@ -173,18 +171,16 @@ class CardProvider extends ChangeNotifier {
           backgroundColor: Colors.red,
           textColor: Colors.white);
     } else {
-      if (MyApp.controller.currentUser.spots.last != null) {
-        MyApp.controller.currentUser
-            .addDiscovery(MyApp.controller.currentUser.spots.last.music);
-        Fluttertoast.showToast(
-            msg: 'Ajouté',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.TOP,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.deepPurple,
-            textColor: Colors.white);
-        notifyListeners();
-      }
+      MyApp.controller.currentUser
+          .addDiscovery(MyApp.controller.currentUser.spots.last.music);
+      Fluttertoast.showToast(
+          msg: 'Ajouté',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.deepPurple,
+          textColor: Colors.white);
+      notifyListeners();
     }
   }
 
@@ -234,14 +230,14 @@ class CardProvider extends ChangeNotifier {
               spreadRadius: 0.0,
             ), //BoxShadow//BoxShadow
           ],
-          color: Color(0xFF232123),
-          borderRadius: BorderRadius.only(
+          color: const Color(0xFF232123),
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
             topLeft: Radius.circular(30),
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
             children: [
               Container(
@@ -249,10 +245,10 @@ class CardProvider extends ChangeNotifier {
                 width: 130,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFF8A8A8A),
+                  color: const Color(0xFF8A8A8A),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -260,10 +256,10 @@ class CardProvider extends ChangeNotifier {
                 height: 300,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFF302C30),
+                  color: const Color(0xFF302C30),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: TextField(
                     keyboardAppearance: Brightness.dark,
                     controller: messageTextField,
@@ -276,7 +272,7 @@ class CardProvider extends ChangeNotifier {
                     expands: true,
                     maxLines: null,
                     textInputAction: TextInputAction.send,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintStyle: TextStyle(
                         color: Colors.white,
                       ),
@@ -286,7 +282,7 @@ class CardProvider extends ChangeNotifier {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -298,16 +294,16 @@ class CardProvider extends ChangeNotifier {
                         MyApp.controller.currentUser.spots.last.user);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF3F1DC3),
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    backgroundColor: const Color(0xFF3F1DC3),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(17)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Envoyer"),
+                      const Text("Envoyer"),
                       Opacity(
                         opacity: 0.2,
                         child: Image.asset(
@@ -383,27 +379,24 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF141414),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            SizedBox(
-              height: 300,
-              width: 300,
-              child: riv.RiveAnimation.asset('assets/images/new_file (2).riv'),
-            ),
-            SizedBox(height: 50),
-          ],
-        ),
-      ),
-    );
+        backgroundColor: const Color(0xFF141414),
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+              SizedBox(
+                height: 300,
+                width: 300,
+                child:
+                    riv.RiveAnimation.asset('assets/images/new_file (2).riv'),
+              ),
+              SizedBox(height: 50),
+            ])));
   }
 }
 
 Object notify(int index, context, {bool isError = true}) {
   double height = MediaQuery.of(context).size.height;
-  double width = MediaQuery.of(context).size.width;
   String message;
   if (isError == true) {
     switch (index) {
@@ -447,51 +440,44 @@ Object notify(int index, context, {bool isError = true}) {
           clipBehavior: Clip.none,
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(20, height / 110, 20, 0),
-              height: 90,
-              child: Row(
-                children: [
-                  Container(
+                padding: EdgeInsets.fromLTRB(20, height / 110, 20, 0),
+                height: 90,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                      image: AssetImage("assets/images/backgroundNotify.png"),
+                      fit: BoxFit.cover),
+                  gradient: const LinearGradient(
+                      colors: [Color(0xFF81052a), Color(0xFF810548)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(4, 8), // Shadow position
+                    ),
+                  ],
+                ),
+                child: Row(children: [
+                  const SizedBox(
                     height: 48,
                     width: 48,
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        const Text(
                           "Ho ho !",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          message,
-                          style: TextStyle(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/backgroundNotify.png"),
-                    fit: BoxFit.cover),
-                gradient: LinearGradient(
-                    colors: [Color(0xFF81052a), Color(0xFF810548)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: Offset(4, 8), // Shadow position
-                  ),
-                ],
-              ),
-            ),
+                        Text(message,
+                            style: const TextStyle(),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2)
+                      ]))
+                ])),
             Positioned(
                 top: -50,
                 left: -20,

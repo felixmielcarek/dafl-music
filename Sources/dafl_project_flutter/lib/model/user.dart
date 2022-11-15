@@ -1,3 +1,5 @@
+import '../api/track.dart';
+import '../exceptions/api_exception.dart';
 import '../main.dart';
 import 'conversation.dart';
 import 'music.dart';
@@ -13,8 +15,14 @@ class User {
   late String usernameAPI;
   late String passwAPI;
 
+  //attributes with Spotify API
+  late String _id;
+  late Track track;
+
   //constructors
-  User(this.usernameDafl, this.passwDafl);
+  User(this.usernameDafl, this.passwDafl) {
+    _actualiseTrack();
+  }
 
   User.name(this.usernameDafl);
 
@@ -53,6 +61,15 @@ class User {
 
   void displayConversations() {
     conversations.forEach((k, v) => v.displayMessages());
+  }
+
+  _actualiseTrack() async {
+    try {
+      _id = await MyApp.api.getRecentlyPlayedTrack();
+      track = await MyApp.api.getTrackInfo(_id);
+    } on ApiException {
+      // TODO : add notification to show that an error occured
+    }
   }
 
   @override

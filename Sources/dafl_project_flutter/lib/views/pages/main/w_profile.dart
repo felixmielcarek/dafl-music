@@ -28,15 +28,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
   String? username = MyApp.controller.currentUser.usernameDafl;
 
   @override
-  void initState() {
+  initState() {
+    username = MyApp.controller.currentUser.usernameDafl;
     super.initState();
-    String username = MyApp.controller.currentUser.usernameDafl ?? "default";
   }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Container(
       color: const Color(0xFF141414),
       child: SizedBox(
@@ -56,36 +55,32 @@ class _MainPageProfilState extends State<MainPageProfil> {
                       fontFamily: "DMSans")),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              height: height * 0.14,
-              width: height * 0.14,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100.0),
-                color: Colors.blue,
-                border: Border.all(width: 6.0, color: Colors.white),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(0, 0),
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    color: Color.fromRGBO(0, 0, 0, 1),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  username![0],
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                height: height * 0.14,
+                width: height * 0.14,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100.0),
+                  color: Colors.blue,
+                  border: Border.all(width: 6.0, color: Colors.white),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 0),
+                      spreadRadius: 5,
+                      blurRadius: 10,
+                      color: Color.fromRGBO(0, 0, 0, 1),
+                    ),
+                  ],
                 ),
-              ),
-            ),
+                child: Center(
+                    child: Text(username![0],
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 60,
+                            fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.center))),
             Text(
               username!,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
                   fontWeight: FontWeight.w400),
@@ -229,34 +224,32 @@ class _MainPageProfilState extends State<MainPageProfil> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: FadeInImage.assetNetwork(
-                                height: 90,
-                                width: 90,
-                                placeholder:
-                                    "assets/images/loadingPlaceholder.gif",
-                                image:
-                                    'https://images.genius.com/ef4849be3da5fdb22ea9e656679be3a3.600x600x1.jpg'),
-                          ),
-                        ),
+                            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: FadeInImage.assetNetwork(
+                                    height: 90,
+                                    width: 90,
+                                    placeholder:
+                                        "assets/images/loadingPlaceholder.gif",
+                                    image: MyApp.controller.currentUser.track
+                                        .albumImage))),
                         Container(
                           margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                'BAMBINA',
-                                style: TextStyle(
+                                MyApp.controller.currentUser.track.name,
+                                style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
                               Text(
-                                'PNL',
-                                style: TextStyle(
+                                MyApp.controller.currentUser.track.artist,
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey),
@@ -294,10 +287,10 @@ class _MainPageProfilState extends State<MainPageProfil> {
                       Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SettingsWidget()))
+                                  builder: (context) => const SettingsWidget()))
                           .then((value) => setState(() {
                                 username =
-                                    MyApp.controller.currentUser.usernameDafl!;
+                                    MyApp.controller.currentUser.usernameDafl;
                               }));
                     },
                     child: Row(

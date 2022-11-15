@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dafl_project_flutter/main.dart';
 import 'package:dafl_project_flutter/model/user.dart';
-import 'package:dafl_project_flutter/views/pages/main/w_messages.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:dafl_project_flutter/model/message.dart';
+import 'dart:developer' as dev;
 
 class ConversationPage extends StatefulWidget {
   const ConversationPage({Key? key}) : super(key: key);
@@ -14,41 +12,41 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  User destinataire = new User("test1", '1234');
+  User destinataire = User("test1", '1234');
   List<Widget> messages = [];
   bool isNull = true;
 
   final messageTextField = TextEditingController();
 
-  void SendMessage(String content) {
+  void sendMessage(String content) {
     setState(() {
       messages
-          .add(MessageWidget(Message(MyApp.controller.currentUser, content)));
+          .add(messageWidget(Message(MyApp.controller.currentUser, content)));
     });
   }
 
-  Widget MessageWidget(Message message) {
+  Widget messageWidget(Message message) {
     if (message.sender != MyApp.controller.currentUser) {
       return Align(
         alignment: Alignment.centerLeft,
         child: Container(
-          margin: EdgeInsets.fromLTRB(40, 7, 80, 7),
+          margin: const EdgeInsets.fromLTRB(40, 7, 80, 7),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(20),
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
               bottomLeft: Radius.circular(20),
             ),
             border: Border.all(
-                width: 1.5, color: Color(0xFF9C9C9C).withOpacity(0.3)),
-            color: Color(0xFF191919),
+                width: 1.5, color: const Color(0xFF9C9C9C).withOpacity(0.3)),
+            color: const Color(0xFF191919),
           ),
           child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+              padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
               child: Text(
                 message.content,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: 'DMSans',
                     color: Colors.white,
                     fontSize: 15,
@@ -60,8 +58,8 @@ class _ConversationPageState extends State<ConversationPage> {
       return Align(
         alignment: Alignment.centerRight,
         child: Container(
-          margin: EdgeInsets.fromLTRB(80, 7, 40, 7),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.fromLTRB(80, 7, 40, 7),
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(20),
               bottomLeft: Radius.circular(20),
@@ -71,10 +69,10 @@ class _ConversationPageState extends State<ConversationPage> {
             color: Color(0xFF2F2F2F),
           ),
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Text(
               message.content,
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: 'DMSans',
                   color: Colors.white,
                   fontSize: 15,
@@ -90,7 +88,7 @@ class _ConversationPageState extends State<ConversationPage> {
   void initState() {
     super.initState();
     messageTextField.addListener(_checkIfNull);
-    print("INITSATE");
+    dev.log("INITSATE");
   }
 
   @override
@@ -100,7 +98,7 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   void _checkIfNull() {
-    if (messageTextField.text.length > 0) {
+    if (messageTextField.text.isNotEmpty) {
       setState(() {
         isNull = false;
       });
@@ -122,67 +120,65 @@ class _ConversationPageState extends State<ConversationPage> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 20,
-        backgroundColor: Color(0xFF141414),
+        backgroundColor: const Color(0xFF141414),
         toolbarHeight: 70,
-        title: Container(
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.blue,
-                ),
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: Colors.blue,
               ),
-              SizedBox(
-                width: 20,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            const Text("Max"),
+            const Spacer(),
+            IconButton(
+              splashColor: Colors.grey.withOpacity(0.2),
+              splashRadius: 30,
+              onPressed: () {
+                showModalBottomSheet(
+                  isDismissible: true,
+                  useRootNavigator: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  constraints: const BoxConstraints(
+                    maxWidth: 600,
+                    maxHeight: double.infinity,
+                  ),
+                  builder: (context) => buildSheet(),
+                );
+              },
+              icon: Icon(
+                Icons.report_problem,
+                color: Colors.grey.withOpacity(0.3),
+                size: 25,
               ),
-              Text("Max"),
-              Spacer(),
-              IconButton(
-                splashColor: Colors.grey.withOpacity(0.2),
-                splashRadius: 30,
-                onPressed: () {
-                  showModalBottomSheet(
-                    isDismissible: true,
-                    useRootNavigator: true,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    constraints: BoxConstraints(
-                      maxWidth: 600,
-                      maxHeight: double.infinity,
-                    ),
-                    builder: (context) => buildSheet(),
-                  );
-                },
-                icon: Icon(
-                  Icons.report_problem,
-                  color: Colors.grey.withOpacity(0.3),
-                  size: 25,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-            color: Color(0xFF141414),
+            color: const Color(0xFF141414),
             height: height * 0.92,
             width: double.infinity,
             child: ListView.builder(
                 controller: listScrollController,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   return messages[index];
                 })),
       ),
       bottomSheet: BottomAppBar(
-        color: Color(0xFF141414),
+        color: const Color(0xFF141414),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -192,20 +188,20 @@ class _ConversationPageState extends State<ConversationPage> {
               color: Colors.transparent,
               width: width * 0.9,
               child: Container(
-                margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
-                    color: Color(0xFF2F2F2F),
+                    color: const Color(0xFF2F2F2F),
                   ),
                   borderRadius: BorderRadius.circular(100),
-                  color: Color(0xFF141414),
+                  color: const Color(0xFF141414),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: TextField(
                     controller: messageTextField,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintStyle:
                           TextStyle(color: Colors.white.withOpacity(0.7)),
@@ -222,7 +218,7 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: isNull
                   ? null
                   : () {
-                      SendMessage(messageTextField.text);
+                      sendMessage(messageTextField.text);
                       if (listScrollController.hasClients) {
                         final position =
                             listScrollController.position.maxScrollExtent;
@@ -231,24 +227,24 @@ class _ConversationPageState extends State<ConversationPage> {
                       messageTextField.clear();
                     },
               child: isNull == true
-                  ? Container(
+                  ? const SizedBox(
                       height: 1,
                       width: 1,
                     )
                   : Container(
                       width: 40,
                       height: 40,
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [Color(0xff8e24a1), Color(0xff8163ff)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )),
                       child: Transform.rotate(
                         angle: -300,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           size: 26,
                           color: Colors.white,
@@ -262,8 +258,6 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   Widget buildSheet() {
-    String dropdownValue = list.first;
-    final messageTextField = TextEditingController();
     return SingleChildScrollView(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -288,14 +282,14 @@ class _ConversationPageState extends State<ConversationPage> {
               spreadRadius: 0.0,
             ), //BoxShadow//BoxShadow
           ],
-          color: Color(0xFF232123),
-          borderRadius: BorderRadius.only(
+          color: const Color(0xFF232123),
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
             topLeft: Radius.circular(30),
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -304,10 +298,10 @@ class _ConversationPageState extends State<ConversationPage> {
                 width: 130,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFF8A8A8A),
+                  color: const Color(0xFF8A8A8A),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: Text(
                   'Signaler',
@@ -318,14 +312,14 @@ class _ConversationPageState extends State<ConversationPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade900,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       'Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.',
                       style: TextStyle(color: Colors.grey),
@@ -339,11 +333,11 @@ class _ConversationPageState extends State<ConversationPage> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.07),
@@ -359,7 +353,7 @@ class _ConversationPageState extends State<ConversationPage> {
                               fontWeight: FontWeight.w200),
                           maxLines: 3,
                           textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: '* Commentaires',
                             hintStyle: TextStyle(
                               fontSize: 15,
@@ -371,18 +365,18 @@ class _ConversationPageState extends State<ConversationPage> {
                       ),
                     ],
                   )),
-              Spacer(),
+              const Spacer(),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: SizedBox(
                   width: double.infinity,
                   height: 70,
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                      textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      backgroundColor: Colors.red,
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(17)),
                     ),
@@ -396,7 +390,7 @@ class _ConversationPageState extends State<ConversationPage> {
                               size: 100,
                               color: Colors.white.withOpacity(0.2),
                             )),
-                        Center(
+                        const Center(
                           child: Text("Envoyer le signalement"),
                         ),
                       ],

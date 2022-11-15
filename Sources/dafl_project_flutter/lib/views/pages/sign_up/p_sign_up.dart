@@ -43,10 +43,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   'assets/images/Logo.png',
                   width: 250,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 45,
                 ),
-                Text(
+                const Text(
                   "S'INSCRIRE",
                   style: TextStyle(
                       fontFamily: 'DMSans',
@@ -55,36 +55,37 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontWeight: FontWeight.w700),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
                     width: 500,
-                    padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                    padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),
                     child: Stack(
                       children: [
                         Container(
                           height: 43,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
                                 spreadRadius: 5,
                                 blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                          padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                           child: TextField(
                             keyboardAppearance: Brightness.dark,
                             controller: userNameTextField,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                             cursorColor: Colors.purple,
@@ -92,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
                           child: Image.asset(
                             'assets/images/profil_logo.png',
                             height: 16,
@@ -104,32 +105,33 @@ class _SignUpPageState extends State<SignUpPage> {
                     )),
                 Container(
                     width: 500,
-                    padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                    padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                     child: Stack(
                       children: [
                         Container(
                           height: 43,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50)),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
                                 spreadRadius: 5,
                                 blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(50, 0, 20, 0),
+                          padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                           child: TextField(
                             keyboardAppearance: Brightness.dark,
                             controller: passwordTextField,
                             obscureText: true,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                             cursorColor: Colors.purple,
@@ -137,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(15, 12, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(15, 12, 0, 0),
                           child: Image.asset(
                             'assets/images/password_logo.png',
                             height: 16,
@@ -149,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     )),
                 Container(
                     width: 500,
-                    padding: EdgeInsets.fromLTRB(45, 10, 45, 0),
+                    padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                     child: Stack(
                       children: [
                         Container(
@@ -157,13 +159,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
+                                    const BorderRadius.all(Radius.circular(50)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.3),
                                     spreadRadius: 5,
                                     blurRadius: 7,
-                                    offset: Offset(
+                                    offset: const Offset(
                                         0, 3), // changes position of shadow
                                   ),
                                 ])),
@@ -349,7 +351,7 @@ class _SignUpPageState extends State<SignUpPage> {
             reverseDuration: const Duration(milliseconds: 300),
             type: PageTransitionType.leftToRightJoined,
             childCurrent: widget,
-            child: HomePage()),
+            child: const HomePage()),
       );
     }
   }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../main.dart';
-import '../../../model/music.dart';
-import '../../../model/user.dart';
 import '../sign_up/p_sign_up.dart';
 
 class SignInPage extends StatefulWidget {
@@ -15,11 +13,11 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   var boxColor = Colors.white;
 
-  @override
   bool isChecked = false;
   final userNameTextField = TextEditingController();
   final passwordTextField = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -148,7 +146,7 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,43 +177,39 @@ class _SignInPageState extends State<SignInPage> {
                 height: 50,
               ),
               ClipRRect(
-                borderRadius: BorderRadius.circular(22),
-                child: Material(
-                  child: InkWell(
-                    highlightColor: Colors.grey.shade100,
-                    splashColor: const Color(0xFF406DE1),
-                    onTap: () {
-                      checkInformations(
-                          userNameTextField.text, passwordTextField.text);
-                    },
-                    child: Ink(
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.check,
-                          color: Color(0xFF406DE1),
-                          size: 60.0,
-                        ),
-                      ),
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      width: 83,
-                      height: 83,
-                      decoration: BoxDecoration(
-                        color: Colors.white, // Set rounded corner radius
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(22),
+                  child: Material(
+                      child: InkWell(
+                          highlightColor: Colors.grey.shade100,
+                          splashColor: const Color(0xFF406DE1),
+                          onTap: () {
+                            checkInformations(
+                                userNameTextField.text, passwordTextField.text);
+                          },
+                          child: Ink(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              width: 83,
+                              height: 83,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                // Set rounded corner radius
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: const Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Color(0xFF406DE1),
+                                    size: 60.0,
+                                  )))))),
               const SizedBox(
                 height: 100,
               ),
