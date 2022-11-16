@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../api/track.dart';
 import '../../../position/location.dart';
 import '../../../presentation/custom_icons_icons.dart';
 import './w_settings.dart';
@@ -9,6 +10,8 @@ import './w_profile.dart';
 import './w_messages.dart';
 import 'w_top.dart';
 Timer? timer;
+int test=0;
+
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,8 +35,14 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    Location.sendCurrentLocation();
-    timer = Timer.periodic(const Duration(seconds: 72), (Timer t) => Location.sendCurrentLocation());
+    Future<String>? rep;
+    if (test==0){
+      rep = Location.sendCurrentLocation();
+      //List<Track> tracklist = Location.getTrackList(rep);
+      Location.getTrackList(rep);
+      test=0;
+    }
+    timer = Timer.periodic(const Duration(seconds: 10), (Timer t) => rep = Location.sendCurrentLocation());
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
