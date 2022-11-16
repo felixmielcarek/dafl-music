@@ -27,7 +27,9 @@ class MyInAppBrowser extends InAppBrowser {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       try {
         await MyApp.api.requestUserAuthorization(url);
-        await MyApp.api.getPlaylist();
+        //TODO : finir d'implémenter : addToPlaylist
+        //var id = await MyApp.api.getCurrentlyPlayingTrack();
+        //await MyApp.api.addToPLaylist(id);
       } on ApiException {
         // TODO : add notification to show that an error occured
       } finally {

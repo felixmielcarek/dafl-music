@@ -14,19 +14,23 @@ class Api {
   //for web api
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
   final _scopes =
-      'user-read-playback-state user-read-currently-playing user-read-recently-played';
+      'user-read-playback-state user-read-currently-playing user-read-recently-played playlist-modify-public';
   late String _state;
   dynamic _codeVerifier;
   dynamic _codeChallenge;
   late String _encodedLogs;
   final _tokenType = 'Bearer ';
   late http.Response _response; //use _setResponse() as kind of a private setter
+  final _playlistName = "Dafl's discovery";
+
+  //final _playlistName = 'daflmusic';
 
   //from web api
   String? _code;
   int? _expiresIn;
   String? _refreshToken;
-  String? _accessToken; //use _getToken() as kind of a private getter
+  String? _accessToken; //use _getAccessToken() as kind of a private getter
+  String? _idUser; //use _getIdUser() as kind of a private getter
 
   //other
   final _client = http.Client();
@@ -66,14 +70,17 @@ class Api {
   }
 
   _generateCodeChallenge() {
-    return base64UrlEncode(sha256.convert(utf8.encode(_codeVerifier)).bytes);
+    return base64Encode(sha256.convert(utf8.encode(_codeVerifier)).bytes)
+        .replaceAll('+', '-')
+        .replaceAll('/', '_')
+        .replaceAll('=', '');
   }
 
   //session management
 
   requestUserAuthorization(Uri url) async {
     if (url.queryParameters['state'] != _state.toString()) {
-      throw ApiException();
+      throw ApiException('state');
     }
     _code = url.queryParameters['code'];
     await _requestAccessToken();
@@ -111,8 +118,9 @@ class Api {
   }
 
   _setResponse(value) {
-    if (value.statusCode != 200) {
-      throw ApiException();
+    int sc = value.statusCode;
+    if (sc >= 300) {
+      throw ApiException(sc);
     }
     _response = value;
   }
@@ -172,11 +180,15 @@ class Api {
         decodedResponse['album']['images'][0]['url']);
   }
 
-  addToPLaylist() {
-    //if playlist DaflMusic doesn't exist
+  addToPLaylist(String id) async {
+    var res = await _getPlaylist();
+    if (!res) {
+      await _createPlaylist();
+    }
+    //TODO : add to playlist
   }
 
-  getPlaylist() async {
+  dynamic _getPlaylist() async {
     var url = Uri.https('api.spotify.com', 'v1/me/playlists', {'limit': '50'});
     var token = await _getAccessToken();
     _setResponse(await _client.get(url, headers: <String, String>{
@@ -184,9 +196,51 @@ class Api {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
-    dev.log(decodedResponse['items'].toString());
-    dev.log(decodedResponse['items']
-        .where((element) => element['name'] == 'daflmusic')
-        .toString());
+    var daflplaylist = decodedResponse['items']
+        .where((element) => element['name'] == _playlistName)
+        .toList();
+    if (daflplaylist.length == 1) {
+      return daflplaylist[0]['uri'].substring(
+          17); //17 char because format is 'spotify:playlist:MYPLAYLISTID'
+    }
+    return false;
+  }
+
+  _createPlaylist() async {
+    var token = await _getAccessToken();
+    var id = await _getIdUser();
+    var url = Uri.https('api.spotify.com', 'v1/users/$id/playlists');
+    _setResponse(await _client.post(url,
+        headers: <String, String>{
+          'Accept': 'application/json',
+          'Authorization': '$_tokenType $token',
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode(<String, String>{
+          'name': _playlistName,
+          'description':
+              'Retrouvez toutes vos découvertes faites sur DaflMusic 🎵',
+          'public': 'true'
+        })));
+    var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
+    _idUser = decodedResponse['id'];
+  }
+
+  Future<String> _getIdUser() async {
+    if (_idUser == null) {
+      await _getIdUserApi();
+    }
+    return _idUser!;
+  }
+
+  _getIdUserApi() async {
+    var url = Uri.https('api.spotify.com', 'v1/me');
+    var token = await _getAccessToken();
+    _setResponse(await _client.get(url, headers: <String, String>{
+      'Authorization': '$_tokenType $token',
+      'Content-Type': 'application/json'
+    }));
+    var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
+    _idUser = decodedResponse['id'];
   }
 }

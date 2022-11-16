@@ -11,10 +11,6 @@ class User {
   late String usernameDafl;
   late String passwDafl;
 
-  //attributes to link with API
-  late String usernameAPI;
-  late String passwAPI;
-
   //attributes with Spotify API
   late String _id;
   late Track track;
