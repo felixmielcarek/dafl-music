@@ -1,8 +1,8 @@
+import 'dart:developer';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
 import '../main.dart';
 
 class Location {
@@ -18,13 +18,16 @@ class Location {
       }
     }
     String actualUser = MyApp.controller.currentUser.usernameDafl;
+    String actualSong = await MyApp.api.getCurrentlyPlayingTrack();
     Position current = await Geolocator.getCurrentPosition();
     await http.post(uri, body: {
       "id": actualUser.toString(),
       "latitude": current.latitude.toString(),
       "longitude": current.longitude.toString(),
+      // "idMusic": actualSong,
     });
-    return getData();
+    log(actualSong);
+     return getData();
   }
 
   static Future getData() async {
