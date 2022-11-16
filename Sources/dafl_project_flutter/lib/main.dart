@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         create: (context) => CardProvider(),
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Dafl Music',
           home: HomePage(),
         ));
   }

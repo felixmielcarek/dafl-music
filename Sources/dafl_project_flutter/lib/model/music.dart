@@ -1,19 +1,29 @@
-class Music{
-  String name;
-  String artist;
-  String linkCover;
+import '../exceptions/api_exception.dart';
+import '../main.dart';
 
-  Music(this.name, this.artist, this.linkCover);
+class Music {
+  late String _name;
+  late String _artist;
+  late String _linkCover;
+  final String _id;
 
+  Music(this._id) {
+    _completeInfo();
+  }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Music &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          artist == other.artist;
+  String get name => _name;
+  String get artist => _artist;
+  String get linkCover => _linkCover;
+  String get id => _id;
 
-  @override
-  int get hashCode => name.hashCode ^ artist.hashCode;
+  _completeInfo() async {
+    try {
+      var info = await MyApp.api.getTrackInfo(_id);
+      _name = info['name'];
+      _artist = info['artist'];
+      _linkCover = info['cover'];
+    } on ApiException {
+      // TODO : add notification to show that an error occured
+    }
+  }
 }

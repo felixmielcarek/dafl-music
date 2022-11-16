@@ -232,8 +232,8 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                     width: 90,
                                     placeholder:
                                         "assets/images/loadingPlaceholder.gif",
-                                    image: MyApp.controller.currentUser.track
-                                        .albumImage))),
+                                    image: MyApp.controller.currentUser
+                                        .currentMusic.linkCover))),
                         Container(
                           margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
                           child: Column(
@@ -241,14 +241,15 @@ class _MainPageProfilState extends State<MainPageProfil> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                MyApp.controller.currentUser.track.name,
+                                MyApp.controller.currentUser.currentMusic.name,
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
                               Text(
-                                MyApp.controller.currentUser.track.artist,
+                                MyApp
+                                    .controller.currentUser.currentMusic.artist,
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,

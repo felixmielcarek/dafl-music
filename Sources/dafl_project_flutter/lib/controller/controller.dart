@@ -4,48 +4,34 @@ import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
 import '../persistence/database_searcher.dart';
 import '../persistence/loader.dart';
-
 import '../persistence/saver.dart';
 import '../model/user.dart';
 import '../persistence/searcher.dart';
 
 class Controller {
-  static Controller? _this;
-
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
 
-  User currentUser = User("", "");
-
-  factory Controller() {
-    _this ??= Controller._();
-    return _this!;
-  }
-
-  Controller._();
+  late User currentUser;
 
   void save(User userToSave) {
     saver.save(userToSave);
   }
 
   Future<void> load(String username, String password) async {
-    changeCurrentUser(await loader.load(username, password));
+    _changeCurrentUser(await loader.load(username, password));
   }
 
-  User createUser(String username, String password) {
-    return User(username, password);
-  }
-
-  void changeCurrentUser(User user) {
+  void _changeCurrentUser(User user) {
     currentUser = user;
   }
 
-  void changeUsernameCourant(String newName) {
+  void changeCurrentUsername(String newName) {
     currentUser.usernameDafl = newName;
   }
 
-  void changePasswordCourant(String newPass) {
+  void changeCurrentPassword(String newPass) {
     currentUser.passwDafl = newPass;
   }
 
@@ -53,7 +39,7 @@ class Controller {
     return await _searcher.searchByUsername(username);
   }
 
-  void chargeExample() {
+  /*void chargeExample() {
     currentUser.spots = [
       Spot(
           User('Félix', '1234'),
@@ -84,5 +70,5 @@ class Controller {
           Music('Paradis', 'Sopico',
               'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg')),
     ].reversed.toList();
-  }
+  }*/
 }

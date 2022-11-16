@@ -1,4 +1,3 @@
-import '../api/track.dart';
 import '../exceptions/api_exception.dart';
 import '../main.dart';
 import 'conversation.dart';
@@ -12,29 +11,28 @@ class User {
   late String passwDafl;
 
   //attributes with Spotify API
-  late String _id;
-  late Track track;
+  String? _idSpotify; //use _getIdUser() as kind of a private getter
+  late Music _currentMusic;
 
-  //constructors
-  User(this.usernameDafl, this.passwDafl) {
-    _actualiseTrack();
-  }
-
-  User.name(this.usernameDafl);
-
-  User.fromDatabase(this.idDafl, this.usernameDafl);
-
-  //lists
   Set<User> likedUsers = {};
   List<Music> discovery = [];
   List<Conversation> waitingConv = [];
   List<Conversation> confirmConv = [];
 
-  Music currentSong = Music('Couleurs', 'Khali',
-      'https://khaligidilit.com/assets/images/cover-LAI%CC%88LA-Khali.jpeg');
-
   List<Spot> spots = [];
   Map<User, Conversation> conversations = {};
+
+  //constructors
+  User(this.usernameDafl, this.passwDafl) {
+    _actualiseCurrentMusic();
+  }
+
+  Music get currentMusic => _currentMusic; //lists
+
+  Future<String> getIdSpotify() async {
+    _idSpotify ??= await MyApp.api.getIdUser();
+    return _idSpotify!;
+  }
 
   void addDiscovery(Music newmusic) {
     MyApp.controller.currentUser.discovery.add(newmusic);
@@ -59,10 +57,9 @@ class User {
     conversations.forEach((k, v) => v.displayMessages());
   }
 
-  _actualiseTrack() async {
+  _actualiseCurrentMusic() async {
     try {
-      _id = await MyApp.api.getCurrentlyPlayingTrack();
-      track = await MyApp.api.getTrackInfo(_id);
+      _currentMusic = Music(await MyApp.api.getCurrentlyPlayingTrack());
     } on ApiException {
       // TODO : add notification to show that an error occured
     }

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'dart:developer' as dev;
 import '../exceptions/api_exception.dart';
-import 'track.dart';
 
 class Api {
   //from dashboard
@@ -23,14 +23,11 @@ class Api {
   late http.Response _response; //use _setResponse() as kind of a private setter
   final _playlistName = "Dafl's discovery";
 
-  //final _playlistName = 'daflmusic';
-
   //from web api
   String? _code;
   int? _expiresIn;
   String? _refreshToken;
   String? _accessToken; //use _getAccessToken() as kind of a private getter
-  String? _idUser; //use _getIdUser() as kind of a private getter
 
   //other
   final _client = http.Client();
@@ -105,16 +102,11 @@ class Api {
     _refreshToken = decodedResponse['refresh_token'];
   }
 
-  //handle 401 status code (bad or expired token)
   Future<String?> _getAccessToken() async {
-    await _tokenValidity();
-    return _accessToken;
-  }
-
-  _tokenValidity() async {
     if (DateTime.now().isAfter(_tokenEnd!)) {
       await _getRefreshedAccessToken();
     }
+    return _accessToken;
   }
 
   _setResponse(value) {
@@ -168,7 +160,7 @@ class Api {
     return decodedResponse['items'][0]['track']['id'];
   }
 
-  Future<Track> getTrackInfo(String id) async {
+  Future<Map> getTrackInfo(String id) async {
     var url = Uri.https('api.spotify.com', 'v1/tracks/$id');
     var token = await _getAccessToken();
     _setResponse(await _client.get(url, headers: <String, String>{
@@ -176,16 +168,19 @@ class Api {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
-    return Track(decodedResponse['artists'][0]['name'], decodedResponse['name'],
-        decodedResponse['album']['images'][0]['url']);
+    Map<String, String> info = {
+      'artist': decodedResponse['artists'][0]['name'],
+      'name': decodedResponse['name'],
+      'cover': decodedResponse['album']['images'][0]['url']
+    };
+    return info;
   }
 
   addToPLaylist(String id) async {
-    var res = await _getPlaylist();
+    dynamic res = await _getPlaylist();
     if (!res) {
-      await _createPlaylist();
+      res = await _createPlaylist();
     }
-    //TODO : add to playlist
   }
 
   dynamic _getPlaylist() async {
@@ -207,9 +202,9 @@ class Api {
   }
 
   _createPlaylist() async {
+    var idUser = await MyApp.controller.currentUser.getIdSpotify();
     var token = await _getAccessToken();
-    var id = await _getIdUser();
-    var url = Uri.https('api.spotify.com', 'v1/users/$id/playlists');
+    var url = Uri.https('api.spotify.com', 'v1/users/$idUser/playlists');
     _setResponse(await _client.post(url,
         headers: <String, String>{
           'Accept': 'application/json',
@@ -223,17 +218,10 @@ class Api {
           'public': 'true'
         })));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
-    _idUser = decodedResponse['id'];
+    return decodedResponse['id'];
   }
 
-  Future<String> _getIdUser() async {
-    if (_idUser == null) {
-      await _getIdUserApi();
-    }
-    return _idUser!;
-  }
-
-  _getIdUserApi() async {
+  Future<String> getIdUser() async {
     var url = Uri.https('api.spotify.com', 'v1/me');
     var token = await _getAccessToken();
     _setResponse(await _client.get(url, headers: <String, String>{
@@ -241,6 +229,6 @@ class Api {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
-    _idUser = decodedResponse['id'];
+    return decodedResponse['id'];
   }
 }

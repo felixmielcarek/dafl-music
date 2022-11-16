@@ -329,7 +329,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ]));
   }
 
-  Future<void> checkInformations(
+  checkInformations(
       String username, String password, String confirmPassword) async {
     if (username == "") {
       notify(2, context);
