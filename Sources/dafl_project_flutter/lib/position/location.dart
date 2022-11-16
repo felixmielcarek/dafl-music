@@ -24,10 +24,9 @@ class Location {
       "id": actualUser.toString(),
       "latitude": current.latitude.toString(),
       "longitude": current.longitude.toString(),
-      // "idMusic": actualSong,
+      "idMusic": actualSong.toString(),
     });
-    log(actualSong);
-     return getData();
+    return getData();
   }
 
   static Future getData() async {
