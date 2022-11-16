@@ -15,6 +15,10 @@ class Controller {
 
   late User currentUser;
 
+  Controller() {
+    currentUser = User('', ''); //TODO : remove this line
+  }
+
   void save(User userToSave) {
     saver.save(userToSave);
   }
