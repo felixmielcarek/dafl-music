@@ -39,7 +39,6 @@ class Api {
     _state = _generateRandomString(16);
     _codeVerifier = _generateRandomString(_generateRandomInt(43, 128));
     _codeChallenge = _generateCodeChallenge();
-    dev.log(_codeChallenge);
     _encodedLogs = base64.encode(utf8.encode("$_clientId:$_clientSecret"));
     _urlAuthorize = Uri.https('accounts.spotify.com', 'authorize', {
       'client_id': _clientId,
@@ -67,11 +66,7 @@ class Api {
   }
 
   _generateCodeChallenge() {
-    //care : base64Url doesn't work
-    return base64Encode(sha256.convert(utf8.encode(_codeVerifier)).bytes)
-        .replaceAll('+', '-')
-        .replaceAll('/', '_')
-        .replaceAll('=', '');
+    return base64UrlEncode(sha256.convert(utf8.encode(_codeVerifier)).bytes);
   }
 
   //session management
@@ -177,7 +172,11 @@ class Api {
         decodedResponse['album']['images'][0]['url']);
   }
 
-  getPlaylists() async {
+  addToPLaylist() {
+    //if playlist DaflMusic doesn't exist
+  }
+
+  getPlaylist() async {
     var url = Uri.https('api.spotify.com', 'v1/me/playlists', {'limit': '50'});
     var token = await _getAccessToken();
     _setResponse(await _client.get(url, headers: <String, String>{
@@ -185,6 +184,7 @@ class Api {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
+    dev.log(decodedResponse['items'].toString());
     dev.log(decodedResponse['items']
         .where((element) => element['name'] == 'daflmusic')
         .toString());
