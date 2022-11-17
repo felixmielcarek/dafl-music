@@ -1,9 +1,8 @@
 import 'music.dart';
-import 'user.dart';
 
 class Spot {
-  User user;
+  String userId;
   Music music;
 
-  Spot(this.user, this.music);
+  Spot(this.userId, this.music);
 }

@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'dart:async';
 import '../main.dart';
 
-
-
 class Location {
   static Future<String> sendCurrentLocation() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
@@ -34,13 +32,9 @@ class Location {
     String actualUser = MyApp.controller.currentUser.usernameDafl;
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
     http.Response response = await http.post(uri, body: {
-      "id": actualUser.toString(),
+      "id": actualUser,
     });
     var data = jsonDecode(response.body);
     return data.toString();
   }
-
-
 }
-
-

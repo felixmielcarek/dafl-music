@@ -258,7 +258,6 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   Widget buildSheet() {
-    String? currentvalue;
     final messageTextField = TextEditingController();
     return SingleChildScrollView(
       padding:
@@ -321,7 +320,7 @@ class _ConversationPageState extends State<ConversationPage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       'Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.',
                       style: TextStyle(color: Colors.grey),
@@ -375,7 +374,8 @@ class _ConversationPageState extends State<ConversationPage> {
                   height: 70,
                   child: ElevatedButton(
                     onPressed: () {
-                      MyApp.controller.sendEmail(MyApp.controller.currentUser, destinataire, currentValue, messageTextField.text);
+                      MyApp.controller.sendEmail(MyApp.controller.currentUser,
+                          destinataire, currentValue, messageTextField.text);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
@@ -412,6 +412,8 @@ class _ConversationPageState extends State<ConversationPage> {
 }
 
 class DropdownButtonReason extends StatefulWidget {
+  const DropdownButtonReason({super.key});
+
   @override
   State<DropdownButtonReason> createState() => _DropdownButtonReasonState();
 }
@@ -424,7 +426,6 @@ const List<String> list = <String>[
 ];
 
 String currentValue = list[0];
-
 
 class _DropdownButtonReasonState extends State<DropdownButtonReason> {
   String dropdownValue = list.first;
@@ -448,7 +449,7 @@ class _DropdownButtonReasonState extends State<DropdownButtonReason> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
-          currentValue = value!;
+          currentValue = value;
         });
       },
       items: list.map<DropdownMenuItem<String>>((String value) {

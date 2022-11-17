@@ -1,6 +1,7 @@
 import 'package:dafl_project_flutter/main.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as dev;
 
 class DiscoveryWidget extends StatefulWidget {
   const DiscoveryWidget({Key? key}) : super(key: key);
@@ -115,7 +116,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
                   },
                   onDismissed: (direction) {
                     if (direction == DismissDirection.startToEnd) {
-                      print('play');
+                      dev.log('play');
                     }
                   },
                   background: Container(

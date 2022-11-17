@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:ui';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
 import './views/pages/main/p_main.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
 import 'model/spot.dart';
-import 'model/user.dart';
 import 'api/api.dart';
 import 'dart:developer' as dev;
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -163,61 +161,55 @@ class CardProvider extends ChangeNotifier {
     dev.log("discovery");
     showToastWidget(
       ClipRRect(
-        borderRadius: BorderRadius.circular(25),
-        child: new BackdropFilter(
-          filter: new ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-          child: new Container(
-            width: 300.0,
-            height: 70.0,
-            decoration: new BoxDecoration(
-              color: Colors.grey.shade900.withOpacity(0.7),
-            ),
-            child: new Center(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MyApp.controller.currentUser.discovery
-                        .contains(MyApp.controller.currentUser.spots.last.music)
-                    ? Icon(
-                        Icons.info_rounded,
-                        size: 40,
-                        color: Colors.grey,
-                      )
-                    : Icon(
-                        Icons.check_rounded,
-                        size: 40,
-                        color: Colors.grey,
-                      ),
-                SizedBox(
-                  width: 10,
-                ),
-                MyApp.controller.currentUser.discovery
-                        .contains(MyApp.controller.currentUser.spots.last.music)
-                    ? Text(
-                        "Déjà dans vos discovery",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17),
-                      )
-                    : Text(
-                        "Ajouté à discovery",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17),
-                      ),
-              ],
-            )),
-          ),
-        ),
-      ),
+          borderRadius: BorderRadius.circular(25),
+          child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+              child: Container(
+                  width: 300.0,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade900.withOpacity(0.7),
+                  ),
+                  child: Center(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                        MyApp.controller.currentUser.discovery.contains(
+                                MyApp.controller.currentUser.spots.last.music)
+                            ? const Icon(
+                                Icons.info_rounded,
+                                size: 40,
+                                color: Colors.grey,
+                              )
+                            : const Icon(
+                                Icons.check_rounded,
+                                size: 40,
+                                color: Colors.grey,
+                              ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        MyApp.controller.currentUser.discovery.contains(
+                                MyApp.controller.currentUser.spots.last.music)
+                            ? const Text(
+                                "Déjà dans vos discovery",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              )
+                            : const Text("Ajouté à discovery",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17))
+                      ]))))),
       context: context,
       animation: StyledToastAnimation.fade,
       reverseAnimation: StyledToastAnimation.fade,
       position: StyledToastPosition.top,
-      animDuration: Duration(milliseconds: 400),
-      duration: Duration(milliseconds: 1500),
+      animDuration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 1500),
       curve: Curves.linear,
       reverseCurve: Curves.linear,
     );
@@ -334,7 +326,7 @@ class CardProvider extends ChangeNotifier {
                 child: ElevatedButton(
                   onPressed: () {
                     sendMessage(messageTextField.text,
-                        MyApp.controller.currentUser.spots.last.user);
+                        MyApp.controller.currentUser.spots.last.userId);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3F1DC3),
@@ -364,8 +356,8 @@ class CardProvider extends ChangeNotifier {
     );
   }
 
-  void sendMessage(String message, User destinataire) {
-    dev.log(MyApp.controller.currentUser.spots.last.user.usernameDafl);
+  void sendMessage(String message, String userId) {
+    dev.log(MyApp.controller.currentUser.spots.last.userId);
   }
 
   void like(context) {

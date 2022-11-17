@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../model/music.dart';
-import '../model/spot.dart';
 import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
 import '../persistence/database_searcher.dart';
@@ -25,19 +23,19 @@ class Controller {
     saver.save(userToSave);
   }
 
-  Future<void> load(String username, String password) async {
+  load(String username, String password) async {
     _changeCurrentUser(await loader.load(username, password));
   }
 
-  void _changeCurrentUser(User user) {
+  _changeCurrentUser(User user) {
     currentUser = user;
   }
 
-  void changeCurrentUsername(String newName) {
+  changeCurrentUsername(String newName) {
     currentUser.usernameDafl = newName;
   }
 
-  void changeCurrentPassword(String newPass) {
+  changeCurrentPassword(String newPass) {
     currentUser.passwDafl = newPass;
   }
 
@@ -78,8 +76,8 @@ class Controller {
     ].reversed.toList();
   }*/
 
-
-  Future sendEmail(User reporter, User reported, String reason, String message) async{
+  Future sendEmail(
+      User reporter, User reported, String reason, String message) async {
     const serviceId = 'service_dzyndyb';
     const templateId = 'template_idgriw2';
     const userId = 'hy7HxL5QGV6gpdqry';
@@ -100,7 +98,7 @@ class Controller {
           'reason': reason,
           'message': message,
         },
-    }),
+      }),
     );
   }
 }

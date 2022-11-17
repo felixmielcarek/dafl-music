@@ -1,32 +1,24 @@
 import 'dart:async';
-import '../../../api/track.dart';
 import '../../../position/location.dart';
 import '../exceptions/api_exception.dart';
 import '../main.dart';
-import 'conversation.dart';
 import 'music.dart';
 import 'spot.dart';
 
-Timer? timer;
-int test=0;
-
 class User {
+  Timer? timer;
+  int test = 0;
+
   //attributes from DAFL
   late int idDafl;
   late String usernameDafl;
   late String passwDafl;
+  List<Music> discovery = [];
+  List<Spot> spots = [];
 
   //attributes with Spotify API
   String? _idSpotify; //use _getIdUser() as kind of a private getter
   late Music _currentMusic;
-
-  Set<User> likedUsers = {};
-  List<Music> discovery = [];
-  List<Conversation> waitingConv = [];
-  List<Conversation> confirmConv = [];
-
-  List<Spot> spots = [];
-  Map<User, Conversation> conversations = {};
 
   //constructors
   User(this.usernameDafl, this.passwDafl) {
@@ -40,27 +32,8 @@ class User {
     return _idSpotify!;
   }
 
-  void addDiscovery(Music newmusic) {
-    MyApp.controller.currentUser.discovery.add(newmusic);
-  }
-
-  void like(User liked) {
-    likedUsers.add(liked);
-    Conversation? conv = liked.conversations[this];
-    if (conv == null) {
-      conversations[liked] = Conversation(this, liked);
-    } else {
-      conversations[liked] = conv;
-    }
-  }
-
-  void chat(User recipient, String content) {
-    Conversation? conv = conversations[recipient];
-    if (conv != null) conv.addMessage(this, content);
-  }
-
-  void displayConversations() {
-    conversations.forEach((k, v) => v.displayMessages());
+  addDiscovery(Music music) {
+    discovery.add(music);
   }
 
   _actualiseCurrentMusic() async {
@@ -71,42 +44,28 @@ class User {
     }
   }
 
-  void listspots (){
-    Future<String>? rep;
-    int i;
-    rep = Location.sendCurrentLocation();
-    List<Future<Music>> futureMusicList = [];
-    List<List<String>> musicId = [];
+  listSpots() {
+    Future<String> rep = Location.sendCurrentLocation();
+    //ex : dorian-2d2s52a15d2a5,audric-2x5s2az3d1s5wx5s1,lucas-s2a5d25a2a25d
+
     rep.then((String result) {
       List<String> tab = result.split(",");
-      if (tab.isEmpty!=true) {
-        for (i = 0; i < tab.length; i++) {
-          musicId.add(tab[i].split("-"));
-        }
-        /*
-        for (i = 0; i < musicId.length; i++) {
-          // futuretracklist.add(MyApp.api.getTrackInfo(trackid[i][1]));
-        }
-        futureMusicList[i].then((Music m) {
-          for (i = 0; i < futureMusicList.length; i++) {
-            discovery.add(m);
-          }
-        });
+      //ex : [dorian-2d2s52a15d2a5 , audric-2x5s2az3d1s5wx5s1 , lucas-s2a5d25a2a25d]
 
-         */ // EN COMMENTAIRE PARCE QUE ERREUR SINON VU QUE J'AI PAS MUSIC POUR L'INSTANT
+      for (var element in tab) {
+        List<String> tab2 = element.split("-");
+        spots.add(Spot(tab2[0], Music(tab2[1])));
       }
-      });
+    });
   }
 
-  void getListSpots(){
-    if (test==0){
-      test=1;
-      listspots();
-    }else{
-      timer = Timer.periodic(const Duration(seconds: 72), (Timer t) => listspots());
+  getListSpots() {
+    if (test == 0) {
+      test = 1;
+      listSpots();
+    } else {
+      timer =
+          Timer.periodic(const Duration(seconds: 72), (Timer t) => listSpots());
     }
   }
-
-  @override
-  String toString() => "$usernameDafl ($passwDafl)";
 }
