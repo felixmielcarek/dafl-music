@@ -1,6 +1,3 @@
-import 'dart:developer';
-import '../api/api.dart';
-import 'package:dafl_project_flutter/api/track.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -43,23 +40,7 @@ class Location {
     return data.toString();
   }
 
-  static  List<Future<Track>> getTrackList(Future<String> userList){
-    int i=0;
-    String listOfTrack="";
-    List<Future<Track>> tracklist = [];
-    List<List<String>> trackid = [];
-    userList.then((String result) {
-      listOfTrack = result;
-      List<String> tab = result.split(",");
-      for (i=0; i < tab.length; i++){
-        trackid.add(tab[i].split("-"));
-      }
-      for (i=0; i < trackid.length; i++){
-        tracklist.add(MyApp.api.getTrackInfo(trackid[i][1]));
-      }
-    });
-    return tracklist;
-  }
+
 }
 
 
