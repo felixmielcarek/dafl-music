@@ -6,7 +6,7 @@ import '../main.dart';
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
       crossPlatform:
-          InAppBrowserOptions(hideUrlBar: true, hideToolbarTop: true),
+      InAppBrowserOptions(hideUrlBar: true, hideToolbarTop: true),
       inAppWebViewGroupOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(javaScriptEnabled: true)));
 
@@ -27,8 +27,10 @@ class MyInAppBrowser extends InAppBrowser {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       try {
         await MyApp.api.requestUserAuthorization(url);
-        /*var id = await MyApp.api.getCurrentlyPlayingTrack();
-        await MyApp.api.addToPLaylist(id);*/ //TODO : end the adding of playlist image
+        var id = await MyApp.api.getCurrentlyPlayingTrack();
+        await MyApp.api
+            .addToPLaylist(id);
+        //TODO : end the adding of playlist image
       } on ApiException {
         // TODO : add notification to show that an error occured
       } finally {

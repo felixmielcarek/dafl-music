@@ -3,8 +3,10 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:dafl_project_flutter/main.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:developer' as dev;
 import '../exceptions/api_exception.dart';
 
@@ -16,7 +18,7 @@ class Api {
   //for web api
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
   final _scopes =
-      'user-read-playback-state user-read-currently-playing user-read-recently-played playlist-modify-public';
+      'user-read-playback-state user-read-currently-playing user-read-recently-played playlist-modify-public ugc-image-upload';
   late String _state;
   dynamic _codeVerifier;
   dynamic _codeChallenge;
@@ -114,6 +116,7 @@ class Api {
   _setResponse(value) {
     int sc = value.statusCode;
     if (sc >= 300) {
+      dev.log(value.body.toString());
       throw ApiException(sc);
     }
     _response = value;
@@ -201,7 +204,9 @@ class Api {
     if (idPlaylist == null) {
       idPlaylist = await _createPlaylist();
     } else {
-      if (await _isInPlaylist(idTrack, idPlaylist)) return;
+      if (await _isInPlaylist(idTrack, idPlaylist)) {
+        return;
+      }
     }
     var token = await _getAccessToken();
     var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks',
@@ -231,6 +236,7 @@ class Api {
   }
 
   _createPlaylist() async {
+    //create playlist
     var idUser = await MyApp.controller.currentUser.getIdSpotify();
     var token = await _getAccessToken();
     var url = Uri.https('api.spotify.com', 'v1/users/$idUser/playlists');
@@ -248,19 +254,28 @@ class Api {
         })));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
     var idPlaylist = decodedResponse['id'];
-    url = Uri.https('api.spotify.com', 'v1/playlists/playlist_id/images');
-    String imagePath = 'assets/images/icon_App.png';
-    File imagefile = File(imagePath);
-    Uint8List imagebytes = await imagefile.readAsBytes();
-    String base64string = base64.encode(imagebytes);
+
+    //add image : problem in request, API doc does not explain how to give the image
+    /*var byteData = await rootBundle.load('assets/images/playlist_icon.jpg');
+    var buffer = byteData.buffer.asUint8List();
+    String base64Encode = base64
+        .encode(buffer)
+        .replaceAll('+', '-')
+        .replaceAll('/', '_')
+        .replaceAll('=', '');
+    dev.log(jsonEncode(base64Encode).toString());
+    //dev.log(base64Encode);
+    //the request should contain a Base64 encoded JPEG image data, maximum payload size is 256 KB
+    url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/images');
     _setResponse(await _client.put(url,
         headers: <String, String>{
           'Accept': 'application/json',
           'Authorization': '$_tokenType $token',
           'Content-Type': 'application/json'
         },
-        body: base64string));
+        body: jsonEncode(base64Encode)));
     decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
+    dev.log(decodedResponse.toString());*/
     return idPlaylist;
   }
 
