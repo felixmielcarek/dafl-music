@@ -1,12 +1,13 @@
-import 'dart:developer';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import '../main.dart';
 
+
+
 class Location {
-  static Future sendCurrentLocation() async {
+  static Future<String> sendCurrentLocation() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
@@ -29,13 +30,17 @@ class Location {
     return getData();
   }
 
-  static Future getData() async {
+  static Future<String> getData() async {
     String actualUser = MyApp.controller.currentUser.usernameDafl;
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
-    http.Response response = await http.post(uri, body : {
-      "id" : actualUser.toString(),
+    http.Response response = await http.post(uri, body: {
+      "id": actualUser.toString(),
     });
     var data = jsonDecode(response.body);
     return data.toString();
   }
+
+
 }
+
+

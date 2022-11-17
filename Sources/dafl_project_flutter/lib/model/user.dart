@@ -1,9 +1,14 @@
-import '../api/track.dart';
+import 'dart:async';
+import '../../../api/track.dart';
+import '../../../position/location.dart';
 import '../exceptions/api_exception.dart';
 import '../main.dart';
 import 'conversation.dart';
 import 'music.dart';
 import 'spot.dart';
+
+Timer? timer;
+int test=0;
 
 class User {
   //attributes from DAFL
@@ -64,7 +69,43 @@ class User {
       _id = await MyApp.api.getCurrentlyPlayingTrack();
       track = await MyApp.api.getTrackInfo(_id);
     } on ApiException {
-      // TODO : add notification to show that an error occured
+      // TODO : add notification to show that an error occurred
+    }
+  }
+
+  void listspots (){
+    Future<String>? rep;
+    int i;
+    rep = Location.sendCurrentLocation();
+    List<Future<Music>> futureMusicList = [];
+    List<List<String>> musicId = [];
+    rep.then((String result) {
+      List<String> tab = result.split(",");
+      if (tab.isEmpty!=true) {
+        for (i = 0; i < tab.length; i++) {
+          musicId.add(tab[i].split("-"));
+        }
+        /*
+        for (i = 0; i < musicId.length; i++) {
+          // futuretracklist.add(MyApp.api.getTrackInfo(trackid[i][1]));
+        }
+        futureMusicList[i].then((Music m) {
+          for (i = 0; i < futureMusicList.length; i++) {
+            discovery.add(m);
+          }
+        });
+
+         */ // EN COMMENTAIRE PARCE QUE ERREUR SINON VU QUE J'AI PAS MUSIC POUR L'INSTANT
+      }
+      });
+  }
+
+  void getListSpots(){
+    if (test==0){
+      test=1;
+      listspots();
+    }else{
+      timer = Timer.periodic(const Duration(seconds: 72), (Timer t) => listspots());
     }
   }
 
