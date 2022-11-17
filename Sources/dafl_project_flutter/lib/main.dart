@@ -194,7 +194,7 @@ class CardProvider extends ChangeNotifier {
                 MyApp.controller.currentUser.discovery
                         .contains(MyApp.controller.currentUser.spots.last.music)
                     ? Text(
-                        "Déja dans vos discovery",
+                        "Déjà dans vos discovery",
                         style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
