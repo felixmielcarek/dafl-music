@@ -14,7 +14,7 @@ class Api {
   //for web api
   get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
   final _scopes =
-      'user-read-playback-state user-read-currently-playing user-read-recently-played playlist-modify-public ugc-image-upload';
+      'user-read-playback-state user-read-currently-playing user-read-recently-played playlist-modify-public ugc-image-upload user-modify-playback-state';
   late String _state;
   dynamic _codeVerifier;
   dynamic _codeChallenge;
@@ -143,13 +143,13 @@ class Api {
       'Content-Type': 'application/json'
     });
     if (response.statusCode == 204) {
-      return getRecentlyPlayedTrack();
+      return _getRecentlyPlayedTrack();
     }
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
     return decodedResponse['item']['id'];
   }
 
-  Future<String> getRecentlyPlayedTrack() async {
+  Future<String> _getRecentlyPlayedTrack() async {
     var url = Uri.https(
         'api.spotify.com', 'v1/me/player/recently-played', {'limit': '1'});
     var token = await _getAccessToken();
@@ -231,8 +231,7 @@ class Api {
     return null;
   }
 
-  _createPlaylist() async {
-    //create playlist
+  Future<String> _createPlaylist() async {
     var idUser = await MyApp.controller.currentUser.getIdSpotify();
     var token = await _getAccessToken();
     var url = Uri.https('api.spotify.com', 'v1/users/$idUser/playlists');
@@ -253,6 +252,19 @@ class Api {
     return idPlaylist;
   }
 
+  playTrack(String idTrack) async {
+    var token = await _getAccessToken();
+    var url = Uri.https('api.spotify.com', 'v1/me/player/play');
+    _setResponse(await _client.put(url,
+        headers: <String, String>{
+          'Authorization': '$_tokenType $token',
+          'Content-Type': 'application/json'
+        },
+        body: jsonEncode(<String, List>{
+          'uris': ['spotify:track:$idTrack']
+        })));
+  }
+
   removeFromPlaylist(String idTrack) async {
     var idPlaylist = await _getPlaylist();
     if (idPlaylist == null) {
@@ -262,11 +274,10 @@ class Api {
       var token = await _getAccessToken();
       var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks');
       var jsonVar = jsonEncode(<String, List>{
-        "tracks": [
+        'tracks': [
           {'uri': 'spotify:track:$idTrack'}
         ]
       });
-      jsonEncode(<String, String>{'uri': 'spotify:track:$idTrack'});
       _setResponse(await _client.delete(url,
           headers: <String, String>{
             'Authorization': '$_tokenType $token',
