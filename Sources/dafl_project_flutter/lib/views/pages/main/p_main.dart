@@ -1,5 +1,5 @@
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
-import '../../../api/track.dart';
 import '../../../presentation/custom_icons_icons.dart';
 import './w_settings.dart';
 import './w_spot.dart';
@@ -7,7 +7,6 @@ import './w_discovery.dart';
 import './w_profile.dart';
 import './w_messages.dart';
 import 'w_top.dart';
-import '../../../model/user.dart';
 
 
 
@@ -33,7 +32,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Track> spots = User.getListSpots();
+    MyApp.controller.currentUser.getListSpots();
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,

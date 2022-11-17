@@ -73,48 +73,44 @@ class User {
       _id = await MyApp.api.getCurrentlyPlayingTrack();
       track = await MyApp.api.getTrackInfo(_id);
     } on ApiException {
-      // TODO : add notification to show that an error occured
+      // TODO : add notification to show that an error occurred
     }
   }
 
-  static List<Track> listspots (){
+  void listspots (){
     Future<String>? rep;
-    List<Track> tracklist = [];
-    int i=0;
-    String listOfTrack="";
+    int i;
     rep = Location.sendCurrentLocation();
-    List<Future<Track>> futuretracklist = [];
-    List<List<String>> trackid = [];
+    List<Future<Music>> futureMusicList = [];
+    List<List<String>> musicId = [];
     rep.then((String result) {
-      listOfTrack = result;
       List<String> tab = result.split(",");
-      for (i = 0; i < tab.length; i++) {
-        trackid.add(tab[i].split("-"));
-      }
-      for (i = 0; i < trackid.length; i++) {
-        futuretracklist.add(MyApp.api.getTrackInfo(trackid[i][1]));
-      }
-      for (i = 0; i < futuretracklist.length; i++) {
-        futuretracklist[i].then((Track t) {
-          tracklist.add(t);
-          if (i + 1 == futuretracklist.length) {
-            return tracklist;
+      if (tab.isEmpty!=true) {
+        for (i = 0; i < tab.length; i++) {
+          musicId.add(tab[i].split("-"));
+        }
+        /*
+        for (i = 0; i < musicId.length; i++) {
+          // futuretracklist.add(MyApp.api.getTrackInfo(trackid[i][1]));
+        }
+        futureMusicList[i].then((Music m) {
+          for (i = 0; i < futureMusicList.length; i++) {
+            discovery.add(m);
           }
         });
+
+         */ // EN COMMENTAIRE PARCE QUE ERREUR SINON VU QUE J'AI PAS MUSIC POUR L'INSTANT
       }
-    });
-    return [];
+      });
   }
 
-  static List<Track> getListSpots(){
-    List<Track> listTrack =[];
+  void getListSpots(){
     if (test==0){
       test=1;
-      listTrack = listspots();
+      listspots();
     }else{
-      timer = Timer.periodic(const Duration(seconds: 10), (Timer t) => listTrack=listspots());
+      timer = Timer.periodic(const Duration(seconds: 72), (Timer t) => listspots());
     }
-    return listTrack;
   }
 
   @override
