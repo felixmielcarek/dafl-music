@@ -27,7 +27,6 @@ class MyInAppBrowser extends InAppBrowser {
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       try {
         await MyApp.api.requestUserAuthorization(url);
-        //TODO : end the adding of playlist image
       } on ApiException {
         // TODO : add notification to show that an error occured
       } finally {

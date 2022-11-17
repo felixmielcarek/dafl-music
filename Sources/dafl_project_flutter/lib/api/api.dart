@@ -1,12 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:dafl_project_flutter/main.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:developer' as dev;
 import '../exceptions/api_exception.dart';
 
@@ -254,28 +250,6 @@ class Api {
         })));
     var decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
     var idPlaylist = decodedResponse['id'];
-
-    //add image : problem in request, API doc does not explain how to give the image
-    /*var byteData = await rootBundle.load('assets/images/playlist_icon.jpg');
-    var buffer = byteData.buffer.asUint8List();
-    String base64Encode = base64
-        .encode(buffer)
-        .replaceAll('+', '-')
-        .replaceAll('/', '_')
-        .replaceAll('=', '');
-    dev.log(jsonEncode(base64Encode).toString());
-    //dev.log(base64Encode);
-    //the request should contain a Base64 encoded JPEG image data, maximum payload size is 256 KB
-    url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/images');
-    _setResponse(await _client.put(url,
-        headers: <String, String>{
-          'Accept': 'application/json',
-          'Authorization': '$_tokenType $token',
-          'Content-Type': 'application/json'
-        },
-        body: jsonEncode(base64Encode)));
-    decodedResponse = jsonDecode(utf8.decode(_response.bodyBytes)) as Map;
-    dev.log(decodedResponse.toString());*/
     return idPlaylist;
   }
 
