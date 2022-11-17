@@ -28,6 +28,7 @@ dependencies:
   font_awesome_flutter: ^10.2.1
   home_indicator: ^2.0.2
   geolocator: ^9.0.2
+  flutter_styled_toast: ^2.1.3
 
 dev_dependencies:
   flutter_test:

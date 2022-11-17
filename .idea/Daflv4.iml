@@ -53,6 +53,24 @@
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/flutter_inappwebview/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/geolocator_apple/example/.pub" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
