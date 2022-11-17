@@ -98,7 +98,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                               final provider = Provider.of<CardProvider>(
                                   context,
                                   listen: false);
-                              provider.discovery();
+                              provider.discovery(context);
                             },
                             child: Image.asset(
                               'assets/images/bouton_discovery.png',

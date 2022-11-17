@@ -103,17 +103,28 @@ class _DiscoveryListState extends State<DiscoveryList> {
               return Dismissible(
                   key: Key(MyApp
                       .controller.currentUser.discovery[reversedIndex].name),
-                  direction: DismissDirection.startToEnd,
-                  onDismissed: (direction) {
-                    if (direction == DismissDirection.startToEnd) {
+                  confirmDismiss: (direction) async {
+                    if (direction == DismissDirection.endToStart) {
                       MyApp.controller.currentUser.discovery
                           .removeAt(reversedIndex);
+                      setState(() {
+                        itemCount -= 1;
+                      });
+                      return true;
                     }
-                    setState(() {
-                      itemCount -= 1;
-                    });
+                  },
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.startToEnd) {
+                      print('play');
+                    }
                   },
                   background: Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  "assets/images/play_background.png"),
+                              fit: BoxFit.cover))),
+                  secondaryBackground: Container(
                       decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import './views/pages/home/p_home.dart';
@@ -12,6 +13,7 @@ import 'model/spot.dart';
 import 'model/user.dart';
 import 'api/api.dart';
 import 'dart:developer' as dev;
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -86,7 +88,7 @@ class CardProvider extends ChangeNotifier {
         dislike();
         break;
       case CardStatus.discovery:
-        discovery();
+        discovery(context);
         break;
       case CardStatus.message:
         message(context);
@@ -153,33 +155,76 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void discovery() {
+  void discovery(BuildContext context) {
     dev.log("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
     _discoveryCard();
     dev.log("discovery");
-    if (MyApp.controller.currentUser.discovery
+    showToastWidget(
+      ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: new BackdropFilter(
+          filter: new ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+          child: new Container(
+            width: 300.0,
+            height: 70.0,
+            decoration: new BoxDecoration(
+              color: Colors.grey.shade900.withOpacity(0.7),
+            ),
+            child: new Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MyApp.controller.currentUser.discovery
+                        .contains(MyApp.controller.currentUser.spots.last.music)
+                    ? Icon(
+                        Icons.info_rounded,
+                        size: 40,
+                        color: Colors.grey,
+                      )
+                    : Icon(
+                        Icons.check_rounded,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                SizedBox(
+                  width: 10,
+                ),
+                MyApp.controller.currentUser.discovery
+                        .contains(MyApp.controller.currentUser.spots.last.music)
+                    ? Text(
+                        "Déja dans vos discovery",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                      )
+                    : Text(
+                        "Ajouté à discovery",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                      ),
+              ],
+            )),
+          ),
+        ),
+      ),
+      context: context,
+      animation: StyledToastAnimation.fade,
+      reverseAnimation: StyledToastAnimation.fade,
+      position: StyledToastPosition.top,
+      animDuration: Duration(milliseconds: 400),
+      duration: Duration(milliseconds: 1500),
+      curve: Curves.linear,
+      reverseCurve: Curves.linear,
+    );
+    if (!MyApp.controller.currentUser.discovery
         .contains(MyApp.controller.currentUser.spots.last.music)) {
-      MyApp.controller.currentUser.discovery
-          .remove(MyApp.controller.currentUser.spots.last.music);
-      Fluttertoast.showToast(
-          msg: 'Supprimer',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white);
-    } else {
       MyApp.controller.currentUser
           .addDiscovery(MyApp.controller.currentUser.spots.last.music);
-      Fluttertoast.showToast(
-          msg: 'Ajouté',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white);
       notifyListeners();
     }
   }
