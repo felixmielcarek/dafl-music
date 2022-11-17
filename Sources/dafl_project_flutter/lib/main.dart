@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         create: (context) => CardProvider(),
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Dafl Music',
           home: HomePage(),
         ));
   }
@@ -260,20 +260,18 @@ class CardProvider extends ChangeNotifier {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.4),
-              offset: const Offset(
-                0,
-                0,
-              ),
-              blurRadius: 10.0,
-              spreadRadius: 2.0,
-            ),
+                color: Colors.black.withOpacity(0.4),
+                offset: const Offset(
+                  0,
+                  0,
+                ),
+                blurRadius: 10.0,
+                spreadRadius: 2.0),
             BoxShadow(
-              color: Colors.white.withOpacity(0.3),
-              offset: const Offset(0.0, 0.0),
-              blurRadius: 0.0,
-              spreadRadius: 0.0,
-            ), //BoxShadow//BoxShadow
+                color: Colors.white.withOpacity(0.3),
+                offset: const Offset(0.0, 0.0),
+                blurRadius: 0.0,
+                spreadRadius: 0.0)
           ],
           color: const Color(0xFF232123),
           borderRadius: const BorderRadius.only(

@@ -84,7 +84,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     GestureDetector(
                       onTap: () {
                         MyApp.controller
-                            .changeUsernameCourant(userNameTextField.text);
+                            .changeCurrentUsername(userNameTextField.text);
                         notify(0, context, isError: false);
                       },
                       child: const Padding(
@@ -144,7 +144,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     GestureDetector(
                       onTap: () {
                         MyApp.controller
-                            .changePasswordCourant(passwordTextField.text);
+                            .changeCurrentPassword(passwordTextField.text);
                         notify(1, context, isError: false);
                       },
                       child: const Padding(

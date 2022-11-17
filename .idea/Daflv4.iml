@@ -53,6 +53,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/build" />
       <excludeFolder url="file://$MODULE_DIR$/Sources/dafl_project_flutter/ios/.symlinks/plugins/home_indicator/.pub" />
