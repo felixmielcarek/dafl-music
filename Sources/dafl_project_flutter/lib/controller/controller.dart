@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import '../model/music.dart';
 import '../model/spot.dart';
 import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
 import '../persistence/database_searcher.dart';
 import '../persistence/loader.dart';
+import 'package:http/http.dart' as http;
 
 import '../persistence/saver.dart';
 import '../model/user.dart';
@@ -84,5 +87,30 @@ class Controller {
           Music('Paradis', 'Sopico',
               'https://cdns-images.dzcdn.net/images/cover/17a9747927ac3e5ea56f92f635d9180c/500x500.jpg')),
     ].reversed.toList();
+  }
+
+  Future sendEmail(User reporter, User reported, String reason, String message) async{
+    const serviceId = 'service_dzyndyb';
+    const templateId = 'template_idgriw2';
+    const userId = 'hy7HxL5QGV6gpdqry';
+
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'from_name': reporter.usernameDafl,
+          'to_name': reported.usernameDafl,
+          'reason': reason,
+          'message': message,
+        },
+    }),
+    );
   }
 }

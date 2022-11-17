@@ -258,6 +258,8 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 
   Widget buildSheet() {
+    String? currentvalue;
+    final messageTextField = TextEditingController();
     return SingleChildScrollView(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -319,7 +321,7 @@ class _ConversationPageState extends State<ConversationPage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
                       'Vous êtes sur le point de signaler cet utilisateur. Veuillez renseigner le motif du signalement.',
                       style: TextStyle(color: Colors.grey),
@@ -344,8 +346,8 @@ class _ConversationPageState extends State<ConversationPage> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextField(
+                          controller: messageTextField,
                           keyboardAppearance: Brightness.dark,
-                          onTap: () {},
                           style: TextStyle(
                               fontFamily: 'DMSans',
                               color: Colors.white.withOpacity(1),
@@ -367,12 +369,15 @@ class _ConversationPageState extends State<ConversationPage> {
                   )),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: SizedBox(
                   width: double.infinity,
                   height: 70,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      MyApp.controller.sendEmail(MyApp.controller.currentUser, destinataire, currentValue, messageTextField.text);
+                      Navigator.pop(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       textStyle: const TextStyle(
@@ -407,8 +412,6 @@ class _ConversationPageState extends State<ConversationPage> {
 }
 
 class DropdownButtonReason extends StatefulWidget {
-  const DropdownButtonReason({super.key});
-
   @override
   State<DropdownButtonReason> createState() => _DropdownButtonReasonState();
 }
@@ -419,6 +422,9 @@ const List<String> list = <String>[
   'Messages inappropriés',
   "Usurpation d'identité"
 ];
+
+String currentValue = list[0];
+
 
 class _DropdownButtonReasonState extends State<DropdownButtonReason> {
   String dropdownValue = list.first;
@@ -442,6 +448,7 @@ class _DropdownButtonReasonState extends State<DropdownButtonReason> {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
+          currentValue = value!;
         });
       },
       items: list.map<DropdownMenuItem<String>>((String value) {
