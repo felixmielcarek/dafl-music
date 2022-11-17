@@ -8,7 +8,7 @@ import 'music.dart';
 import 'spot.dart';
 
 Timer? timer;
-int test=0;
+int test = 0;
 
 class User {
   //attributes from DAFL
@@ -19,6 +19,7 @@ class User {
   //attributes with Spotify API
   late String _id;
   late Track track;
+  bool sortChoise = true;
 
   //constructors
   User(this.usernameDafl, this.passwDafl) {
@@ -73,7 +74,7 @@ class User {
     }
   }
 
-  void listspots (){
+  void listspots() {
     Future<String>? rep;
     int i;
     rep = Location.sendCurrentLocation();
@@ -81,7 +82,7 @@ class User {
     List<List<String>> musicId = [];
     rep.then((String result) {
       List<String> tab = result.split(",");
-      if (tab.isEmpty!=true) {
+      if (tab.isEmpty != true) {
         for (i = 0; i < tab.length; i++) {
           musicId.add(tab[i].split("-"));
         }
@@ -97,15 +98,16 @@ class User {
 
          */ // EN COMMENTAIRE PARCE QUE ERREUR SINON VU QUE J'AI PAS MUSIC POUR L'INSTANT
       }
-      });
+    });
   }
 
-  void getListSpots(){
-    if (test==0){
-      test=1;
+  void getListSpots() {
+    if (test == 0) {
+      test = 1;
       listspots();
-    }else{
-      timer = Timer.periodic(const Duration(seconds: 72), (Timer t) => listspots());
+    } else {
+      timer =
+          Timer.periodic(const Duration(seconds: 72), (Timer t) => listspots());
     }
   }
 

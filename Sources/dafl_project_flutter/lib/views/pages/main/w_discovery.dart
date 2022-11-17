@@ -2,6 +2,8 @@ import 'package:dafl_project_flutter/main.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/music.dart';
+
 class DiscoveryWidget extends StatefulWidget {
   const DiscoveryWidget({Key? key}) : super(key: key);
 
@@ -20,25 +22,42 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(children: const [
-                    Text(
-                      'Playlist découverte',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 25),
-                    ),
-                    Spacer(),
-                    Icon(
-                      FontAwesome5.sort_amount_down,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Playlist découverte',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 25),
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
+                            MyApp.controller.currentUser.sortChoise =
+                                !MyApp.controller.currentUser.sortChoise;
+                            setState(() {});
+                          },
+                          style: OutlinedButton.styleFrom(
+                              shadowColor: Colors.black,
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(24),
+                              primary: Colors.grey),
+                          child: MyApp.controller.currentUser.sortChoise
+                              ? Image.asset(
+                                  'assets/images/date_sort_icon.png',
+                                  height: 25,
+                                )
+                              : Image.asset(
+                                  'assets/images/alpha_sort_icon.png',
+                                  height: 25,
+                                ),
+                        ),
+                      ]),
                   const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0)),
                   Text(
                     'Retrouvez ici vos nouvelles découvertes.',
@@ -83,38 +102,46 @@ class _DiscoveryListState extends State<DiscoveryList> {
 
   refreshList() async {
     await Future.delayed(const Duration(seconds: 1));
-    setState(() {
-      MyApp.controller.currentUser.discovery;
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Music> listDiscovery = MyApp.controller.currentUser.discovery;
+    if (MyApp.controller.currentUser.sortChoise) {
+      listDiscovery.sort((a, b) {
+        return a.date.compareTo(b.date);
+      });
+    } else {
+      listDiscovery.sort((a, b) {
+        return a.name.compareTo(b.name);
+      });
+    }
     return RefreshIndicator(
         onRefresh: () async {
           refreshList();
+          setState(() {});
         },
         key: refreshKey,
         child: ListView.builder(
-            itemCount: MyApp.controller.currentUser.discovery.length,
+            itemCount: listDiscovery.length,
             itemBuilder: (context, index) {
-              int itemCount = MyApp.controller.currentUser.discovery.length;
+              int itemCount = listDiscovery.length;
               int reversedIndex = itemCount - 1 - index;
               return Dismissible(
-                  key: Key(MyApp
-                      .controller.currentUser.discovery[reversedIndex].name),
+                  movementDuration: Duration(milliseconds: 400),
+                  key: Key(listDiscovery[index].name),
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.endToStart) {
+                      print(listDiscovery[reversedIndex].name);
                       MyApp.controller.currentUser.discovery
-                          .removeAt(reversedIndex);
-                      setState(() {
-                        itemCount -= 1;
-                      });
-                      return true;
+                          .remove(listDiscovery[reversedIndex]);
+                      setState(() {});
                     }
                   },
                   onDismissed: (direction) {
                     if (direction == DismissDirection.startToEnd) {
+                      print(listDiscovery[reversedIndex].name);
                       print('play');
                     }
                   },
@@ -184,7 +211,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                                 color: Colors.white
                                                     .withOpacity(0.6),
                                                 fontSize: 16,
-                                                fontWeight: FontWeight.w400))
+                                                fontWeight: FontWeight.w400)),
                                       ]))
                             ]))
                       ])));

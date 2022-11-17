@@ -1,10 +1,10 @@
-class Music{
+class Music {
   String name;
   String artist;
   String linkCover;
+  late DateTime date;
 
   Music(this.name, this.artist, this.linkCover);
-
 
   @override
   bool operator ==(Object other) =>
@@ -16,4 +16,8 @@ class Music{
 
   @override
   int get hashCode => name.hashCode ^ artist.hashCode;
+
+  void defineDate() {
+    this.date = new DateTime.now();
+  }
 }

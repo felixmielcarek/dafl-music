@@ -223,6 +223,7 @@ class CardProvider extends ChangeNotifier {
     );
     if (!MyApp.controller.currentUser.discovery
         .contains(MyApp.controller.currentUser.spots.last.music)) {
+      MyApp.controller.currentUser.spots.last.music.defineDate();
       MyApp.controller.currentUser
           .addDiscovery(MyApp.controller.currentUser.spots.last.music);
       notifyListeners();
