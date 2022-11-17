@@ -112,6 +112,5 @@ class Controller {
         },
     }),
     );
-    print(response.body);
   }
 }
