@@ -40,7 +40,10 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                           onPressed: () {
                             MyApp.controller.currentUser.sortChoise =
                                 !MyApp.controller.currentUser.sortChoise;
-                            setState(() {});
+                            rebuildAllChildren(context);
+                            setState(() {
+
+                            });
                           },
                           style: OutlinedButton.styleFrom(
                               shadowColor: Colors.black,
@@ -80,6 +83,13 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
         ),
       ),
     );
+  }
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+    (context as Element).visitChildren(rebuild);
   }
 }
 
