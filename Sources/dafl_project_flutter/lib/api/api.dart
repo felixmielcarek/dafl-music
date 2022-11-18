@@ -267,23 +267,23 @@ class Api {
 
   removeFromPlaylist(String idTrack) async {
     var idPlaylist = await _getPlaylist();
-    if (idPlaylist == null) {
-      return;
-    }
-    if (await _isInPlaylist(idTrack, idPlaylist)) {
-      var token = await _getAccessToken();
-      var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks');
-      var jsonVar = jsonEncode(<String, List>{
-        'tracks': [
-          {'uri': 'spotify:track:$idTrack'}
-        ]
-      });
-      _setResponse(await _client.delete(url,
-          headers: <String, String>{
-            'Authorization': '$_tokenType $token',
-            'Content-Type': 'application/json'
-          },
-          body: jsonVar));
+    if (idPlaylist != null) {
+      if (await _isInPlaylist(idTrack, idPlaylist)) {
+        var token = await _getAccessToken();
+        var url =
+            Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks');
+        var jsonVar = jsonEncode(<String, List>{
+          'tracks': [
+            {'uri': 'spotify:track:$idTrack'}
+          ]
+        });
+        _setResponse(await _client.delete(url,
+            headers: <String, String>{
+              'Authorization': '$_tokenType $token',
+              'Content-Type': 'application/json'
+            },
+            body: jsonVar));
+      }
     }
   }
 
