@@ -19,6 +19,7 @@ class User {
   //attributes with Spotify API
   String? _idSpotify; //use _getIdUser() as kind of a private getter
   late Music _currentMusic;
+  bool sortChoise = true;
 
   //constructors
   User(this.usernameDafl, this.passwDafl) {

@@ -6,6 +6,7 @@ class Music {
   late String _artist;
   late String _linkCover;
   final String _id;
+  late DateTime date;
 
   Music(this._id) {
     _completeInfo();
@@ -25,5 +26,19 @@ class Music {
     } on ApiException {
       // TODO : add notification to show that an error occured
     }
+  }
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Music &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          artist == other.artist;
+
+  @override
+  int get hashCode => name.hashCode ^ artist.hashCode;
+
+  void defineDate() {
+    this.date = new DateTime.now();
   }
 }
