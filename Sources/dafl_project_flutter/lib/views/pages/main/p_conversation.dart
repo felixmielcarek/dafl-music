@@ -89,12 +89,13 @@ class _ConversationPageState extends State<ConversationPage> {
   void initState() {
     super.initState();
     messageTextField.addListener(_checkIfNull);
+    MyApp.controller.sendStatusConnected(MyApp.controller.currentUser);
     dev.log("INITSATE");
   }
 
   @override
   void dispose() {
-    messageTextField.dispose();
+    MyApp.controller.sendStatusConnected(MyApp.controller.currentUser);
     super.dispose();
   }
 

@@ -28,12 +28,20 @@ class Controller {
     _socket.onConnectError((data) => print('Connect Error: $data'));
     _socket.onDisconnect((data) => print('Socket.io server disconnected'));
     _socket.on('message', (data) => print(data));
+    _socket.on('user', (data) => print(data));
+    sendStatusConnected(MyApp.controller.currentUser);
   }
 
   sendMessage(String message, User destinataire) {
     _socket.emit('message', {
       'message': message.trim(),
       'sender': destinataire.usernameDafl,
+    });
+  }
+
+  sendStatusConnected(User user) {
+    _socket.emit('status', {
+      'sender': user.usernameDafl,
     });
   }
 
