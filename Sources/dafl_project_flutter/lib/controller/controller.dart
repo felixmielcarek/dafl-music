@@ -29,7 +29,6 @@ class Controller {
     _socket.onDisconnect((data) => print('Socket.io server disconnected'));
     _socket.on('message', (data) => print(data));
     _socket.on('user', (data) => print(data));
-    sendStatusConnected(MyApp.controller.currentUser);
   }
 
   sendMessage(String message, User destinataire) {
@@ -39,10 +38,9 @@ class Controller {
     });
   }
 
-  sendStatusConnected(User user) {
-    _socket.emit('status', {
-      'sender': user.usernameDafl,
-    });
+  sendStatusConnected(User user, int isConnection) {
+    _socket
+        .emit('status', {'sender': user.usernameDafl, 'content': isConnection});
   }
 
   Controller() {
