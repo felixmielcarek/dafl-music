@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:http/http.dart' as http;
 import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
@@ -7,6 +8,7 @@ import '../persistence/loader.dart';
 import '../persistence/saver.dart';
 import '../model/user.dart';
 import '../persistence/searcher.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Controller {
   static Saver saver = DatabaseSaver();
@@ -14,6 +16,26 @@ class Controller {
   static final Searcher _searcher = DatabaseSearcher();
 
   late User currentUser;
+
+  late IO.Socket _socket;
+
+  void _connectChat() {
+    _socket = IO.io(
+        "http://localhost:3000",
+        IO.OptionBuilder().setTransports(['websocket']).setQuery(
+            {'username': MyApp.controller.currentUser}).build());
+    _socket.onConnect((data) => print('Connection established'));
+    _socket.onConnectError((data) => print('Connect Error: $data'));
+    _socket.onDisconnect((data) => print('Socket.io server disconnected'));
+    _socket.on('message', (data) => print(data));
+  }
+
+  sendMessage(String message, User destinataire) {
+    _socket.emit('message', {
+      'message': message.trim(),
+      'sender': destinataire.usernameDafl,
+    });
+  }
 
   Controller() {
     currentUser = User('', ''); //TODO : remove this line
@@ -25,6 +47,7 @@ class Controller {
 
   load(String username, String password) async {
     _changeCurrentUser(await loader.load(username, password));
+    _connectChat();
   }
 
   _changeCurrentUser(User user) {

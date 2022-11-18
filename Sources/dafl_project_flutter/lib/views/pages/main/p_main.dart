@@ -7,8 +7,7 @@ import './w_discovery.dart';
 import './w_profile.dart';
 import './w_messages.dart';
 import 'w_top.dart';
-
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -29,6 +28,11 @@ class _MainPageState extends State<MainPage> {
     const MessagesWidget(),
     const SettingsWidget(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

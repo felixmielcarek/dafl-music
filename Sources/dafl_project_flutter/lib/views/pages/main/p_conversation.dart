@@ -18,11 +18,12 @@ class _ConversationPageState extends State<ConversationPage> {
 
   final messageTextField = TextEditingController();
 
-  void sendMessage(String content) {
+  void sendMessage(String content, User destinataire) {
     setState(() {
       messages
           .add(messageWidget(Message(MyApp.controller.currentUser, content)));
     });
+    MyApp.controller.sendMessage(content, destinataire);
   }
 
   Widget messageWidget(Message message) {
@@ -218,7 +219,7 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: isNull
                   ? null
                   : () {
-                      sendMessage(messageTextField.text);
+                      sendMessage(messageTextField.text, destinataire);
                       if (listScrollController.hasClients) {
                         final position =
                             listScrollController.position.maxScrollExtent;
