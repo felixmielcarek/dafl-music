@@ -260,7 +260,6 @@ class _SignInPageState extends State<SignInPage> {
           .load(userNameTextField.text, passwordTextField.text);
 
       if (MyApp.controller.currentUser.usernameDafl != "") {
-        //MyApp.controller.chargeExample();
         Navigator.of(context).push(
           PageTransition(
               type: PageTransitionType.fade,

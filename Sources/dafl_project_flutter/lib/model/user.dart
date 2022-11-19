@@ -4,6 +4,7 @@ import '../exceptions/api_exception.dart';
 import '../main.dart';
 import 'music.dart';
 import 'spot.dart';
+import 'package:collection/collection.dart';
 
 class User {
   Timer? timer;
@@ -55,7 +56,9 @@ class User {
 
       for (var element in tab) {
         List<String> tab2 = element.split("-");
-        spots.add(Spot(tab2[0], Music(tab2[1])));
+        if (!spots.contains(Spot(tab2[0], Music(tab2[1])))) {
+          spots.add(Spot(tab2[0], Music(tab2[1])));
+        }
       }
     });
   }

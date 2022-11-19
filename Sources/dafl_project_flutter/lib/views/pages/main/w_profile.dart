@@ -2,6 +2,7 @@ import '../../../main.dart';
 import './w_settings.dart';
 import './w_spot.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart' as riv;
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);
@@ -203,12 +204,21 @@ class _MainPageProfilState extends State<MainPageProfil> {
                         width: 10,
                       ),
                       Text(
-                        "En cours d'écoute...",
+                        "En cours d'écoute",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
                             fontWeight: FontWeight.w400),
                         textAlign: TextAlign.center,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(1, 9, 0, 0),
+                        child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: riv.RiveAnimation.asset(
+                              'assets/images/playing_animation.riv'),
+                        ),
                       ),
                     ],
                   ),

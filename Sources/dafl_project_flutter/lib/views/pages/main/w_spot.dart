@@ -194,6 +194,21 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                   ],
                 ),
               ),
+              Positioned(
+                  top: 115,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      MyApp.api.playTrack(
+                          MyApp.controller.currentUser.spots.last.music.id);
+                    },
+                    child: SizedBox(
+                      height: 40,
+                      child: !MyApp.controller.currentUser.spots.isEmpty
+                          ? Image.asset("assets/images/play_spotify_button.png")
+                          : Container(),
+                    ),
+                  ))
             ],
           ),
         ));

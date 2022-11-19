@@ -42,9 +42,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                             MyApp.controller.currentUser.sortChoise =
                                 !MyApp.controller.currentUser.sortChoise;
                             rebuildAllChildren(context);
-                            setState(() {
-
-                            });
+                            setState(() {});
                           },
                           style: OutlinedButton.styleFrom(
                               shadowColor: Colors.black,
@@ -85,11 +83,13 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
       ),
     );
   }
+
   void rebuildAllChildren(BuildContext context) {
     void rebuild(Element el) {
       el.markNeedsBuild();
       el.visitChildren(rebuild);
     }
+
     (context as Element).visitChildren(rebuild);
   }
 }
@@ -144,17 +144,20 @@ class _DiscoveryListState extends State<DiscoveryList> {
                   key: Key(listDiscovery[index].name),
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.endToStart) {
+                      print(listDiscovery[reversedIndex].id);
                       print(listDiscovery[reversedIndex].name);
                       MyApp.controller.currentUser.discovery
                           .remove(listDiscovery[reversedIndex]);
                       setState(() {});
+                      return true;
                     }
-                  },
-                  onDismissed: (direction) {
                     if (direction == DismissDirection.startToEnd) {
                       print(listDiscovery[reversedIndex].name);
                       print('play');
+                      MyApp.api.playTrack(listDiscovery[reversedIndex].id);
+                      setState(() {});
                     }
+                    return false;
                   },
                   background: Container(
                       decoration: const BoxDecoration(
