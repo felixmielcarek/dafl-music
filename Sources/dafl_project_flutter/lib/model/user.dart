@@ -57,11 +57,7 @@ class User {
 
       for (var element in tab) {
         List<String> tab2 = element.split("-");
-        if (!spots.contains(Spot(tab2[0], Music(tab2[1])))) {
-          spots.add(Spot(tab2[0], Music(tab2[1])));
-          return;
-        }
-        print('deja présent');
+        spots.add(Spot(tab2[0], Music(tab2[1])));
       }
     });
   }
