@@ -10,7 +10,7 @@ class Spot {
   bool operator ==(Object other) =>
       other is Spot &&
       runtimeType == other.runtimeType &&
-      userId == other.userId;
+      music.name == other.music.name;
 
   @override
   int get hashCode => music.hashCode;
