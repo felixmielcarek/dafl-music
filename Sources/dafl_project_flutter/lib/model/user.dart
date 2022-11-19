@@ -47,6 +47,7 @@ class User {
   }
 
   listSpots() {
+    print('ajout test');
     Future<String> rep = Location.sendCurrentLocation();
     //ex : dorian-2d2s52a15d2a5,audric-2x5s2az3d1s5wx5s1,lucas-s2a5d25a2a25d
 
@@ -58,7 +59,9 @@ class User {
         List<String> tab2 = element.split("-");
         if (!spots.contains(Spot(tab2[0], Music(tab2[1])))) {
           spots.add(Spot(tab2[0], Music(tab2[1])));
+          return;
         }
+        print('deja présent');
       }
     });
   }
