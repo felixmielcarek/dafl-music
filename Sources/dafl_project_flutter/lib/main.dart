@@ -468,6 +468,12 @@ Object notify(int index, context, {bool isError = true}) {
           message = "Mot de passe incorrect ! Veuillez réessayer.";
           break;
         }
+      case 5:
+        {
+          message =
+              "Une erreur est survenue lors de la liaison de votre compte. Veuillez réessayer.";
+          break;
+        }
       default:
         message =
             "Une erreur est survenue pendant l'inscription. Veuillez réessayer.";
@@ -542,6 +548,11 @@ Object notify(int index, context, {bool isError = true}) {
       case 1:
         {
           message = "Vous avez changer votre mot de passe avec succès";
+          break;
+        }
+      case 2:
+        {
+          message = "Vous avez relié votre compte Spotify avec succès";
           break;
         }
       default:

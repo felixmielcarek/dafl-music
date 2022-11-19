@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../exceptions/api_exception.dart';
 import '../main.dart';
@@ -24,13 +25,16 @@ class MyInAppBrowser extends InAppBrowser {
 
   @override
   Future onLoadStart(url) async {
+    bool isError = false;
     if (url!.origin + url.path == MyApp.api.redirectUri) {
       try {
         await MyApp.api.requestUserAuthorization(url);
       } on ApiException {
-        // TODO : add notification to show that an error occured
+        notify(5, MyApp.controller.navigatorKey);
+        isError = true;
       } finally {
         close();
+        if (!isError) notify(2, MyApp.controller.navigatorKey, isError: false);
       }
     }
   }

@@ -225,6 +225,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ), // background// foreground
                               ),
                               onPressed: () {
+                                MyApp.controller.navigatorKey = context;
                                 MyInAppBrowser();
                               },
                               child: Row(

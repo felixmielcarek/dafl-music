@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../persistence/database_loader.dart';
 import '../persistence/database_saver.dart';
@@ -12,6 +13,8 @@ class Controller {
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
+
+  late BuildContext navigatorKey;
 
   late User currentUser;
 
