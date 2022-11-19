@@ -31,6 +31,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
   @override
   initState() {
     username = MyApp.controller.currentUser.usernameDafl;
+    MyApp.controller.currentUser.actualiseCurrentMusic();
     super.initState();
   }
 

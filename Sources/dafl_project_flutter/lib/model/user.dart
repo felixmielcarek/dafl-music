@@ -24,7 +24,7 @@ class User {
 
   //constructors
   User(this.usernameDafl, this.passwDafl) {
-    _actualiseCurrentMusic();
+    actualiseCurrentMusic();
   }
 
   Music get currentMusic => _currentMusic; //lists
@@ -38,7 +38,7 @@ class User {
     discovery.add(music);
   }
 
-  _actualiseCurrentMusic() async {
+  actualiseCurrentMusic() async {
     try {
       _currentMusic = Music(await MyApp.api.getCurrentlyPlayingTrack());
     } on ApiException {

@@ -79,6 +79,7 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          keyboardAppearance: Brightness.dark,
                           controller: userNameTextField,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
@@ -123,6 +124,7 @@ class _SignInPageState extends State<SignInPage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                         child: TextField(
+                          keyboardAppearance: Brightness.dark,
                           controller: passwordTextField,
                           obscureText: true,
                           decoration: const InputDecoration(
