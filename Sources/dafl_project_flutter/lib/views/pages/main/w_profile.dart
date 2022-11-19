@@ -1,4 +1,5 @@
 import '../../../main.dart';
+import '../../../model/music.dart';
 import './w_settings.dart';
 import './w_spot.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,14 @@ class MainPageProfil extends StatefulWidget {
 
 class _MainPageProfilState extends State<MainPageProfil> {
   String? username = MyApp.controller.currentUser.usernameDafl;
+  late Music currentmusic;
 
   @override
   initState() {
+    super.initState();
     username = MyApp.controller.currentUser.usernameDafl;
     MyApp.controller.currentUser.actualiseCurrentMusic();
-    super.initState();
+    currentmusic = MyApp.controller.currentUser.currentMusic;
   }
 
   @override
@@ -243,8 +246,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                     width: 90,
                                     placeholder:
                                         "assets/images/loadingPlaceholder.gif",
-                                    image: MyApp.controller.currentUser
-                                        .currentMusic.linkCover))),
+                                    image: currentmusic.linkCover))),
                         Container(
                           margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
                           child: Column(
@@ -252,15 +254,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                MyApp.controller.currentUser.currentMusic.name,
+                                currentmusic.name,
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
                               Text(
-                                MyApp
-                                    .controller.currentUser.currentMusic.artist,
+                                currentmusic.artist,
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
