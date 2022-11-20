@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>943188299704-h4035qno57lll2km151rdh3bgbb22vk7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.943188299704-h4035qno57lll2km151rdh3bgbb22vk7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCnQnCeu7gdc1_uIOxXVNQT1pG8xjD_tB8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>943188299704</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.daflProjectFlutter</string>
+	<key>PROJECT_ID</key>
+	<string>daflmusic-b3b74</string>
+	<key>STORAGE_BUCKET</key>
+	<string>daflmusic-b3b74.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:943188299704:ios:bd6866b329aebb64a9c94d</string>
+</dict>
+</plist>

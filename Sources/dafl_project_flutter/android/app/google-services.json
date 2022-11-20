@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "943188299704",
+    "project_id": "daflmusic-b3b74",
+    "storage_bucket": "daflmusic-b3b74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943188299704:android:995199bd5229a330a9c94d",
+        "android_client_info": {
+          "package_name": "com.example.dafl_project_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943188299704-qp12a784hmdo97v7qq78ekasgrfkmo52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBehHyqsXbBm1I7fBSG2bPOQvpDX-8Rm7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943188299704-qp12a784hmdo97v7qq78ekasgrfkmo52.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
