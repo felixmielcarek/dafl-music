@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dafl_project_flutter/model/message.dart';
-import 'package:dafl_project_flutter/services/message_database.dart';
+import 'package:dafl_project_flutter/firebase_services/message_database_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../persistence/database_loader.dart';
@@ -15,7 +15,7 @@ class Controller {
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
-  final MessageDatabase _messageAccess = MessageDatabase();
+  final MessageDatabaseServices _messageAccess = MessageDatabaseServices();
 
   late BuildContext navigatorKey;
 
