@@ -12,21 +12,28 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  User destinataire = User("test1", '1234');
+  User receiver = User("test1", '1234');
   List<Widget> messages = [];
   bool isNull = true;
 
   final messageTextField = TextEditingController();
 
-  void sendMessage(String content) {
+
+  void sendMessage(String content, String idSender, String idReceiver) {
+    Message messageToSend = Message(
+        idSender: idSender,
+        idReceiver: idReceiver,
+        content: content);
+
+    MyApp.controller.sendMessage(messageToSend, idSender, idReceiver);
+
     setState(() {
-      messages
-          .add(messageWidget(Message(MyApp.controller.currentUser, content)));
+      messages.add(messageWidget(messageToSend));
     });
   }
 
   Widget messageWidget(Message message) {
-    if (message.sender != MyApp.controller.currentUser) {
+    if (message.idSender != MyApp.controller.currentUser.usernameDafl){
       return Align(
         alignment: Alignment.centerLeft,
         child: Container(
@@ -218,7 +225,7 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: isNull
                   ? null
                   : () {
-                      sendMessage(messageTextField.text);
+                      sendMessage(messageTextField.text, MyApp.controller.currentUser.usernameDafl, receiver.usernameDafl);
                       if (listScrollController.hasClients) {
                         final position =
                             listScrollController.position.maxScrollExtent;
@@ -375,7 +382,7 @@ class _ConversationPageState extends State<ConversationPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       MyApp.controller.sendEmail(MyApp.controller.currentUser,
-                          destinataire, currentValue, messageTextField.text);
+                          receiver, currentValue, messageTextField.text);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(

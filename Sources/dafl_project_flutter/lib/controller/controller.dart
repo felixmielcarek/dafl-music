@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dafl_project_flutter/model/message.dart';
+import 'package:dafl_project_flutter/services/message_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../persistence/database_loader.dart';
@@ -13,6 +15,7 @@ class Controller {
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
+  final MessageDatabase _messageAccess = MessageDatabase();
 
   late BuildContext navigatorKey;
 
@@ -20,6 +23,10 @@ class Controller {
 
   Controller() {
     currentUser = User('', ''); //TODO : remove this line
+  }
+
+  void sendMessage(Message message, String idSender, String idReceiver){
+    _messageAccess.sendMessage(message, idSender, idReceiver);
   }
 
   void save(User userToSave) {

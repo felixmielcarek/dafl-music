@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
 import 'p_conversation.dart';
 
 class MessagesWidget extends StatefulWidget {
