@@ -62,6 +62,6 @@ steps:
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music
     username:
-      from_secret: secret-registry-username
+      from_secret: SECRET_USERNAME
     password:
-      from_secret: secret-registry-password
+      from_secret: SECRET_PASSWD
