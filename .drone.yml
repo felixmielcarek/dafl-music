@@ -57,8 +57,8 @@ steps:
 - name: php_script
   image: plugins/docker
   settings:
-    dockerfile: Sources/php_script/Dockerfile
-    context: Sources/php_script
+    dockerfile: ./Sources/php_script/Dockerfile
+    context: Sources/php_script/
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music
     username:
