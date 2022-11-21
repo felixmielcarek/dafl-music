@@ -1,5 +1,5 @@
 FROM php:8.1-cli
-COPY . Sources/php_script
+COPY . ./script
 WORKDIR Sources/php_script
 CMD [ "php", "./distance.php" ]
 CMD [ "php", "./db.php" ]
