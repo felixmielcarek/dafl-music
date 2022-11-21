@@ -54,7 +54,7 @@ steps:
   depends_on: [ web-server ]
 
 # docker image build
-- name: docker-build-and-push
+- name: php_script
   image: plugins/docker
   settings:
     dockerfile: Sources/php_script/Dockerfile
