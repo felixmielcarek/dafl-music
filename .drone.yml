@@ -65,3 +65,13 @@ steps:
       from_secret: SECRET_USERNAME
     password:
       from_secret: SECRET_PASSWD
+
+# container deployment
+- name: deploy-php
+  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+  environment:
+    IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
+    CONTAINERNAME: php_script
+    COMMAND: create
+    OVERWRITE: true
+  depends_on: [php_script]
