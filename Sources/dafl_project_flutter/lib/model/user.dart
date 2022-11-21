@@ -4,7 +4,6 @@ import '../exceptions/api_exception.dart';
 import '../main.dart';
 import 'music.dart';
 import 'spot.dart';
-import 'package:collection/collection.dart';
 
 class User {
   Timer? timer;
@@ -47,28 +46,24 @@ class User {
   }
 
   listSpots() {
-    print('ajout test');
-    Future<String> rep = Location.sendCurrentLocation();
-    //ex : dorian-2d2s52a15d2a5,audric-2x5s2az3d1s5wx5s1,lucas-s2a5d25a2a25d
-
-    rep.then((String result) {
-      List<String> tab = result.split(",");
-      //ex : [dorian-2d2s52a15d2a5 , audric-2x5s2az3d1s5wx5s1 , lucas-s2a5d25a2a25d]
-
-      for (var element in tab) {
-        List<String> tab2 = element.split("-");
-        spots.add(Spot(tab2[0], Music(tab2[1])));
+    int verif=0;
+    Future<Map<String, dynamic>> rep = Location.sendCurrentLocation();
+    //ex : dorian : 2d2s52a15d2a5 , audric : 2x5s2az3d1s5wx5s1 , lucas : s2a5d25a2a25d
+    rep.then((Map<String, dynamic> result) {
+      if (result.isNotEmpty) {
+        result.forEach((key, value) {
+          for (var element in spots) {
+            if (element.userId==key){
+              verif=1;
+            }
+          }
+          if (verif==0){
+            spots.add(Spot(key, Music(value)));
+          }
+          verif=0;
+        });
       }
     });
-  }
 
-  getListSpots() {
-    if (test == 0) {
-      test = 1;
-      listSpots();
-    } else {
-      timer =
-          Timer.periodic(const Duration(seconds: 72), (Timer t) => listSpots());
-    }
   }
 }

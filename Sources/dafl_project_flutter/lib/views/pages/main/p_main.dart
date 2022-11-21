@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import '../../../presentation/custom_icons_icons.dart';
@@ -32,7 +33,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    MyApp.controller.currentUser.getListSpots();
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -109,6 +109,11 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+  @override
+  void initState() {
+    super.initState();
+    Timer timer = Timer.periodic(const Duration(seconds: 10), (Timer t) => MyApp.controller.currentUser.listSpots());
   }
 }
 
