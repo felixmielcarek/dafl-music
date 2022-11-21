@@ -52,3 +52,16 @@ steps:
     COMMAND: create
     OVERWRITE: true
   depends_on: [ web-server ]
+
+# docker image build
+- name: docker-build-and-push
+  image: plugins/docker
+  settings:
+    dockerfile: Sources/php_script/Dockerfile
+    context: Sources/php_script
+    registry: hub.codefirst.iut.uca.fr
+    repo: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music
+    username:
+      from_secret: secret-registry-username
+    password:
+      from_secret: secret-registry-password
