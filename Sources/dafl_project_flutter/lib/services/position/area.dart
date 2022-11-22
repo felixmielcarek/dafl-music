@@ -31,7 +31,7 @@ class Location {
   static Future<Map<String, dynamic>> getData() async {
     Map<String, dynamic> spot = {};
     String actualUser = MyApp.controller.currentUser.usernameDafl;
-    Uri uri = Uri.parse("codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest/distance.php");
+    Uri uri = Uri.parse("https://codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest");
     http.Response response = await http.post(uri, body: {
       "id": actualUser,
     });
