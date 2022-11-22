@@ -1,2 +1,2 @@
 FROM php:8.1-cli
-CMD ./script/distance.php
+COPY ./script /usr/local/apache2/htdocs/
