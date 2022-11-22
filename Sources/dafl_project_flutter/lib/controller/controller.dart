@@ -12,6 +12,8 @@ class Controller {
   late User _currentUser;
   Area _area = Area();
 
+  late BuildContext navigatorKey;
+
   Uri getApiUrlAuthorize() {
     return _api.identification.urlAuthorize;
   }
@@ -47,6 +49,29 @@ class Controller {
 
   List<Spot> getSpots() {
     return _area.spots;
+  }
+
+  Future<List<Spot>> getArea() async {
+    await _area.sendCurrentLocation();
+    await _area.getData();
+    return _area.spots;
+  }
+
+  playTrack(String id) {
+    _api.requests.playTrack(id);
+  }
+
+  Future<Map<String, DateTime>> getDiscoveries() async {
+    _currentUser.discoveries = await _api.requests.getPlaylistTracks();
+    return _currentUser.discoveries;
+  }
+
+  removeFromPlaylist(String id) {
+    _api.requests.removeFromPlaylist(id);
+  }
+
+  addToPlaylist(String id) {
+    _api.requests.addToPlaylist(id);
   }
 
 /*

@@ -11,9 +11,9 @@ class SettingsWidget extends StatefulWidget {
 
 class _SettingsWidgetState extends State<SettingsWidget> {
   final userNameTextField =
-      TextEditingController(text: MyApp.controller.currentUser.usernameDafl);
+      TextEditingController(text: MyApp.controller.getIdDafl().toString());
   final passwordTextField =
-      TextEditingController(text: MyApp.controller.currentUser.passwDafl);
+      TextEditingController(text: MyApp.controller.getIdDafl().toString());
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +83,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        MyApp.controller
-                            .changeCurrentUsername(userNameTextField.text);
+                        /*MyApp.controller
+                            .changeCurrentUsername(userNameTextField.text);*/
                         notify(0, context, isError: false);
                       },
                       child: const Padding(
@@ -143,8 +143,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        MyApp.controller
-                            .changeCurrentPassword(passwordTextField.text);
+                        /*MyApp.controller
+                            .changeCurrentPassword(passwordTextField.text);*/
                         notify(1, context, isError: false);
                       },
                       child: const Padding(

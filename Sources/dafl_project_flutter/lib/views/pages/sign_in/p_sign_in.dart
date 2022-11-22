@@ -258,10 +258,10 @@ class _SignInPageState extends State<SignInPage> {
     } else if (password == "") {
       notify(4, context);
     } else {
-      await MyApp.controller
-          .load(userNameTextField.text, passwordTextField.text);
+      /*await MyApp.controller
+          .load(userNameTextField.text, passwordTextField.text);*/
 
-      if (MyApp.controller.currentUser.usernameDafl != "") {
+      if (MyApp.controller.getIdDafl().toString() != "") {
         Navigator.of(context).push(
           PageTransition(
               type: PageTransitionType.fade,

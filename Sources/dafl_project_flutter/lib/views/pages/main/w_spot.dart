@@ -31,11 +31,9 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          MyApp.controller.currentUser.spots.isEmpty
-                              ? "https://i.imgur.com/Uovh293.png"
-                              : MyApp.controller.currentUser.spots.last.music
-                                  .linkCover),
+                      image: NetworkImage(MyApp.controller.getSpots().isEmpty
+                          ? "https://i.imgur.com/Uovh293.png"
+                          : MyApp.controller.getSpots().last.music.linkCover),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -49,21 +47,19 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 ),
               ),
               Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: MyApp.controller.currentUser.spots.isEmpty
-                    ? Container()
-                    : OpenContainer(
-                        closedColor: Colors.transparent,
-                        closedElevation: 0,
-                        transitionDuration: const Duration(milliseconds: 400),
-                        closedBuilder: (context, openWidget) {
-                          return const PreviewInfoWidget();
-                        },
-                        openBuilder: (context, closeWidget) {
-                          return const DisplayInfoWidget();
-                        },
-                      ),
-              ),
+                  alignment: FractionalOffset.bottomCenter,
+                  child: MyApp.controller.getSpots().isEmpty
+                      ? Container()
+                      : OpenContainer(
+                          closedColor: Colors.transparent,
+                          closedElevation: 0,
+                          transitionDuration: const Duration(milliseconds: 400),
+                          closedBuilder: (context, openWidget) {
+                            return const PreviewInfoWidget();
+                          },
+                          openBuilder: (context, closeWidget) {
+                            return const DisplayInfoWidget();
+                          })),
               const Center(
                 child: SizedBox(
                   width: 300,
@@ -75,7 +71,7 @@ class _SpotsWidgetState extends State<SpotsWidget> {
               Positioned(
                 top: height * 0.68,
                 width: width,
-                child: MyApp.controller.currentUser.spots.isEmpty
+                child: MyApp.controller.getSpots().isEmpty
                     ? Container()
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -172,9 +168,9 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      MyApp.controller.currentUser.spots.isEmpty
+                      MyApp.controller.getSpots().isEmpty
                           ? ''
-                          : MyApp.controller.currentUser.spots.last.music.name,
+                          : MyApp.controller.getSpots().last.music.name,
                       style: TextStyle(
                           fontFamily: 'DMSans',
                           color: Colors.white.withOpacity(1),
@@ -182,10 +178,9 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                           fontWeight: FontWeight.w800),
                     ),
                     Text(
-                      MyApp.controller.currentUser.spots.isEmpty
+                      MyApp.controller.getSpots().isEmpty
                           ? ''
-                          : MyApp
-                              .controller.currentUser.spots.last.music.artist,
+                          : MyApp.controller.getSpots().last.music.artist,
                       style: TextStyle(
                           fontFamily: 'DMSans',
                           color: Colors.white.withOpacity(1),
@@ -200,12 +195,12 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                   right: 0,
                   child: GestureDetector(
                     onTap: () {
-                      MyApp.api.playTrack(
-                          MyApp.controller.currentUser.spots.last.music.id);
+                      MyApp.controller
+                          .playTrack(MyApp.controller.getSpots().last.music.id);
                     },
                     child: SizedBox(
                       height: 40,
-                      child: !MyApp.controller.currentUser.spots.isEmpty
+                      child: MyApp.controller.getSpots().isEmpty
                           ? Image.asset("assets/images/play_spotify_button.png")
                           : Container(),
                     ),

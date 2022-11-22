@@ -157,7 +157,7 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void discovery(BuildContext context) {
+  void discovery(BuildContext context) async {
     dev.log("discovery");
     _angle = 0;
     _position -= Offset(0, -_screenSize.height);
@@ -178,7 +178,7 @@ class CardProvider extends ChangeNotifier {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        MyApp.controller.currentUser.discovery.contains(
+                        await MyApp.controller.getDiscoveries().containsKey(
                                 MyApp.controller.currentUser.spots.last.music)
                             ? const Icon(
                                 Icons.info_rounded,
@@ -193,7 +193,7 @@ class CardProvider extends ChangeNotifier {
                         const SizedBox(
                           width: 10,
                         ),
-                        MyApp.controller.currentUser.discovery.contains(
+                        MyApp.controller.getDiscoveries().contains(
                                 MyApp.controller.getSpots().last.music)
                             ? const Text(
                                 "Déjà dans vos discovery",
@@ -217,11 +217,10 @@ class CardProvider extends ChangeNotifier {
       curve: Curves.linear,
       reverseCurve: Curves.linear,
     );
-    if (!MyApp.controller.currentUser.discovery
+    if (!MyApp.controller
+        .getDiscoveries()
         .contains(MyApp.controller.getSpots().last.music)) {
-      MyApp.controller.getSpots().last.music.defineDate();
-      MyApp.controller.currentUser
-          .addDiscovery(MyApp.controller.getSpots().last.music);
+      MyApp.controller.addToPlaylist(MyApp.controller.getSpots().last.music.id);
       notifyListeners();
     }
   }

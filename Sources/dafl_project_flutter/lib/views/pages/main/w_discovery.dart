@@ -30,7 +30,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Playlist découverte',
                           style: TextStyle(
                               color: Colors.white,
@@ -118,13 +118,13 @@ class _DiscoveryListState extends State<DiscoveryList> {
 
   @override
   Widget build(BuildContext context) {
-    List<Music> listDiscovery = MyApp.controller.currentUser.discovery;
+    var listDiscoveries = MyApp.controller.getDiscoveries();
     if (MyApp.controller.currentUser.sortChoise) {
-      listDiscovery.sort((a, b) {
+      listDiscoveries.sort((a, b) {
         return a.date.compareTo(b.date);
       });
     } else {
-      listDiscovery.sort((a, b) {
+      listDiscoveries.sort((a, b) {
         return a.name.compareTo(b.name);
       });
     }
@@ -135,25 +135,27 @@ class _DiscoveryListState extends State<DiscoveryList> {
         },
         key: refreshKey,
         child: ListView.builder(
-            itemCount: listDiscovery.length,
+            itemCount: listDiscoveries.length,
             itemBuilder: (context, index) {
-              int itemCount = listDiscovery.length;
+              int itemCount = listDiscoveries.length;
               int reversedIndex = itemCount - 1 - index;
               return Dismissible(
-                  movementDuration: Duration(milliseconds: 400),
-                  key: Key(listDiscovery[index].name),
+                  movementDuration: const Duration(milliseconds: 400),
+                  key: Key(listDiscoveries[index].name),
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.endToStart) {
-                      print(listDiscovery[reversedIndex].id);
-                      print(listDiscovery[reversedIndex].name);
-                      MyApp.controller.currentUser.discovery
-                          .remove(listDiscovery[reversedIndex]);
+                      print(listDiscoveries[reversedIndex].id);
+                      print(listDiscoveries[reversedIndex].name);
+                      MyApp.controller.removeFromPlaylist(
+                          listDiscoveries[reversedIndex].id);
+                      listDiscoveries = MyApp.controller.getDiscoveries();
                       return true;
                     }
                     if (direction == DismissDirection.startToEnd) {
-                      print(listDiscovery[reversedIndex].name);
+                      print(listDiscoveries[reversedIndex].name);
                       print('play');
-                      MyApp.api.playTrack(listDiscovery[reversedIndex].id);
+                      MyApp.controller
+                          .playTrack(listDiscoveries[reversedIndex].id);
                       setState(() {});
                     }
                     return false;
@@ -191,8 +193,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                 child: FadeInImage.assetNetwork(
                                     placeholder:
                                         "assets/images/loadingPlaceholder.gif",
-                                    image: MyApp.controller.currentUser
-                                        .discovery[reversedIndex].linkCover),
+                                    image: MyApp.controller
+                                        .getDiscoveries()[reversedIndex]
+                                        .linkCover),
                               ),
                               Container(
                                   margin:
@@ -204,8 +207,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          MyApp.controller.currentUser
-                                              .discovery[reversedIndex].name,
+                                          MyApp.controller
+                                              .getDiscoveries()[reversedIndex]
+                                              .name,
                                           style: TextStyle(
                                               fontFamily: 'DMSans',
                                               color:
@@ -214,10 +218,8 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                               fontWeight: FontWeight.w800),
                                         ),
                                         Text(
-                                            MyApp
-                                                .controller
-                                                .currentUser
-                                                .discovery[reversedIndex]
+                                            MyApp.controller
+                                                .getDiscoveries()[reversedIndex]
                                                 .artist,
                                             style: TextStyle(
                                                 fontFamily: 'DMSans',

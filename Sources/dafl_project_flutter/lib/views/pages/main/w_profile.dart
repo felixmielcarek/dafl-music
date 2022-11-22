@@ -27,15 +27,15 @@ class MainPageProfil extends StatefulWidget {
 }
 
 class _MainPageProfilState extends State<MainPageProfil> {
-  String? username = MyApp.controller.currentUser.usernameDafl;
+  late String username;
   late Music currentmusic;
 
   @override
-  initState() {
+  initState() async {
     super.initState();
-    username = MyApp.controller.currentUser.usernameDafl;
-    MyApp.controller.currentUser.actualiseCurrentMusic();
-    currentmusic = MyApp.controller.currentUser.currentMusic;
+    username = MyApp.controller.getIdDafl().toString();
+    currentmusic = await MyApp.controller
+        .getCompleteMusic(MyApp.controller.getCurrentMusic());
   }
 
   @override
@@ -77,14 +77,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
                   ],
                 ),
                 child: Center(
-                    child: Text(username![0],
+                    child: Text(username[0],
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 60,
                             fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center))),
             Text(
-              username!,
+              username,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
@@ -303,7 +303,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                   builder: (context) => const SettingsWidget()))
                           .then((value) => setState(() {
                                 username =
-                                    MyApp.controller.currentUser.usernameDafl;
+                                    MyApp.controller.getIdDafl().toString();
                               }));
                     },
                     child: Row(

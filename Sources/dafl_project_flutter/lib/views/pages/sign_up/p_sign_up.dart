@@ -1,8 +1,8 @@
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../api/in_app_browser.dart';
 import '../../../model/user.dart';
+import '../../../services/api/in_app_browser.dart';
 import '../home/p_home.dart';
 import '../sign_in/p_sign_in.dart';
 
@@ -334,9 +334,10 @@ class _SignUpPageState extends State<SignUpPage> {
       String username, String password, String confirmPassword) async {
     if (username == "") {
       notify(2, context);
-    } else if (!await MyApp.controller.searchByUsername(username)) {
-      notify(0, context);
     }
+    /* else if (!await MyApp.controller.searchByUsername(username)) {
+      notify(0, context);
+    }*/
     if (password == "" || confirmPassword == "") {
       notify(4, context);
     } else if (password.length < 8) {
@@ -344,7 +345,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (password != confirmPassword) {
       notify(1, context);
     } else {
-      MyApp.controller.save(User(username, password));
+      //MyApp.controller.save(User(username, password));
 
       Navigator.of(context).push(
         PageTransition(
