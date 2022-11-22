@@ -74,4 +74,4 @@ steps:
     CONTAINERNAME: php_script
     COMMAND: create
     OVERWRITE: true
-  depends_on: [php_script]
+  depends_on: [ php_script ]
