@@ -1,45 +1,74 @@
 import 'dart:convert';
+import 'package:dafl_project_flutter/model/music.dart';
+import 'package:dafl_project_flutter/services/api/api_spotify.dart';
+import 'package:dafl_project_flutter/services/position/area.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import '../persistence/database_loader.dart';
-import '../persistence/database_saver.dart';
-import '../persistence/database_searcher.dart';
-import '../persistence/loader.dart';
-import '../persistence/saver.dart';
+import '../model/spot.dart';
 import '../model/user.dart';
-import '../persistence/searcher.dart';
 
 class Controller {
+  ApiSpotify _api = ApiSpotify();
+  late User _currentUser;
+  Area _area = Area();
+
+  Uri getApiUrlAuthorize() {
+    return _api.identification.urlAuthorize;
+  }
+
+  String getApiRedirectUrl() {
+    return _api.identification.redirectUri;
+  }
+
+  apiAuthorization(url) {
+    _api.apiAuthorization(url);
+  }
+
+  String getIdSpotify() {
+    return _currentUser.idSpotify;
+  }
+
+  Future<Music> getCompleteMusic(String id) async {
+    Map infos = await _api.requests.getTrackInfo(id);
+    return Music(id, infos['name'], infos['artist'], infos['cover']);
+  }
+
+  setCurrentMusic() async {
+    _currentUser.currentMusic = await _api.requests.getCurrentlyPlayingTrack();
+  }
+
+  String getCurrentMusic() {
+    return _currentUser.currentMusic;
+  }
+
+  int getIdDafl() {
+    return _currentUser.idDafl;
+  }
+
+  List<Spot> getSpots() {
+    return _area.spots;
+  }
+
+/*
   static Saver saver = DatabaseSaver();
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
-
   late BuildContext navigatorKey;
-
-  late User currentUser;
-
-  Controller() {
-    currentUser = User('', ''); //TODO : remove this line
-  }
 
   void save(User userToSave) {
     saver.save(userToSave);
   }
 
   load(String username, String password) async {
-    _changeCurrentUser(await loader.load(username, password));
+    //TODO : call database methode + create user
   }
 
-  _changeCurrentUser(User user) {
-    currentUser = user;
-  }
-
-  changeCurrentUsername(String newName) {
-    currentUser.usernameDafl = newName;
+  changeUsername(String newName) {
+    //TODO : call database method
   }
 
   changeCurrentPassword(String newPass) {
-    currentUser.passwDafl = newPass;
+    //TODO : call database method
   }
 
   Future<bool> searchByUsername(String username) async {
@@ -71,4 +100,5 @@ class Controller {
       }),
     );
   }
+  */
 }

@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
 import 'model/spot.dart';
-import 'api/api.dart';
 import 'dart:developer' as dev;
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
@@ -19,7 +18,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static Controller controller = Controller();
-  static Api api = Api();
 
   const MyApp({super.key});
 
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.top],
     );
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.dark, // For iOS (dark icons)
     ));
@@ -48,7 +46,7 @@ class MyApp extends StatelessWidget {
 enum CardStatus { like, disLike, discovery, message }
 
 class CardProvider extends ChangeNotifier {
-  final List<Spot> _spotsList = MyApp.controller.currentUser.spots;
+  final List<Spot> _spotsList = MyApp.controller.getSpots();
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
@@ -196,7 +194,7 @@ class CardProvider extends ChangeNotifier {
                           width: 10,
                         ),
                         MyApp.controller.currentUser.discovery.contains(
-                                MyApp.controller.currentUser.spots.last.music)
+                                MyApp.controller.getSpots().last.music)
                             ? const Text(
                                 "Déjà dans vos discovery",
                                 style: TextStyle(
@@ -220,10 +218,10 @@ class CardProvider extends ChangeNotifier {
       reverseCurve: Curves.linear,
     );
     if (!MyApp.controller.currentUser.discovery
-        .contains(MyApp.controller.currentUser.spots.last.music)) {
-      MyApp.controller.currentUser.spots.last.music.defineDate();
+        .contains(MyApp.controller.getSpots().last.music)) {
+      MyApp.controller.getSpots().last.music.defineDate();
       MyApp.controller.currentUser
-          .addDiscovery(MyApp.controller.currentUser.spots.last.music);
+          .addDiscovery(MyApp.controller.getSpots().last.music);
       notifyListeners();
     }
   }
@@ -333,7 +331,7 @@ class CardProvider extends ChangeNotifier {
                 child: ElevatedButton(
                   onPressed: () {
                     sendMessage(messageTextField.text,
-                        MyApp.controller.currentUser.spots.last.userId);
+                        MyApp.controller.getSpots().last.userId);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3F1DC3),
@@ -364,7 +362,7 @@ class CardProvider extends ChangeNotifier {
   }
 
   void sendMessage(String message, String userId) {
-    dev.log(MyApp.controller.currentUser.spots.last.userId);
+    dev.log(MyApp.controller.getSpots().last.userId);
   }
 
   void like(context) {

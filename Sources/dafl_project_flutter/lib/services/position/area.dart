@@ -2,42 +2,41 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import '../main.dart';
 
-class Location {
-  static Future<Map<String, dynamic>> sendCurrentLocation() async {
+import '../../main.dart';
+import '../../model/spot.dart';
+
+class Area {
+  late List<Spot> spots;
+
+  sendCurrentLocation() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.deniedForever) {
-        //faire l'interface gra pour gérer ça
-        return Future.error('Location Not Available');
+        //TODO : handle this case
       }
     }
-    String actualUser = MyApp.controller.currentUser.usernameDafl;
-    String actualSong = await MyApp.api.getCurrentlyPlayingTrack();
+    String actualUser = MyApp.controller.getIdSpotify();
+    String actualSong = await MyApp.controller.getCurrentMusic();
     Position current = await Geolocator.getCurrentPosition();
     await http.post(uri, body: {
-      "id": actualUser.toString(),
+      "id": actualUser,
       "latitude": current.latitude.toString(),
       "longitude": current.longitude.toString(),
-      "idMusic": actualSong.toString(),
+      "idMusic": actualSong
     });
-    return getData();
   }
 
-  static Future<Map<String, dynamic>> getData() async {
-    Map<String, dynamic> spot = {};
-    String actualUser = MyApp.controller.currentUser.usernameDafl;
+  getData() async {
+    String actualUser = MyApp.controller.getIdDafl().toString();
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
     http.Response response = await http.post(uri, body: {
       "id": actualUser,
     });
     var data = jsonDecode(response.body);
-    data.forEach((s)=> spot.putIfAbsent(s['user'], () => s['music']));
-    return spot;
+    data.forEach((s) => spots.add(Spot(s['user'], s['music'])));
   }
 }
-

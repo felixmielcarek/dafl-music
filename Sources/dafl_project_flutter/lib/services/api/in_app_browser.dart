@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import '../exceptions/api_exception.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class MyInAppBrowser extends InAppBrowser {
   var options = InAppBrowserClassOptions(
@@ -14,7 +12,8 @@ class MyInAppBrowser extends InAppBrowser {
   MyInAppBrowser() {
     _debugBrowser();
     openUrlRequest(
-        urlRequest: URLRequest(url: MyApp.api.urlAuthorize), options: options);
+        urlRequest: URLRequest(url: MyApp.controller.getApiUrlAuthorize()),
+        options: options);
   }
 
   _debugBrowser() async {
@@ -26,10 +25,10 @@ class MyInAppBrowser extends InAppBrowser {
   @override
   Future onLoadStart(url) async {
     bool isError = false;
-    if (url!.origin + url.path == MyApp.api.redirectUri) {
+    if (url!.origin + url.path == MyApp.controller.getApiRedirectUrl()) {
       try {
-        await MyApp.api.requestUserAuthorization(url);
-      } on ApiException {
+        await MyApp.controller.apiAuthorization(url);
+      } catch (e) {
         notify(5, MyApp.controller.navigatorKey);
         isError = true;
       } finally {

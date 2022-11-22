@@ -1,6 +1,6 @@
 import 'database_connexion.dart';
 import 'saver.dart';
-import '../model/user.dart';
+import '../../model/user.dart';
 
 class DatabaseSaver extends Saver {
   // Save user in the database
