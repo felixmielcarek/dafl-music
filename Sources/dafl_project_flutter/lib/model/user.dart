@@ -11,7 +11,6 @@ class User {
   int test = 0;
 
   //attributes from DAFL
-  late int idDafl;
   late String usernameDafl;
   late String passwDafl;
   List<Music> discovery = [];
@@ -21,6 +20,7 @@ class User {
   String? _idSpotify; //use _getIdUser() as kind of a private getter
   late Music _currentMusic;
   bool sortChoise = true;
+
 
   //constructors
   User(this.usernameDafl, this.passwDafl) {

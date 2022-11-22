@@ -5,11 +5,11 @@ class Message {
   String idReceiver;
   String content;
 
-  Message({required this.idSender,
+  Message({
+    required this.idSender,
     required this.idReceiver,
-    required this.content
+    required this.content,
   });
-
 
   Map<String, dynamic> toHashMap() {
     return {
@@ -19,12 +19,16 @@ class Message {
     };
   }
 
-
-  factory Message.fromMap(Map<String, dynamic> data){
+  factory Message.fromMap(Map<String, dynamic> data) {
     return Message(
       idSender: data['idSender'],
       idReceiver: data['idReceiver'],
       content: data['content'],
     );
+  }
+
+  @override
+  String toString() {
+    return "idSender : $idSender " + "Content : $content \n";
   }
 }

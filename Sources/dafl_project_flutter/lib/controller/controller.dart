@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dafl_project_flutter/firebase_services/notification_service.dart';
 import 'package:dafl_project_flutter/model/message.dart';
 import 'package:dafl_project_flutter/firebase_services/message_database_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,7 @@ class Controller {
   static Loader loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
   final MessageDatabaseServices _messageAccess = MessageDatabaseServices();
+  final NotificationService _notificationService = NotificationService();
 
   late BuildContext navigatorKey;
 
@@ -23,14 +25,15 @@ class Controller {
 
   Controller() {
     currentUser = User('', ''); //TODO : remove this line
+    NotificationService.initialize();
   }
 
-  void sendMessage(Message message, String idSender, String idReceiver){
+  void sendMessage(Message message, String idSender, String idReceiver) {
     _messageAccess.sendMessage(message, idSender, idReceiver);
   }
 
-  Stream<List<Message>> getMessage(String chatId){
-    return _messageAccess.getMessage(chatId);
+  Stream<List<Message>> getMessage(String idSender, String idReceiver) {
+    return _messageAccess.getMessage(idSender, idReceiver);
   }
 
   void save(User userToSave) {
