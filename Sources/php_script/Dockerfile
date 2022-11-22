@@ -1,2 +1,2 @@
-FROM devilbox/php-fpm-8.1:latest
+FROM php:8.1-apache
 COPY ./script /var/www/html
