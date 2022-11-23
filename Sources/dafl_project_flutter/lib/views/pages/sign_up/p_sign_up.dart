@@ -335,9 +335,9 @@ class _SignUpPageState extends State<SignUpPage> {
     if (username == "") {
       notify(2, context);
     }
-    /* else if (!await MyApp.controller.searchByUsername(username)) {
+    else if (! await MyApp.controller.searchUser(username)) {
       notify(0, context);
-    }*/
+    }
     if (password == "" || confirmPassword == "") {
       notify(4, context);
     } else if (password.length < 8) {
@@ -345,7 +345,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (password != confirmPassword) {
       notify(1, context);
     } else {
-      //MyApp.controller.save(User(username, password));
+      MyApp.controller.save(User(username, password));
 
       Navigator.of(context).push(
         PageTransition(

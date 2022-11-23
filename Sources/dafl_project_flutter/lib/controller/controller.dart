@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dafl_project_flutter/model/music.dart';
 import 'package:dafl_project_flutter/services/api/api_spotify.dart';
+import 'package:dafl_project_flutter/services/database/database_service.dart';
 import 'package:dafl_project_flutter/services/position/area.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,7 @@ class Controller {
   ApiSpotify _api = ApiSpotify();
   late User _currentUser;
   Area _area = Area();
+  DataBaseService _dataBaseService = DataBaseService();
 
   late BuildContext navigatorKey;
 
@@ -74,14 +76,10 @@ class Controller {
     _api.requests.addToPlaylist(id);
   }
 
-/*
-  static Saver saver = DatabaseSaver();
-  static Loader loader = DatabaseLoader();
-  static final Searcher _searcher = DatabaseSearcher();
-  late BuildContext navigatorKey;
+
 
   void save(User userToSave) {
-    saver.save(userToSave);
+    _dataBaseService.save(userToSave);
   }
 
   load(String username, String password) async {
@@ -96,9 +94,13 @@ class Controller {
     //TODO : call database method
   }
 
-  Future<bool> searchByUsername(String username) async {
-    return await _searcher.searchByUsername(username);
+  Future<bool> searchUser(String username) async {
+    return await _dataBaseService.searchUser(username);
   }
+
+
+
+
 
   Future sendEmail(
       User reporter, User reported, String reason, String message) async {

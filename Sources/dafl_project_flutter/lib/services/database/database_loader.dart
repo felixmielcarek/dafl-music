@@ -7,7 +7,7 @@ import 'dart:developer' as dev;
 class DatabaseLoader extends Loader {
   // Load an user from database
   @override
-  Future<User> load(String username, String password) async {
+  Future<User?> load(String username, String password) async {
     final connection = await DatabaseConnexion.initConnexion();
 
     var queryResult = await connection
@@ -20,7 +20,7 @@ class DatabaseLoader extends Loader {
           if (result.isNotEmpty) {
             return User(username, password);
           } else {
-            return User("", "");
+            return null;
           }
         })
         .whenComplete(() {
