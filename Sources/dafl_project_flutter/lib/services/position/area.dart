@@ -6,7 +6,7 @@ import '../main.dart';
 
 class Location {
   static Future<Map<String, dynamic>> sendCurrentLocation() async {
-    Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
+    Uri uri = Uri.parse("https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/insert.php");
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -31,7 +31,7 @@ class Location {
   static Future<Map<String, dynamic>> getData() async {
     Map<String, dynamic> spot = {};
     String actualUser = MyApp.controller.currentUser.usernameDafl;
-    Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/distance.php");
+    Uri uri = Uri.parse("https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/distance.php");
     http.Response response = await http.post(uri, body: {
       "id": actualUser,
     });
