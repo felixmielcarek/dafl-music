@@ -59,7 +59,7 @@ steps:
   image: plugins/docker
   settings:
     dockerfile: ./Sources/php_script/Dockerfile
-    context: Sources/php_script/
+    context: Sources/php_script/script
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music
     username:
