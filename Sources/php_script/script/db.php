@@ -1,10 +1,7 @@
 <?php
-$dns = 'mysql:host='.getenv("CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST").';dbname='.getenv("CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE");
-$user = $_ENV["CODEFIRST_CLIENTDRONE_ENV_INNODB_USER"];
-$password = $_ENV["CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD"];
-echo "\n";echo "\n";echo "\n";
-echo $dns;
-echo "\n";echo "\n";echo "\n";
+$dns = 'mysql:host=89.83.53.34;dbname=positiondaflmusic';
+$user = 'dafldev';
+$password = 'wrap';
 try{
     $db = new PDO ($dns, $user, $password);
 }catch( PDOException $e){

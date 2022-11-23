@@ -17,13 +17,11 @@ function meters($lat1, $lng1, $lat2, $lng2): float
     return round($earth_radius * $d);
 }
 
-$db=0;
 $connect="";
-require_once('db.php');
 include "config.php";
 $id = $_POST['id'];
 $query = 'SELECT * FROM gps';
-$stm = $db->prepare($query);
+$stm = $connect->prepare($query);
 $stm->execute();
 $row = $stm->fetchAll(PDO::FETCH_ASSOC);
 $lat1=0;
