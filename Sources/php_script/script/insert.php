@@ -22,5 +22,5 @@ if (!empty($_POST)) {                                                           
     VALUES('$id','$latitude','$longitude','$idMusic',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
     $results = mysqli_query($connect, $query);                                  //Execute the SQL command
 }else{                                                                          //If the method POST return nothing
-    print (json_encode("The POST method failed"));                        //Return a json string, so the dart script can interpret the error
+    print (json_encode("The POST didn't return any values"));             //Return a json string, so the dart script can interpret the error
 }
