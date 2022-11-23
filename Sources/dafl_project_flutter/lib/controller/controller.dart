@@ -77,7 +77,7 @@ class Controller {
   }
 
 
-
+  // DATABASE
   void save(User userToSave) {
     _dataBaseService.save(userToSave);
   }
@@ -87,11 +87,11 @@ class Controller {
   }
 
   changeUsername(String newName) {
-    //TODO : call database method
+    _dataBaseService.changeUsername(newName);
   }
 
   changeCurrentPassword(String newPass) {
-    //TODO : call database method
+    _dataBaseService.changeCurrentPassword(newPass);
   }
 
   Future<bool> searchUser(String username) async {

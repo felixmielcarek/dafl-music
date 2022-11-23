@@ -1,12 +1,12 @@
 import 'database_connexion.dart';
 import 'searcher.dart';
 
-class DatabaseSearcher extends Searcher {
+class DatabaseSearcher implements Searcher {
 
 
   // Search an user in the database by username
   @override
-  Future<bool> searchuser(String? username) async {
+  Future<bool> searchUser(String? username) async {
     final connection = await DatabaseConnexion.initConnexion();
 
     bool queryResult = await connection

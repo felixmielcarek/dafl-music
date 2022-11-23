@@ -2,7 +2,7 @@ import 'database_connexion.dart';
 import 'saver.dart';
 import '../../model/user.dart';
 
-class DatabaseSaver extends Saver {
+class DatabaseSaver implements Saver {
   // Save user in the database
   @override
   void save(User userToSave) async {

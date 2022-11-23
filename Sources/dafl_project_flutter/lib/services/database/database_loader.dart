@@ -4,7 +4,7 @@ import '../../model/user.dart';
 import 'database_connexion.dart';
 import 'dart:developer' as dev;
 
-class DatabaseLoader extends Loader {
+class DatabaseLoader implements Loader {
   // Load an user from database
   @override
   Future<User?> load(String username, String password) async {
