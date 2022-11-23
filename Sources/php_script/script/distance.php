@@ -16,7 +16,7 @@ function meters($lat1, $lng1, $lat2, $lng2): float
 $connect="";                                                                    //Else PHP send an error, "connect don't exist", but that work anyway, this is just to remove a fake error
 $res=include "config.php";                                                      //$res get the result of the calling of "config.php"
 if ($res != 1){                                                                 //Check if config.php work
-    print (json_encode("Failed to connect to MySQL"));                    //Return a json string, so the dart script can interpret the error
+    print (json_encode("Failed to connect to MySQL, connection timeout"));                    //Return a json string, so the dart script can interpret the error
 }
 if (!empty($_POST)) {
     $id = $_POST['id'];                                                             //Get the result of the POST method in id
