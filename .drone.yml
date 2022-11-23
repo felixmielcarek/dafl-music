@@ -50,5 +50,5 @@ steps:
     IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music:latest
     CONTAINERNAME: apiredirect
     COMMAND: create
-    OVERWRITE: false
+    OVERWRITE: true
   depends_on: [ web-server ]
