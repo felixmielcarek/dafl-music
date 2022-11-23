@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -33,7 +31,6 @@ class Location {
   static Future<Map<String, dynamic>> getData() async {
     Map<String, dynamic> spot = {};
     String actualUser = MyApp.controller.currentUser.usernameDafl;
-    log(actualUser);
     Uri uri = Uri.parse("https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/distance.php");
     http.Response response = await http.post(uri, body: {
       "id": actualUser,

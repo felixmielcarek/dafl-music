@@ -75,7 +75,6 @@ steps:
     CONTAINERNAME: php_script
     COMMAND: create
     OVERWRITE: true
-    PRIVATE: true
     CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST:
       from_secret: db_host
     CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
