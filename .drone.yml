@@ -76,10 +76,10 @@ steps:
     PRIVATE: true
     CODEFIRST_CLIENTDRONE_ENV_INNONDB_HOST:
       from_secret: db_host
-      CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
-        from_secret: db_database
-      CODEFIRST_CLIENTDRONE_ENV_INNODB_USER:
-        from_secret: db_user
-      CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
-        from_secret: db_password
+    CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
+      from_secret: db_database
+    CODEFIRST_CLIENTDRONE_ENV_INNODB_USER:
+      from_secret: db_user
+    CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
+      from_secret: db_password
   depends_on: [ php_script ]
