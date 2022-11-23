@@ -74,6 +74,7 @@ steps:
     IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
     CONTAINERNAME: php_script
     COMMAND: create
+    OVERWRITE: true
     PRIVATE: true
     CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST:
       from_secret: db_host
