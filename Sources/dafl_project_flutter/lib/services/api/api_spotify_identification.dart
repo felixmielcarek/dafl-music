@@ -19,7 +19,7 @@ class ApiSpotifyIdentification extends HttpResponseVerification {
 
   String? _code;
 
-  String get redirectUri => 'https://daflmusic.000webhostapp.com/callback/';
+  String get redirectUri => 'https://codefirst.iut.uca.fr/containers/apiredirect-felixmielcarek/';
 
   Uri get urlAuthorize => Uri.https('accounts.spotify.com', 'authorize', {
         'client_id': clientId,
