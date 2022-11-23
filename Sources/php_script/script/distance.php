@@ -2,21 +2,21 @@
 
 function meters($lat1, $lng1, $lat2, $lng2): float
 {
-    $earth_radius = 6378137;                                                                 // Radius of the Earth in meters :
-    $rlo1 = deg2rad($lng1);                                                                  //Transform the coordinate longitude1 from degree to radian
-    $rla1 = deg2rad($lat1);                                                                  //Transform the coordinate latitude1 from degree to radian
-    $rlo2 = deg2rad($lng2);                                                                  //Transform the coordinate longitude2 from degree to radian
-    $rla2 = deg2rad($lat2);                                                                  //Transform the coordinate latitude2 from degree to radian
-    $dlo = ($rlo2 - $rlo1) / 2;                                                              //Stock in $dlo the result of the calcul : ($rlo2 - $rlo1) / 2
-    $dla = ($rla2 - $rla1) / 2;                                                              //Stock in $dla the result of the calcul : ($rla2 - $rla1) / 2
-    $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));        //Do some operations to return the distance in meters
+    $earth_radius = 6378137;                                                            // Radius of the Earth in meters :
+    $rlo1 = deg2rad($lng1);                                                             //Transform the coordinate longitude1 from degree to radian
+    $rla1 = deg2rad($lat1);                                                             //Transform the coordinate latitude1 from degree to radian
+    $rlo2 = deg2rad($lng2);                                                             //Transform the coordinate longitude2 from degree to radian
+    $rla2 = deg2rad($lat2);                                                             //Transform the coordinate latitude2 from degree to radian
+    $dlo = ($rlo2 - $rlo1) / 2;                                                         //Stock in $dlo the result of the calcul : ($rlo2 - $rlo1) / 2
+    $dla = ($rla2 - $rla1) / 2;                                                         //Stock in $dla the result of the calcul : ($rla2 - $rla1) / 2
+    $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));   //Do some operations to return the distance in meters
     $d = 2 * atan2(sqrt($a), sqrt(1 - $a));                                             //Do some operations to return the distance in meters
     return round($earth_radius * $d);                                                   // Return the distance in meters between 2 GPS points
 }
-$connect="";                                                                    //Else PHP send an error, "connect don't exist", but that work anyway, this is just to remove a fake error
-$res=include "config.php";                                                      //$res get the result of the calling of "config.php"
-if ($res != 1){                                                                 //Check if config.php work
-    print (json_encode("Failed to connect to MySQL, connection timeout"));                    //Return a json string, so the dart script can interpret the error
+$connect="";                                                                            //Else PHP send an error, "connect don't exist", but that work anyway, this is just to remove a fake error
+$res=include "config.php";                                                              //$res get the result of the calling of "config.php"
+if ($res != 1){                                                                         //Check if config.php work
+    print (json_encode("Failed to connect to MySQL, connection timeout"));              //Return a json string, so the dart script can interpret the error
 }
 if (!empty($_POST)) {
     $id = $_POST['id'];                                                             //Get the result of the POST method in id
@@ -32,7 +32,7 @@ if (!empty($_POST)) {
         }
     }
     if ($lat1 == 0 && $lng1 == 0) {                                                 //Check if the user get found in the database
-        print(json_encode("ERROR No user found in the database"));            //Return a json string, so the dart script can interpret the error
+        print(json_encode("ERROR No user found in the database"));                  //Return a json string, so the dart script can interpret the error
         exit(1);                                                                    //Exit the actual script
     }
     $results = mysqli_query($connect, $query);                                      //Execute again the SQL command to restart the fetch_row()
@@ -50,7 +50,7 @@ if (!empty($_POST)) {
     }
     print(json_encode($listUser));                                                  //Return a json string of the list listUser
 }else{                                                                              //If the method POST return nothing
-    print (json_encode("The POST didn't return any values"));                 //Return a json string, so the dart script can interpret the error
+    print (json_encode("The POST didn't return any values"));                       //Return a json string, so the dart script can interpret the error
 }
 
 
