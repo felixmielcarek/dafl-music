@@ -73,23 +73,13 @@ steps:
     IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
     CONTAINERNAME: php_script
     COMMAND: create
-    OVERWRITE: true
-  depends_on: [ php_script ]
-
-#database container
-- name: deploy-php-database
-  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
-  environment:
-    IMAGENAME: innodb
-    CONTAINERNAME: deploy-php
-    COMMAND: create
     PRIVATE: true
     CODEFIRST_CLIENTDRONE_ENV_INNONDB_HOST:
       from_secret: db_host
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
-      from_secret: db_database
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_USER:
-      from_secret: db_user
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
-      from_secret: db_password
-  depends_on : [ deploy-php ]
+      CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
+        from_secret: db_database
+      CODEFIRST_CLIENTDRONE_ENV_INNODB_USER:
+        from_secret: db_user
+      CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
+        from_secret: db_password
+  depends_on: [ php_script ]
