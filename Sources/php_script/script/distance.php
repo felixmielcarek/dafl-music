@@ -1,24 +1,20 @@
 <?php
 
-
-class distance
+function meters($lat1, $lng1, $lat2, $lng2): float
 {
-    public function meters($lat1, $lng1, $lat2, $lng2): float
-    {
-        // Radius of the Earth in meters :
-        $earth_radius = 6378137;
-        // Calculation of the distance between 2 GPS coordinates:
-        $rlo1 = deg2rad($lng1);
-        $rla1 = deg2rad($lat1);
-        $rlo2 = deg2rad($lng2);
-        $rla2 = deg2rad($lat2);
-        $dlo = ($rlo2 - $rlo1) / 2;
-        $dla = ($rla2 - $rla1) / 2;
-        $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));
-        $d = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        // Return the distance in meters between 2 GPS points
-        return round($earth_radius * $d);
-    }
+    // Radius of the Earth in meters :
+    $earth_radius = 6378137;
+    // Calculation of the distance between 2 GPS coordinates:
+    $rlo1 = deg2rad($lng1);
+    $rla1 = deg2rad($lat1);
+    $rlo2 = deg2rad($lng2);
+    $rla2 = deg2rad($lat2);
+    $dlo = ($rlo2 - $rlo1) / 2;
+    $dla = ($rla2 - $rla1) / 2;
+    $a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));
+    $d = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    // Return the distance in meters between 2 GPS points
+    return round($earth_radius * $d);
 }
 
 $db=0;
@@ -50,7 +46,7 @@ Foreach ($row as $col) {
         $lng2 = $col['longitude'];
         $userID = $col['id'];
         $idMusic = $col['idMusic'];
-        $dist = (new distance)->meters($lat1, $lng1, $lat2, $lng2);
+        $dist = meters($lat1, $lng1, $lat2, $lng2);
         if ($dist <= 100) {
             $listUser[] = ['user' => $userID, 'music' => $idMusic];         }
     }
