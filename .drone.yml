@@ -81,7 +81,7 @@ steps:
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   environment:
     IMAGENAME: innodb
-    CONTAINERNAME: location_php_database
+    CONTAINERNAME: deploy-php
     COMMAND: create
     PRIVATE: true
     CODEFIRST_CLIENTDRONE_ENV_INNONDB_HOST:
@@ -92,3 +92,4 @@ steps:
       from_secret: db_user
     CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
       from_secret: db_password
+  depends_on : [ deploy-php ]
