@@ -75,13 +75,13 @@ steps:
     CONTAINERNAME: php_script
     COMMAND: create
     OVERWRITE: true
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST:
+    HOST:
       from_secret: db_host
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE:
+    DATABASE:
       from_secret: db_database
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_USER:
+    USER:
       from_secret: db_user
-    CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
+    PASSWORD:
       from_secret: db_password
   depends_on: [ php_script ]
 

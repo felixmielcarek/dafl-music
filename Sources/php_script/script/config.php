@@ -1,6 +1,6 @@
 <?php
 $username="dafldev";                                                             //Get the username
-$host="89.83.53.34";                                                             //Get the address IP of the hosting machine
+$host=getenv("HOST");                                                             //Get the address IP of the hosting machine
 $password="wrap";                                                                //Get the password for the user selected
 $db_name="positiondaflmusic";                                                    //Get the name of the database
 try {                                                                            //Try to connect to the database
