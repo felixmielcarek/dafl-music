@@ -89,10 +89,10 @@ steps:
 - name : database_location
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   environment:
-    IMAGENAME: phpmyadmin:latest
-    CONTAINERNAME: location_database
-    COMMAND: create
-    OVERWRITE: true
-    ports:
-      - 80:80
-    restart: unless-stopped
+    phpmyadmin:
+      IMAGENAME: phpmyadmin:latest
+      ports:
+        - 80:80
+      environment:
+        - PMA_ARBITRARY=1
+      restart: unless-stopped
