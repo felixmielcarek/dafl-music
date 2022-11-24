@@ -83,5 +83,11 @@ steps:
       from_secret: db_user
     PASSWORD:
       from_secret: db_password
+  networks:
+    - php_script
   depends_on: [ php_script ]
 
+networks :
+  network_mode : open
+  external : true
+  name : php_script
