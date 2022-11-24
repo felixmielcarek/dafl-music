@@ -38,11 +38,11 @@ class Location {
     var data = jsonDecode(response.body);
     if (data.runtimeType==String) {
       if (data=="Failed to connect to MySQL, connection timeout"){
-        return Future.error("Failed to connect to MySQL, connection timeout");
+        return Future.error(data);
       }else if (data=="The POST didn't return any values"){
-        return Future.error("POST method failed");
+        return Future.error(data);
       }else{
-        return Future.error("Can't find current user in the database");
+        return Future.error(data);        //ERROR No user found in the database
       }
     }else {
       data.forEach((s) => spot.putIfAbsent(s['user'], () => s['music']));
