@@ -85,3 +85,32 @@ steps:
       from_secret: db_password
   depends_on: [ php_script ]
 
+services:
+  php:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: php73
+    depends_on:
+      - db
+    image: php:7.3-apache
+    volumes:
+      - ./php:/var/www/html/
+    ports:
+      - 80:80
+  db:
+    container_name: mysql8
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+  phpmya:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: myuser
+      PMA_PASSWORD: monpassword
+      UPLOAD_LIMIT: 20M
+    ports:
+      - 8899:80
