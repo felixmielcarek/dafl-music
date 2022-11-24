@@ -84,10 +84,10 @@ steps:
     CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
       from_secret: db_password
   commands:
-    - export DAFL_HOST = from_secret: db_host
-    - export DAFL_DATABASE = from_secret: db_database
-    - export DAFL_USER = from_secret: db_user
-    - export DAFL_PASSWORD = from_secret: db_password
+    - export DAFL_HOST = CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST
+    - export DAFL_DATABASE = CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE
+    - export DAFL_USER = CODEFIRST_CLIENTDRONE_ENV_INNODB_USER
+    - export DAFL_PASSWORD = CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD
   networks:
     - myapp
   depends_on: [ php_script ]
