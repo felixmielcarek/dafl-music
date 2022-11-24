@@ -54,7 +54,7 @@ steps:
     OVERWRITE: true
   depends_on: [ web-server ]
 ---
-kind : secret
+kind : pipeline
 type : docker
 name : php-scripts
 
