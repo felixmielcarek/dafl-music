@@ -83,6 +83,8 @@ steps:
       from_secret: db_user
     CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
       from_secret: db_password
+    networks:
+      external: true
   #commands:
   #  - export DAFL_HOST = $CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST
   #  - export DAFL_DATABASE = $CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE
