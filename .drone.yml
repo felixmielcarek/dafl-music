@@ -53,6 +53,12 @@ steps:
     COMMAND: create
     OVERWRITE: true
   depends_on: [ web-server ]
+---
+kind : secret
+type : docker
+name : php-scripts
+
+steps:
 
 # docker image build
 - name: php_script
@@ -83,12 +89,14 @@ steps:
       from_secret: db_user
     CODEFIRST_CLIENTDRONE_ENV_INNODB_PASSWORD:
       from_secret: db_password
-    networks:
-      external: true
-  #commands:
-  #  - export DAFL_HOST = $CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST
-  #  - export DAFL_DATABASE = $CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE
-  #  - export DAFL_USER = $CODEFIRST_CLIENTDRONE_ENV_INNODB_USER
-  #  - export DAFL_PASSWORD = $CODEFIRST_CLIENTDRONE_ENV_INNODB_PASS
-
+  commands:
+    - export DAFL_HOST = $CODEFIRST_CLIENTDRONE_ENV_INNODB_HOST
+    - export DAFL_DATABASE = $CODEFIRST_CLIENTDRONE_ENV_INNODB_DATABASE
+    - export DAFL_USER = $CODEFIRST_CLIENTDRONE_ENV_INNODB_USER
+    - export DAFL_PASSWORD = $CODEFIRST_CLIENTDRONE_ENV_INNODB_PASS
+  networks:
+    - myapp
   depends_on: [ php_script ]
+
+networks:
+  - myapp
