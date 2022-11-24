@@ -84,15 +84,3 @@ steps:
     CODEFIRST_CLIENTDRONE_ENV_PASSWORD:
       from_secret: db_password
   depends_on: [ php_script ]
-
-#location-database
-- name : database_location
-  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
-  environment:
-    phpmyadmin:
-      IMAGENAME: phpmyadmin:latest
-      ports:
-        - 80:80
-      environment:
-        - PMA_ARBITRARY=1
-      restart: unless-stopped
