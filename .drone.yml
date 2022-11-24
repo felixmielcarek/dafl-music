@@ -95,5 +95,5 @@ steps:
     OVERWRITE: true
     ports:
       - 80:80
-    - PMA_ARBITRARY=1
+    PMA_ARBITRARY=1
     restart: unless-stopped
