@@ -1,5 +1,5 @@
 FROM php:8.1-apache
 RUN apt-get update &&  apt-get upgrade -y
 RUN docker-php-ext-install mysqli
-RUN cat /proc/version
+RUN apt-get install -y phpmyadmin php-mbstring php-gettext -y
 COPY ./script /var/www/html
