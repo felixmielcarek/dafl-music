@@ -44,7 +44,7 @@ function insertUserAndReturnList(): array|int
         $results = mysqli_query($connect, $query);
         */
 
-        $query = "SELECT id FROM gps WHERE id='$id'";
+        $query = "SELECT id FROM gps WHERE id = '$id' ";
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
 
         if (empty($results)){
@@ -59,11 +59,11 @@ function insertUserAndReturnList(): array|int
 
         mysqli_query($res, $query);
 
-        $query = "SELECT * FROM gps WHERE id != '$id'";                                                   //Browse all the database
+        $query = "SELECT * FROM gps WHERE id != '$id'";                             //Browse all the database
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
-        $listUser = [];                                                                 //Set the listUser to an empty list
+        $listUser = [];                                                             //Set the listUser to an empty list
 
-        while ($row = $results->fetch_row()) {                                          //For all the row in the database
+        while ($row = $results->fetch_row()) {                                      //For all the row in the database
 
             $lat2 = $row[1];                                                        //Set $lat2 to the latitude of the user who is in the actual row
             $lng2 = $row[2];                                                        //Set $lng2 to the latitude of the user who is in the actual row
@@ -78,7 +78,7 @@ function insertUserAndReturnList(): array|int
 
             }
         }
-        return $listUser;                                            //Return an encode array in json, so flutter ca=n interpret it
+        return $listUser;                                                           //Return an array
 
     } else {                                                                        //If the method POST return nothing
 
