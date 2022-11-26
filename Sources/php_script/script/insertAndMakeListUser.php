@@ -77,7 +77,7 @@ function insertUserAndReturnList(): array|int
 
             }
         }
-        return (json_encode($listUser));                                            //Return an encode array in json, so flutter ca=n interpret it
+        return $listUser;                                            //Return an encode array in json, so flutter ca=n interpret it
 
     } else {                                                                        //If the method POST return nothing
 
@@ -85,3 +85,5 @@ function insertUserAndReturnList(): array|int
 
     }
 }
+
+print(json_encode(insertUserAndReturnList()));
