@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.43">
+    <root id="1">
+      <DefaultCasing>lower/lower</DefaultCasing>
+      <ServerVersion>10.4.25</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="information_schema"/>
+    <schema id="3" parent="1" name="mysql"/>
+    <schema id="4" parent="1" name="performance_schema"/>
+    <schema id="5" parent="1" name="phpmyadmin"/>
+    <schema id="6" parent="1" name="positiondaflmusic"/>
+    <schema id="7" parent="1" name="projetphp"/>
+    <schema id="8" parent="1" name="test"/>
+  </database-model>
+</dataSource>
