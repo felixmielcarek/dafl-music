@@ -84,3 +84,49 @@ steps:
     CODEFIRST_CLIENTDRONE_ENV_PASSWORD:
       from_secret: db_password
   depends_on: [ php_script ]
+
+
+- name: db_image
+  image: plugins/docker
+  settings:
+    dockerfile: ./Sources/db_script/Dockerfile
+    context: Sources/db_script
+    registry: hub.codefirst.iut.uca.fr
+    repo: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music
+    username:
+      from_secret: SECRET_USERNAME
+    password:
+      from_secret: SECRET_PASSWD
+
+# container deployment
+- name: deploy-db
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+      environment:
+        IMAGENAME: mariadb:10
+        CONTAINERNAME: mysql
+        COMMAND: create
+        OVERWRITE: false
+        PRIVATE: true
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_ROOT_PASSWORD:
+          from_secret: db_root_password
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_DATABASE:
+          from_secret: db_database
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_USER:
+          from_secret: db_user
+        CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
+          from_secret: db_password
+  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+  environment:
+    IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
+    CONTAINERNAME: php_script
+    COMMAND: create
+    OVERWRITE: true
+    CODEFIRST_CLIENTDRONE_ENV_HOST:
+      from_secret: db_host
+    CODEFIRST_CLIENTDRONE_ENV_DATABASE:
+      from_secret: db_database
+    CODEFIRST_CLIENTDRONE_ENV_USER:
+      from_secret: db_user
+    CODEFIRST_CLIENTDRONE_ENV_PASSWORD:
+      from_secret: db_password
+  depends_on: [ php_script ]
