@@ -22,6 +22,7 @@ function metersBetweenTwoUser($lat1, $lng1, $lat2, $lng2): float
 function insertUserAndReturnList(): array|int
 {
 
+    include "config.php";
     $res = connection();
 
     if ($res == -1) {
