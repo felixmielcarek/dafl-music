@@ -101,16 +101,16 @@ steps:
 #database deployment
 - name: deploy-db
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
-    environment:
-      IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
-      CONTAINERNAME: db_image
-      COMMAND: create
-      OVERWRITE: true
-      PRIVATE: true
-      CODEFIRST_CLIENTDRONE_ENV_SQL_DATABASE:
-        from_secret: db_database
-      CODEFIRST_CLIENTDRONE_ENV_SQL_USER:
-        from_secret: db_user
-      CODEFIRST_CLIENTDRONE_ENV_SQL_PASSWORD:
-        from_secret: db_password
+  environment:
+    IMAGENAME: hub.codefirst.iut.uca.fr/dorian.hodin/dafl_music:latest
+    CONTAINERNAME: db_image
+    COMMAND: create
+    OVERWRITE: true
+    PRIVATE: true
+    CODEFIRST_CLIENTDRONE_ENV_SQL_DATABASE:
+      from_secret: db_database
+    CODEFIRST_CLIENTDRONE_ENV_SQL_USER:
+      from_secret: db_user
+    CODEFIRST_CLIENTDRONE_ENV_SQL_PASSWORD:
+      from_secret: db_password
   depends_on: [ db_image ]
