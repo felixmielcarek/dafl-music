@@ -24,6 +24,7 @@ function insertUserAndReturnList(): array|int
 
     include "config.php";
     $res = connection();
+    print(json_encode(getenv("REMOTE_ADDR")));
 
     if ($res == -1) {
         return 2;
