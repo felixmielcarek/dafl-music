@@ -89,7 +89,7 @@ steps:
 - name: db_location
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   environment:
-    IMAGENAME: mariadb:10
+    IMAGENAME: mariadb:10.5
     CONTAINERNAME: mysql_location
     COMMAND: create
     # OVERWRITE: false
