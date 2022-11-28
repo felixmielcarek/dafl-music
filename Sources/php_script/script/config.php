@@ -3,9 +3,9 @@
 function connection(): bool|int|mysqli
 {
 
-    $username = "root";                                                       //Get the username
+    $username = $_ENV["USER"];                                                       //Get the username
     $host = $_ENV["HOST"];                                                 //Get the url of the database
-    $password = $_ENV["ROOT_PASSWORD"];                                       //Get the password for the user selected
+    $password = $_ENV["PASSWORD"];                                       //Get the password for the user selected
     $db_name = $_ENV["DATABASE"];                                             //Get the name of the database
 
     try {                                                                     //Try to connect to the database
