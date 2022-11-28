@@ -36,16 +36,13 @@ function insertUserAndReturnList(): array|int
                 dateLog datetime NOT NULL
               );";
     mysqli_query($res, $query);
-    $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('0','0','0','abc',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
-    mysqli_query($res, $query);
-
 
     if (!empty($_POST)) {                                                           //Check if the method POST return something
 
         $id = $_POST['id'];                                                         //Get the result of POST method
         $latitude = $_POST['latitude'];                                             //Get the result of POST method
         $longitude = $_POST['longitude'];                                           //Get the result of POST method
-        $idMusic = "abcde";                                               //Get the result of POST method
+        $idMusic = $_POST['idMusic'];                                               //Get the result of POST method
 
         $latitude = doubleval($latitude);                                           //Convert a string to a double
         $longitude = doubleval($longitude);                                         //Convert a string to a double
@@ -58,7 +55,7 @@ function insertUserAndReturnList(): array|int
         $query = "SELECT id FROM gps WHERE id = '$id' ";
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
 
-        if (empty($results)){
+        if (empty($results->fetch_row()[0])){
 
             $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('$id','$latitude','$longitude','$idMusic',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
 
