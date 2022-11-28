@@ -26,7 +26,7 @@ function insertUserAndReturnList(): array|int
     $res = connection();
 
     if (strcmp(gettype($res),"integer")==0) {
-        return 5;
+        return 2;
     }
     $query = "CREATE TABLE IF NOT EXISTS gps (
                 id varchar(30) PRIMARY KEY,
@@ -36,6 +36,7 @@ function insertUserAndReturnList(): array|int
                 dateLog datetime NOT NULL
               );";
     mysqli_query($res, $query);
+
 
     if (!empty($_POST)) {                                                           //Check if the method POST return something
 
@@ -52,15 +53,20 @@ function insertUserAndReturnList(): array|int
         $results = mysqli_query($connect, $query);
         */
 
-        $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic' WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
+        $query = "SELECT id FROM gps WHERE id = '$id' ";
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
 
-        if ($results==0){
+        if (empty($results)){
 
             $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('$id','$latitude','$longitude','$idMusic',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
-            mysqli_query($res, $query);
+
+        }else{
+
+            $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic' WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
 
         }
+
+        mysqli_query($res, $query);
 
         $query = "SELECT * FROM gps WHERE id != '$id'";                             //Browse all the database
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
@@ -82,13 +88,13 @@ function insertUserAndReturnList(): array|int
             }
         }
         if (!empty($listUser)){
-            return 3;
+            return 2;
         }
-        return 2;
+        return 3;                                                           //Return an array
 
     } else {                                                                        //If the method POST return nothing
 
-        return 4;                                                                   //Return a code error
+        return 3;                                                                   //Return a code error
 
     }
 }
