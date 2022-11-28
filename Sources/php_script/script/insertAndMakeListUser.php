@@ -25,7 +25,7 @@ function insertUserAndReturnList(): array|int
     include "config.php";
     $res = connection();
 
-    if ($res == -1) {
+    if (strcmp(gettype($res),"integer")==0) {
         return 2;
     }
 
