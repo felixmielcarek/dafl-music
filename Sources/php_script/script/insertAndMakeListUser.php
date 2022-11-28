@@ -37,9 +37,6 @@ function insertUserAndReturnList(): array|int
               );";
     mysqli_query($res, $query);
 
-    $query = "UPDATE gps SET latitude='0', longitude='0', idMusic='0' WHERE id='0'";                                 //Delete the actual line and replace this line with the next lines
-    return (mysqli_query($res, $query));
-
     if (!empty($_POST)) {                                                           //Check if the method POST return something
 
         $id = $_POST['id'];                                                         //Get the result of POST method
@@ -55,20 +52,15 @@ function insertUserAndReturnList(): array|int
         $results = mysqli_query($connect, $query);
         */
 
-        $query = "SELECT id FROM gps WHERE id = '$id' ";
+        $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic' WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
 
-        if (empty($results)){
+        if ($results==0){
 
             $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('$id','$latitude','$longitude','$idMusic',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
-
-        }else{
-
-            $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic' WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
+            mysqli_query($res, $query);
 
         }
-
-        mysqli_query($res, $query);
 
         $query = "SELECT * FROM gps WHERE id != '$id'";                             //Browse all the database
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
