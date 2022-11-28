@@ -28,15 +28,16 @@ function insertUserAndReturnList(): array|int
     if (strcmp(gettype($res),"integer")==0) {
         return 2;
     }
-
     $query = "CREATE TABLE IF NOT EXISTS gps (
                 id varchar(30) PRIMARY KEY,
                 latitude double NOT NULL,
                 longitude double NOT NULL,
                 idMusic varchar(100) NOT NULL,
                 dateLog datetime NOT NULL
-              );"
-    $results = mysqli_query($res, $query);
+              );";
+
+    return (mysqli_query($res, $query));
+
 
     if (!empty($_POST)) {                                                           //Check if the method POST return something
 
