@@ -5,8 +5,8 @@ function connection(): bool|int|mysqli
 
     $username = "root";                                                       //Get the username
     $host = "193.49.118.214";                                                           //Get the url of the database
-    $password = "michel2022";                                                   //Get the password for the user selected
-    $db_name = "positiondaflmusic";                                                    //Get the name of the database
+    $password = $_ENV["db_root_password"];                                                   //Get the password for the user selected
+    $db_name = $_ENV["db_database"];                                                    //Get the name of the database
 
     try {                                                                            //Try to connect to the database
 
