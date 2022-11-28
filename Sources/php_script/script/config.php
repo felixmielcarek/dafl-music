@@ -5,8 +5,8 @@ function connection(): bool|int|mysqli
 
     $username = "root";                                                       //Get the username
     $host = "193.49.118.214";                                                           //Get the url of the database
-    $password = $_ENV["MARIADB_ROOT_PASSWORD"];                                                   //Get the password for the user selected
-    $db_name = $_ENV["MARIADB_DATABASE"];                                                    //Get the name of the database
+    $password = $_ENV["ROOT_PASSWORD"];                                                   //Get the password for the user selected
+    $db_name = $_ENV["DATABASE"];                                                    //Get the name of the database
 
     try {                                                                            //Try to connect to the database
 
