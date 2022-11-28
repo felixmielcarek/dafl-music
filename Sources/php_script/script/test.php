@@ -3,7 +3,7 @@
 include "config.php";
 $res = connection();
 
-$query = "SELECT id FROM gps";
+$query = "SELECT * FROM gps";
 $results =mysqli_query($res, $query);
 
 while ($row = $results->fetch_row()) {                                      //For all the row in the database
