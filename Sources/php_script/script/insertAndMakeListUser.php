@@ -26,7 +26,7 @@ function insertUserAndReturnList(): array|int
     $res = connection();
 
     if (strcmp(gettype($res),"integer")==0) {
-        return 2;
+        return 5;
     }
     $query = "CREATE TABLE IF NOT EXISTS gps (
                 id varchar(30) PRIMARY KEY,
@@ -81,11 +81,14 @@ function insertUserAndReturnList(): array|int
 
             }
         }
-        return $listUser;                                                           //Return an array
+        if (!empty($listUser)){
+            return 3;
+        }
+        return 2;
 
     } else {                                                                        //If the method POST return nothing
 
-        return 3;                                                                   //Return a code error
+        return 4;                                                                   //Return a code error
 
     }
 }
