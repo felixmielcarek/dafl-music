@@ -3,10 +3,10 @@
 function connection(): bool|int|mysqli
 {
 
-    $username = $_ENV["USER"];                                                       //Get the username
+    $username = "root";                                                       //Get the username
     $host = "193.49.118.214";                                                           //Get the url of the database
-    $password = $_ENV["PASSWORD"];                                                   //Get the password for the user selected
-    $db_name = $_ENV["DATABASE"];                                                    //Get the name of the database
+    $password = "michel2022";                                                   //Get the password for the user selected
+    $db_name = "positiondaflmusic";                                                    //Get the name of the database
 
     try {                                                                            //Try to connect to the database
 
@@ -20,6 +20,7 @@ function connection(): bool|int|mysqli
     }
 }
 
+connection();
 
 
 
