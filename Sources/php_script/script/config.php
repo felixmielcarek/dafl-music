@@ -19,7 +19,5 @@ function connection(): bool|int|mysqli
     }
 }
 
-print(connection());
-
 
 
