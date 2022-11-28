@@ -4,7 +4,7 @@ function connection(): bool|int|mysqli
 {
 
     $username = "root";                                                       //Get the username
-    $host = "193.49.118.214";                                                 //Get the url of the database
+    $host = "jdbc:mysql://localhost:3306";                                                 //Get the url of the database
     $password = "";                                       //Get the password for the user selected
     $db_name = $_ENV["DATABASE"];                                             //Get the name of the database
 
