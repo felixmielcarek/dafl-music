@@ -35,9 +35,10 @@ function insertUserAndReturnList(): array|int
                 idMusic varchar(100) NOT NULL,
                 dateLog datetime NOT NULL
               );";
+    mysqli_query($res, $query);
 
+    $query = "UPDATE gps SET latitude='0', longitude='0', idMusic='0' WHERE id='0'";                                 //Delete the actual line and replace this line with the next lines
     return (mysqli_query($res, $query));
-
 
     if (!empty($_POST)) {                                                           //Check if the method POST return something
 
