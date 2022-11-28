@@ -10,7 +10,7 @@ function connection(): bool|int|mysqli
 
     try {                                                                            //Try to connect to the database
 
-        return mysqli_connect($host, $username, $password, $db_name);                //Connecting to database
+        return mysqli_connect($host, $username, $password);                //Connecting to database
 
     }catch (mysqli_sql_exception) {                                                  //If the connection failed
 
