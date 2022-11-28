@@ -10,7 +10,6 @@ function connection(): bool|int|mysqli
 
     try {                                                                            //Try to connect to the database
 
-        print(json_encode(mysqli_connect($host, $username, $password, $db_name)));
         return mysqli_connect($host, $username, $password, $db_name);                //Connecting to database
 
     }catch (mysqli_sql_exception) {                                                  //If the connection failed
@@ -20,7 +19,7 @@ function connection(): bool|int|mysqli
     }
 }
 
-connection();
+print(connection());
 
 
 
