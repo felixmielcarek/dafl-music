@@ -86,9 +86,6 @@ function insertUserAndReturnList(): array|int
 
             }
         }
-        if (!empty($listUser)){
-            return 2;
-        }
         return $listUser;                                                           //Return an array
 
     } else {                                                                        //If the method POST return nothing
