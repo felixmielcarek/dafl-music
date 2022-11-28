@@ -43,7 +43,7 @@ function insertUserAndReturnList(): array|int
         $id = $_POST['id'];                                                         //Get the result of POST method
         $latitude = $_POST['latitude'];                                             //Get the result of POST method
         $longitude = $_POST['longitude'];                                           //Get the result of POST method
-        $idMusic = $_POST['idMusic'];                                               //Get the result of POST method
+        $idMusic = "abcde";                                               //Get the result of POST method
 
         $latitude = doubleval($latitude);                                           //Convert a string to a double
         $longitude = doubleval($longitude);                                         //Convert a string to a double
