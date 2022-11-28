@@ -4,13 +4,13 @@ function connection(): bool|int|mysqli
 {
 
     $username = "root";                                                       //Get the username
-    $host = "193.49.118.215";                                                           //Get the url of the database
+    $host = "193.49.118.214";                                                           //Get the url of the database
     $password = "michel2022";                                                   //Get the password for the user selected
     $db_name = "positiondaflmusic";                                                    //Get the name of the database
 
     try {                                                                            //Try to connect to the database
 
-        return mysqli_connect($host, $username, $password, $db_name);                //Connecting to database
+        return mysqli_connect($host, $username, $password);                //Connecting to database
 
     }catch (mysqli_sql_exception) {                                                  //If the connection failed
 
