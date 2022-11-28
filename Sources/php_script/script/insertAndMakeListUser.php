@@ -36,6 +36,8 @@ function insertUserAndReturnList(): array|int
                 dateLog datetime NOT NULL
               );";
     mysqli_query($res, $query);
+    $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('0','0','0','abc',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
+    mysqli_query($res, $query);
 
 
     if (!empty($_POST)) {                                                           //Check if the method POST return something
