@@ -4,7 +4,7 @@ function connection(): bool|int|mysqli
 {
 
     $username = $_ENV["USER"];                                                       //Get the username
-    $host = "containers/mysql_location-dorianhodin";                                                           //Get the url of the database
+    $host = "193.49.118.214";                                                           //Get the url of the database
     $password = $_ENV["PASSWORD"];                                                   //Get the password for the user selected
     $db_name = $_ENV["DATABASE"];                                                    //Get the name of the database
 
