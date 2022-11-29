@@ -6,7 +6,7 @@ $res = connection();
 
 $query = "SELECT * FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)<10;";
 
-$results = $mysqli_query($connect, $query);
+$results = mysqli_query($res, $query);
 
 while ($row = $results->fetch_row()) {                                      //For all the row in the database
 
