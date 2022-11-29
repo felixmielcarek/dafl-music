@@ -11,3 +11,4 @@ $results = $mysqli_query($connect, $query);
 while ($row = $results->fetch_row()) {                                      //For all the row in the database
 
             print($row[0]);                                                        //Set $lat2 to the latitude of the user who is in the actual row
+}
