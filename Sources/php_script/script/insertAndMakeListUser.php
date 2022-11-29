@@ -47,10 +47,8 @@ function insertUserAndReturnList(): array|int
         $latitude = doubleval($latitude);                                           //Convert a string to a double
         $longitude = doubleval($longitude);                                         //Convert a string to a double
 
-        /*
-        $query = "DELETE FROM gps WHERE (SELECT TIMESTAMPDIFF(MINUTE,CURRENT_TIMESTAMP,dateLog))>10;";
-        $results = mysqli_query($connect, $query);
-        */
+        $query = "DELETE FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)>10;";
+        $mysqli_query($connect, $query);
 
         $query = "SELECT id FROM gps WHERE id = '$id' ";
         $results = mysqli_query($res, $query);                                      //Execute the SQL command
