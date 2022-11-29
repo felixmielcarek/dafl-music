@@ -4,7 +4,7 @@
 include "config.php";
 $res = connection();
 
-$query = "SELECT * FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)>0);";
+$query = "SELECT * FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)>10);";
 
 $results = mysqli_query($res, $query);
 
