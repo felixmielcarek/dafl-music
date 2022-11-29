@@ -27,15 +27,19 @@ class MainPageProfil extends StatefulWidget {
 }
 
 class _MainPageProfilState extends State<MainPageProfil> {
-  late String username;
-  late Music currentmusic;
+  String? username = MyApp.controller.currentUser.usernameDafl;
+  late Future<Map> data;
+
+  Future<Map> getdata() async {
+    return MyApp.api.getTrackInfo( await MyApp.api.getCurrentlyPlayingTrack());
+
+  }
 
   @override
-  initState() async {
+  initState() {
     super.initState();
-    username = MyApp.controller.getIdDafl().toString();
-    currentmusic = await MyApp.controller
-        .getCompleteMusic(MyApp.controller.getCurrentMusic());
+    username = MyApp.controller.currentUser.usernameDafl;
+    MyApp.controller.currentUser.actualiseCurrentMusic();
   }
 
   @override
@@ -77,14 +81,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
                   ],
                 ),
                 child: Center(
-                    child: Text(username[0],
+                    child: Text(username![0],
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 60,
                             fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center))),
             Text(
-              username,
+              username!,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
@@ -226,53 +230,108 @@ class _MainPageProfilState extends State<MainPageProfil> {
                       ),
                     ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                    height: height * 0.14,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: const Color(0xFFD9D9D9).withOpacity(0.08),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: FadeInImage.assetNetwork(
-                                    height: 90,
-                                    width: 90,
-                                    placeholder:
-                                        "assets/images/loadingPlaceholder.gif",
-                                    image: currentmusic.linkCover))),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
-                          child: Column(
+                  FutureBuilder(
+                    future: getdata(),
+                      builder: (context, snapshot){
+                      if(snapshot.connectionState == ConnectionState.done){
+                        return Container(
+                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          height: height * 0.14,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: const Color(0xFFD9D9D9).withOpacity(0.08),
+                          ),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                currentmusic.name,
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                currentmusic.artist,
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey),
-                              ),
+                              Container(
+                                  margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(snapshot.data!['cover'],
+                                          height: 90,
+                                          width: 90,
+                                          ))),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data!['name'],
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      snapshot.data!['artist'],
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
+                        );
+                      }
+                      else{
+                        return Container(
+                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          height: height * 0.14,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: const Color(0xFFD9D9D9).withOpacity(0.08),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.asset("assets/images/loadingPlaceholder.gif",
+                                          height: 90,
+                                          width: 90))),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 150,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        color: Colors.grey.withOpacity(0.7),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Container(
+                                      width: 100,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        color: Colors.grey.withOpacity(0.4),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+
+                  })
+                  ,
                 ],
               ),
             ),
@@ -303,7 +362,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                   builder: (context) => const SettingsWidget()))
                           .then((value) => setState(() {
                                 username =
-                                    MyApp.controller.getIdDafl().toString();
+                                    MyApp.controller.currentUser.usernameDafl;
                               }));
                     },
                     child: Row(
