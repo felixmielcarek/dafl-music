@@ -31,9 +31,11 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(MyApp.controller.getSpots().isEmpty
-                          ? "https://i.imgur.com/Uovh293.png"
-                          : MyApp.controller.getSpots().last.music.linkCover),
+                      image: NetworkImage(
+                          MyApp.controller.currentUser.spots.isEmpty
+                              ? "https://i.imgur.com/Uovh293.png"
+                              : MyApp.controller.currentUser.spots.last.music
+                                  .linkCover),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -47,31 +49,32 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                 ),
               ),
               Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: MyApp.controller.getSpots().isEmpty
-                      ? Container()
-                      : OpenContainer(
-                          closedColor: Colors.transparent,
-                          closedElevation: 0,
-                          transitionDuration: const Duration(milliseconds: 400),
-                          closedBuilder: (context, openWidget) {
-                            return const PreviewInfoWidget();
-                          },
-                          openBuilder: (context, closeWidget) {
-                            return const DisplayInfoWidget();
-                          })),
-              const Center(
-                child: SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: riv.RiveAnimation.asset(
-                      'assets/images/search_spot_animation.riv'),
-                ),
+                alignment: FractionalOffset.bottomCenter,
+                child: MyApp.controller.currentUser.spots.isEmpty
+                    ? const Center(
+                  child: SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: riv.RiveAnimation.asset(
+                        'assets/images/search_spot_animation.riv'),
+                  ),
+                )
+                    : OpenContainer(
+                        closedColor: Colors.transparent,
+                        closedElevation: 0,
+                        transitionDuration: const Duration(milliseconds: 400),
+                        closedBuilder: (context, openWidget) {
+                          return const PreviewInfoWidget();
+                        },
+                        openBuilder: (context, closeWidget) {
+                          return const DisplayInfoWidget();
+                        },
+                      ),
               ),
               Positioned(
                 top: height * 0.68,
                 width: width,
-                child: MyApp.controller.getSpots().isEmpty
+                child: MyApp.controller.currentUser.spots.isEmpty
                     ? Container()
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -162,25 +165,48 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                   )),
                 ),
               ),
+              MyApp.controller.currentUser.spots.isEmpty?
+              SafeArea(child: Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        MyApp.controller.currentUser.spots.isEmpty?
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Quelques instants...',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 25),
+                            ),
+                            const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0)),
+                            Text(
+                              'Nous cherchons des profils a vous proposer.',
+                              style: TextStyle(
+                                  color: Colors.grey.withOpacity(0.4), fontSize: 15),
+                            ),
+                          ],
+                        ) :
+                        Container(),
+
+                      ]
+                  )
+              ),):
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 60, 0, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      MyApp.controller.getSpots().isEmpty
-                          ? ''
-                          : MyApp.controller.getSpots().last.music.name,
+                    Text(MyApp.controller.currentUser.spots.last.music.name,
                       style: TextStyle(
                           fontFamily: 'DMSans',
                           color: Colors.white.withOpacity(1),
                           fontSize: 20,
                           fontWeight: FontWeight.w800),
                     ),
-                    Text(
-                      MyApp.controller.getSpots().isEmpty
-                          ? ''
-                          : MyApp.controller.getSpots().last.music.artist,
+                    Text(MyApp.controller.currentUser.spots.last.music.artist,
                       style: TextStyle(
                           fontFamily: 'DMSans',
                           color: Colors.white.withOpacity(1),
@@ -195,12 +221,12 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                   right: 0,
                   child: GestureDetector(
                     onTap: () {
-                      MyApp.controller
-                          .playTrack(MyApp.controller.getSpots().last.music.id);
+                      MyApp.api.playTrack(
+                          MyApp.controller.currentUser.spots.last.music.id);
                     },
                     child: SizedBox(
                       height: 40,
-                      child: MyApp.controller.getSpots().isEmpty
+                      child: !MyApp.controller.currentUser.spots.isEmpty
                           ? Image.asset("assets/images/play_spotify_button.png")
                           : Container(),
                     ),
