@@ -1,3 +1,8 @@
+
+
+import 'package:text_scroll/text_scroll.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
+
 import '../../../main.dart';
 import '../../../model/music.dart';
 import './w_settings.dart';
@@ -259,13 +264,28 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    snapshot.data!['name'].length > 22?
+                                    SizedBox(width: 220,
+                                    child: ScrollLoopAutoScroll(
+                                      delayAfterScrollInput: Duration(seconds: 1),
+                                      delay: Duration(seconds: 1),
+                                      child: Text(
+                                        snapshot.data!['name'],
+                                        style: TextStyle(fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      duration: Duration(seconds: 100),
+                                      scrollDirection: Axis.horizontal,
+                                    ),)
+                                    :Text(
                                       snapshot.data!['name'],
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                      style: TextStyle(fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                     ),
+
+
                                     Text(
                                       snapshot.data!['artist'],
                                       style: const TextStyle(
@@ -398,4 +418,5 @@ class _MainPageProfilState extends State<MainPageProfil> {
       ),
     );
   }
+
 }
