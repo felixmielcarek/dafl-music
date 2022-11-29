@@ -33,7 +33,7 @@ function insertUserAndReturnList(): array|int
                 latitude double NOT NULL,
                 longitude double NOT NULL,
                 idMusic varchar(100) NOT NULL,
-                dateLog datetime NOT NULL
+                dateLog date NOT NULL
               );";
     mysqli_query($res, $query);
 
@@ -47,7 +47,7 @@ function insertUserAndReturnList(): array|int
         $latitude = doubleval($latitude);                                           //Convert a string to a double
         $longitude = doubleval($longitude);                                         //Convert a string to a double
 
-        $query = "DELETE FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)>10;";
+        $query = "DELETE FROM gps WHERE (TIMESTAMPDIFF(MINUTE,dateLog,CURRENT_TIMESTAMP)<10;";
         $mysqli_query($connect, $query);
 
         $query = "SELECT id FROM gps WHERE id = '$id' ";
