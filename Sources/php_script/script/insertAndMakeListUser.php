@@ -55,11 +55,11 @@ function insertUserAndReturnList(): array|int
 
         if (empty($results->fetch_row()[0])){
 
-            $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('$id','$latitude','$longitude','$idMusic',CURRENT_TIMESTAMP);";      //Insert into the database the new data and new information about this user
+            $query = "INSERT INTO gps(id,latitude,longitude,idMusic,dateLog) VALUES('$id','$latitude','$longitude','$idMusic',NOW());";      //Insert into the database the new data and new information about this user
 
         }else{
 
-            $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic' WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
+            $query = "UPDATE gps SET latitude='$latitude', longitude='$longitude', idMusic='$idMusic', dateLog=NOW() WHERE id='$id'";                                 //Delete the actual line and replace this line with the next lines
 
         }
 
