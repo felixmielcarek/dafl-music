@@ -176,7 +176,7 @@ class CardProvider extends ChangeNotifier {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                         MyApp.controller.getDiscoveries().containsKey(
-                                MyApp.controller.currentUser.spots.last.music)
+                                MyApp.controller.getSpots().last.music)
                             ? const Icon(
                                 Icons.info_rounded,
                                 size: 40,
@@ -190,7 +190,7 @@ class CardProvider extends ChangeNotifier {
                         const SizedBox(
                           width: 10,
                         ),
-                        MyApp.controller.getDiscoveries().contains(
+                        MyApp.controller.getDiscoveries().containsKey(
                                 MyApp.controller.getSpots().last.music)
                             ? const Text(
                                 "Déjà dans vos discovery",
@@ -216,7 +216,7 @@ class CardProvider extends ChangeNotifier {
     );
     if (!MyApp.controller
         .getDiscoveries()
-        .contains(MyApp.controller.getSpots().last.music)) {
+        .containsKey(MyApp.controller.getSpots().last.music)) {
       MyApp.controller.addToPlaylist(MyApp.controller.getSpots().last.music.id);
       notifyListeners();
     }
@@ -327,7 +327,7 @@ class CardProvider extends ChangeNotifier {
                 child: ElevatedButton(
                   onPressed: () {
                     sendMessage(messageTextField.text,
-                        MyApp.controller.getSpots().last.key);
+                        MyApp.controller.getSpots().last.userId);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3F1DC3),

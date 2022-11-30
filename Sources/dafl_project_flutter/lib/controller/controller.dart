@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:dafl_project_flutter/controller/live_datas.dart';
 import 'package:dafl_project_flutter/model/music.dart';
@@ -10,47 +11,48 @@ import 'package:http/http.dart' as http;
 import '../model/user.dart';
 
 class Controller {
-  ApiSpotify _api = ApiSpotify();
+  final ApiSpotify _api = ApiSpotify();
   late User _currentUser;
   final DataBaseService _dataBaseService = DataBaseService();
-  final LiveDatas _datas = LiveDatas();
+  final LiveData _data = LiveData();
 
   late BuildContext navigatorKey;
 
   //
-  // Methods to manage datas
+  // Methods to manage data
   //
 
-  // Datas that can change
+  // Data that can change
 
-  bool getChoice() => _datas.discoveriesSortChoice;
+  bool getChoice() => _data.discoveriesSortChoice;
 
   setChoice(bool c) {
-    _datas.discoveriesSortChoice = c;
+    _data.discoveriesSortChoice = c;
   }
 
-  Music getCurrentMusic() => _datas.userCurrentMusic;
+  Music getCurrentMusic() => _data.userCurrentMusic;
 
   setCurrentMusic() async {
-    _datas.userCurrentMusic =
+    _data.userCurrentMusic =
         await getCompleteMusic(await _api.requests.getCurrentlyPlayingTrack());
   }
 
-  List<Spot> getSpots() => _datas.spots;
+  List<Spot> getSpots() => _data.spots;
 
   setSpots() async {
-    _datas.spots = await Location.sendCurrentLocation();
+    _data.spots = await Location.sendCurrentLocation();
   }
 
-  Map<Music, DateTime> getDiscoveries() => _datas.discoveries;
+  LinkedHashMap<Music, DateTime> getDiscoveries() => _data.discoveries;
 
   setDiscoveries() async {
-    Map<String, DateTime> tmpData = await _api.requests.getPlaylistTracks();
-    Map<Music, DateTime> tmpCast = {};
+    LinkedHashMap<String, DateTime> tmpData =
+        await _api.requests.getPlaylistTracks();
+    LinkedHashMap<Music, DateTime> tmpCast = LinkedHashMap();
     tmpData.forEach((key, value) async {
       tmpCast[(await getCompleteMusic(key))] = value;
     });
-    _datas.discoveries = tmpCast;
+    _data.discoveries = tmpCast;
   }
 
   //Data that can not change
@@ -72,8 +74,8 @@ class Controller {
   }
 
   Future<Music> getCompleteMusic(String id) async {
-    Map infos = await _api.requests.getTrackInfo(id);
-    return Music(id, infos['name'], infos['artist'], infos['cover']);
+    Map info = await _api.requests.getTrackInfo(id);
+    return Music(id, info['name'], info['artist'], info['cover']);
   }
 
   removeFromPlaylist(String id) {

@@ -1,5 +1,6 @@
+import 'dart:collection';
+
 import 'package:dafl_project_flutter/main.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as dev;
 
@@ -118,15 +119,20 @@ class _DiscoveryListState extends State<DiscoveryList> {
 
   @override
   Widget build(BuildContext context) {
-    var listDiscoveries = MyApp.controller.getDiscoveries();
+    late LinkedHashMap<Music, DateTime> listDiscoveries;
     if (MyApp.controller.getChoice()) {
-      listDiscoveries.sort((a, b) {
-        return a.date.compareTo(b.date);
-      });
+      //TODO : implement sort by date
+      listDiscoveries = LinkedHashMap();
     } else {
-      listDiscoveries.sort((a, b) {
-        return a.name.compareTo(b.name);
-      });
+      //TODO : implement sort by name
+      /* var sortedKeys = MyApp.controller
+          .getDiscoveries()
+          .values
+          .toList(growable: false)
+        ..sort((v1, v2) => v1.compareTo(v2));
+      listDiscoveries = LinkedHashMap.fromIterable(sortedKeys,
+          key: (k) => k, value: (k) => sortedKeys[k]); */
+      listDiscoveries = LinkedHashMap();
     }
     return RefreshIndicator(
         onRefresh: () async {
@@ -141,21 +147,23 @@ class _DiscoveryListState extends State<DiscoveryList> {
               int reversedIndex = itemCount - 1 - index;
               return Dismissible(
                   movementDuration: const Duration(milliseconds: 400),
-                  key: Key(listDiscoveries[index].name),
+                  key: Key(listDiscoveries.keys.toList()[index].name),
                   confirmDismiss: (direction) async {
                     if (direction == DismissDirection.endToStart) {
-                      print(listDiscoveries[reversedIndex].id);
-                      print(listDiscoveries[reversedIndex].name);
+                      dev.log(listDiscoveries.keys.toList()[reversedIndex].id);
+                      dev.log(
+                          listDiscoveries.keys.toList()[reversedIndex].name);
                       MyApp.controller.removeFromPlaylist(
-                          listDiscoveries[reversedIndex].id);
+                          listDiscoveries.keys.toList()[reversedIndex].id);
                       listDiscoveries = MyApp.controller.getDiscoveries();
                       return true;
                     }
                     if (direction == DismissDirection.startToEnd) {
-                      print(listDiscoveries[reversedIndex].name);
-                      print('play');
-                      MyApp.controller
-                          .playTrack(listDiscoveries[reversedIndex].id);
+                      dev.log(
+                          listDiscoveries.keys.toList()[reversedIndex].name);
+                      dev.log('play');
+                      MyApp.controller.playTrack(
+                          listDiscoveries.keys.toList()[reversedIndex].id);
                       setState(() {});
                     }
                     return false;
@@ -194,7 +202,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                     placeholder:
                                         "assets/images/loadingPlaceholder.gif",
                                     image: MyApp.controller
-                                        .getDiscoveries()[reversedIndex]
+                                        .getDiscoveries()
+                                        .keys
+                                        .toList()[reversedIndex]
                                         .linkCover),
                               ),
                               Container(
@@ -208,7 +218,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                       children: [
                                         Text(
                                           MyApp.controller
-                                              .getDiscoveries()[reversedIndex]
+                                              .getDiscoveries()
+                                              .keys
+                                              .toList()[reversedIndex]
                                               .name,
                                           style: TextStyle(
                                               fontFamily: 'DMSans',
@@ -219,7 +231,9 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                         ),
                                         Text(
                                             MyApp.controller
-                                                .getDiscoveries()[reversedIndex]
+                                                .getDiscoveries()
+                                                .keys
+                                                .toList()[reversedIndex]
                                                 .artist,
                                             style: TextStyle(
                                                 fontFamily: 'DMSans',

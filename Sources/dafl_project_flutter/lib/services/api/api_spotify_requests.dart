@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:dafl_project_flutter/services/api/token_spotify.dart';
 import 'package:http/http.dart' as http;
@@ -86,11 +87,11 @@ class ApiSpotifyRequests extends HttpResponseVerification {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-    var daflplaylist = decodedResponse['items']
+    var daflPlaylist = decodedResponse['items']
         .where((element) => element['name'] == _playlistName)
         .toList();
-    if (daflplaylist.length == 1) {
-      return daflplaylist[0]['uri'].substring(
+    if (daflPlaylist.length == 1) {
+      return daflPlaylist[0]['uri'].substring(
           17); //17 char because format is 'spotify:playlist:MYPLAYLISTID'
     }
     return await _createPlaylist();
@@ -148,27 +149,24 @@ class ApiSpotifyRequests extends HttpResponseVerification {
 
   removeFromPlaylist(String idTrack) async {
     var idPlaylist = await _getPlaylistId();
-    if (idPlaylist != null) {
-      if (await _isInPlaylist(idTrack, idPlaylist)) {
-        var token = await _token.getAccessToken();
-        var url =
-            Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks');
-        var jsonVar = jsonEncode(<String, List>{
-          'tracks': [
-            {'uri': 'spotify:track:$idTrack'}
-          ]
-        });
-        setResponse(await http.delete(url,
-            headers: <String, String>{
-              'Authorization': '$_tokenType $token',
-              'Content-Type': 'application/json'
-            },
-            body: jsonVar));
-      }
+    if (await _isInPlaylist(idTrack, idPlaylist)) {
+      var token = await _token.getAccessToken();
+      var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks');
+      var jsonVar = jsonEncode(<String, List>{
+        'tracks': [
+          {'uri': 'spotify:track:$idTrack'}
+        ]
+      });
+      setResponse(await http.delete(url,
+          headers: <String, String>{
+            'Authorization': '$_tokenType $token',
+            'Content-Type': 'application/json'
+          },
+          body: jsonVar));
     }
   }
 
-  Future<Map<String, DateTime>> getPlaylistTracks() async {
+  Future<LinkedHashMap<String, DateTime>> getPlaylistTracks() async {
     var idPlaylist = _getPlaylistId();
     var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks',
         {'fields': 'items(track(id),added_at)'});
@@ -178,7 +176,7 @@ class ApiSpotifyRequests extends HttpResponseVerification {
       'Content-Type': 'application/json'
     }));
     var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-    Map<String, DateTime> mapRes = {};
+    LinkedHashMap<String, DateTime> mapRes = LinkedHashMap();
     decodedResponse['items'].toList().forEach((elem) =>
         {mapRes[elem['track']['id']] = DateTime.parse(elem['added_at'])});
     return mapRes;
