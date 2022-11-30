@@ -9,15 +9,14 @@ import 'package:dafl_project_flutter/services/database/searcher.dart';
 
 import '../../model/user.dart';
 
-class DataBaseService{
+class DataBaseService {
   static final Loader _loader = DatabaseLoader();
   static final Searcher _searcher = DatabaseSearcher();
   static final Saver _saver = DatabaseSaver();
   static final UserModifier _userModifier = DatabaseUserModifier();
 
-
-  void save(User userToSave) {
-    _saver.save(userToSave);
+  void save(String idDafl, String passw) {
+    _saver.save(idDafl, passw);
   }
 
   Future<User?> load(String username, String password) async {
@@ -35,7 +34,4 @@ class DataBaseService{
   changeCurrentPassword(String newPass) {
     //TODO : call database method
   }
-
-
-
 }

@@ -1,5 +1,3 @@
-import '../../model/user.dart';
-
 abstract class Saver {
-  void save(User userToSave);
+  void save(String idDafl, String passw);
 }

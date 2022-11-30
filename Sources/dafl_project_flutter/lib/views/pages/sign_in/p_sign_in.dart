@@ -257,16 +257,17 @@ class _SignInPageState extends State<SignInPage> {
       notify(2, context);
     } else if (password == "") {
       notify(4, context);
-    } else if(await MyApp.controller
+    } else if (await MyApp.controller
         .load(userNameTextField.text, passwordTextField.text)) {
-        Navigator.of(context).push(
-          PageTransition(
-              type: PageTransitionType.fade,
-              childCurrent: widget,
-              child: const Splash()),
-        );
-      } else {
-        notify(2, context);
-      }
+      MyApp.controller.initUser();
+      Navigator.of(context).push(
+        PageTransition(
+            type: PageTransitionType.fade,
+            childCurrent: widget,
+            child: const Splash()),
+      );
+    } else {
+      notify(2, context);
     }
   }
+}

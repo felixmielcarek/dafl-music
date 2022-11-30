@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../main.dart';
 import '../../presentation/custom_icons_icons.dart';
 import './w_settings.dart';
 import './w_spot.dart';
@@ -26,6 +27,12 @@ class _MainPageState extends State<MainPage> {
     const MessagesWidget(),
     const SettingsWidget(),
   ];
+
+  @override
+  void initState() {
+    MyApp.controller.beginRoutine();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

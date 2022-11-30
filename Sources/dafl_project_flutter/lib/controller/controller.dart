@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'package:dafl_project_flutter/controller/live_datas.dart';
-import 'package:dafl_project_flutter/model/music.dart';
-import 'package:dafl_project_flutter/model/spot.dart';
-import 'package:dafl_project_flutter/services/api/api_spotify.dart';
-import 'package:dafl_project_flutter/services/database/database_service.dart';
-import 'package:dafl_project_flutter/services/position/location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import '../model/music.dart';
+import '../model/spot.dart';
 import '../model/user.dart';
+import '../services/api/api_spotify.dart';
+import '../services/database/database_service.dart';
+import '../services/position/location.dart';
+import 'live_datas.dart';
 
 class Controller {
   final ApiSpotify _api = ApiSpotify();
@@ -19,8 +19,13 @@ class Controller {
 
   late BuildContext navigatorKey;
 
-  Controller() {
-    setSpots();
+  initUser() async {
+    await setCurrentMusic();
+    await setDiscoveries();
+  }
+
+  beginRoutine() async {
+    await setSpots();
     Timer.periodic(const Duration(seconds: 10), (Timer t) => setSpots());
   }
 
@@ -69,7 +74,7 @@ class Controller {
 
   String getIdSpotify() => _currentUser.idSpotify;
 
-  int getIdDafl() => _currentUser.idDafl;
+  String getIdDafl() => _currentUser.idDafl;
 
   //
   //Other methods
@@ -97,18 +102,18 @@ class Controller {
   }
 
   // DATABASE
-  void save(User userToSave) {
-    _dataBaseService.save(userToSave);
+  void save(String idDafl, String passw) {
+    _dataBaseService.save(idDafl, passw);
   }
 
   Future<bool> load(String username, String password) async {
     User? newUser = await _dataBaseService.load(username, password);
 
-    if(newUser == null)
+    if (newUser == null) {
       return false;
-    else
-      _currentUser = newUser;
-      return true;
+    }
+    _currentUser = newUser;
+    return true;
   }
 
   changeUsername(String newName) {

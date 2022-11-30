@@ -9,9 +9,7 @@ class Location {
   static Future<List<Spot>> sendCurrentLocation() async {
     Uri uri = Uri.parse(
         "https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/insertAndMakeListUser.php");
-    LocationPermission permission;
-
-    permission = await Geolocator.checkPermission();
+    LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -21,7 +19,7 @@ class Location {
       }
     }
 
-    String actualUser = MyApp.controller.getIdDafl().toString();
+    String actualUser = MyApp.controller.getIdDafl();
     String actualSong = MyApp.controller.getCurrentMusic().id;
     Position current = await Geolocator.getCurrentPosition();
 

@@ -167,7 +167,7 @@ class ApiSpotifyRequests extends HttpResponseVerification {
   }
 
   Future<LinkedHashMap<String, DateTime>> getPlaylistTracks() async {
-    var idPlaylist = _getPlaylistId();
+    var idPlaylist = await _getPlaylistId();
     var url = Uri.https('api.spotify.com', 'v1/playlists/$idPlaylist/tracks',
         {'fields': 'items(track(id),added_at)'});
     var token = await _token.getAccessToken();

@@ -29,9 +29,9 @@ class _MainPageProfilState extends State<MainPageProfil> {
   String username = MyApp.controller.getIdDafl().toString();
 
   @override
-  initState() async {
+  initState() {
+    username = MyApp.controller.getIdDafl();
     super.initState();
-    username = MyApp.controller.getIdDafl().toString();
   }
 
   @override

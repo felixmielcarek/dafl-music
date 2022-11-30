@@ -134,6 +134,8 @@ class _DiscoveryListState extends State<DiscoveryList> {
           key: (k) => k, value: (k) => sortedKeys[k]); */
       listDiscoveries = LinkedHashMap();
     }
+    //TODO : remove next line
+    listDiscoveries = MyApp.controller.getDiscoveries();
     return RefreshIndicator(
         onRefresh: () async {
           refreshList();
