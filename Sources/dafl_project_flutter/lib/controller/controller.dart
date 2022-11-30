@@ -101,8 +101,14 @@ class Controller {
     _dataBaseService.save(userToSave);
   }
 
-  load(String username, String password) async {
-    //TODO : call database methode + create user
+  Future<bool> load(String username, String password) async {
+    User? newUser = await _dataBaseService.load(username, password);
+
+    if(newUser == null)
+      return false;
+    else
+      _currentUser = newUser;
+      return true;
   }
 
   changeUsername(String newName) {
