@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/custom_icons_icons.dart';
 import './w_settings.dart';
@@ -107,13 +105,6 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    Timer timer = Timer.periodic(
-        const Duration(seconds: 10), (Timer t) => MyApp.controller.getSpots());
   }
 }
 
