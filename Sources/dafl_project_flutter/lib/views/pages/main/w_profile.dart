@@ -1,8 +1,5 @@
-
-
 import 'package:text_scroll/text_scroll.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
-
 import '../../../main.dart';
 import '../../../model/music.dart';
 import './w_settings.dart';
@@ -32,19 +29,18 @@ class MainPageProfil extends StatefulWidget {
 }
 
 class _MainPageProfilState extends State<MainPageProfil> {
-  String? username = MyApp.controller.currentUser.usernameDafl;
-  late Future<Map> data;
+  String username = MyApp.controller.getIdDafl().toString();
+  late Future<Music> data;
 
-  Future<Map> getdata() async {
-    return MyApp.api.getTrackInfo( await MyApp.api.getCurrentlyPlayingTrack());
-
+  Future<Music> getData() async {
+    return await MyApp.controller
+        .getCompleteMusic(MyApp.controller.getCurrentMusic());
   }
 
   @override
-  initState() {
+  initState() async {
     super.initState();
-    username = MyApp.controller.currentUser.usernameDafl;
-    MyApp.controller.currentUser.actualiseCurrentMusic();
+    username = MyApp.controller.getIdDafl().toString();
   }
 
   @override
@@ -86,14 +82,14 @@ class _MainPageProfilState extends State<MainPageProfil> {
                   ],
                 ),
                 child: Center(
-                    child: Text(username![0],
+                    child: Text(username[0],
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 60,
                             fontWeight: FontWeight.w500),
                         textAlign: TextAlign.center))),
             Text(
-              username!,
+              username,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17,
@@ -236,122 +232,138 @@ class _MainPageProfilState extends State<MainPageProfil> {
                     ],
                   ),
                   FutureBuilder(
-                    future: getdata(),
-                      builder: (context, snapshot){
-                      if(snapshot.connectionState == ConnectionState.done){
-                        return Container(
-                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          height: height * 0.14,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: const Color(0xFFD9D9D9).withOpacity(0.08),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(snapshot.data!['cover'],
+                      future: getData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Container(
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            height: height * 0.14,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: const Color(0xFFD9D9D9).withOpacity(0.08),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                    margin:
+                                        const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          snapshot.data!.linkCover,
                                           height: 90,
                                           width: 90,
-                                          ))),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    snapshot.data!['name'].length > 22?
-                                    SizedBox(width: 220,
-                                    child: ScrollLoopAutoScroll(
-                                      delayAfterScrollInput: Duration(seconds: 1),
-                                      delay: Duration(seconds: 1),
-                                      child: Text(
-                                        snapshot.data!['name'],
-                                        style: TextStyle(fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                        ))),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(12, 20, 0, 0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      snapshot.data!.name.length > 22
+                                          ? SizedBox(
+                                              width: 220,
+                                              child: ScrollLoopAutoScroll(
+                                                delayAfterScrollInput:
+                                                    const Duration(seconds: 1),
+                                                delay:
+                                                    const Duration(seconds: 1),
+                                                duration: const Duration(
+                                                    seconds: 100),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Text(
+                                                  snapshot.data!.name,
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            )
+                                          : Text(
+                                              snapshot.data!.name,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                      Text(
+                                        snapshot.data!.artist,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.grey),
                                       ),
-                                      duration: Duration(seconds: 100),
-                                      scrollDirection: Axis.horizontal,
-                                    ),)
-                                    :Text(
-                                      snapshot.data!['name'],
-                                      style: TextStyle(fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                    ),
-
-
-                                    Text(
-                                      snapshot.data!['artist'],
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                      else{
-                        return Container(
-                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          height: height * 0.14,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: const Color(0xFFD9D9D9).withOpacity(0.08),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset("assets/images/loadingPlaceholder.gif",
-                                          height: 90,
-                                          width: 90))),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(12, 20, 0, 0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 150,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        color: Colors.grey.withOpacity(0.7),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Container(
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            height: height * 0.14,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              color: const Color(0xFFD9D9D9).withOpacity(0.08),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                    margin:
+                                        const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.asset(
+                                            "assets/images/loadingPlaceholder.gif",
+                                            height: 90,
+                                            width: 90))),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(12, 20, 0, 0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 150,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: Colors.grey.withOpacity(0.7),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Container(
-                                      width: 100,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        color: Colors.grey.withOpacity(0.4),
+                                      const SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-
-                  })
-                  ,
+                                      Container(
+                                        width: 100,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: Colors.grey.withOpacity(0.4),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      }),
                 ],
               ),
             ),
@@ -382,7 +394,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                   builder: (context) => const SettingsWidget()))
                           .then((value) => setState(() {
                                 username =
-                                    MyApp.controller.currentUser.usernameDafl;
+                                    MyApp.controller.getIdDafl().toString();
                               }));
                     },
                     child: Row(
@@ -418,5 +430,4 @@ class _MainPageProfilState extends State<MainPageProfil> {
       ),
     );
   }
-
 }

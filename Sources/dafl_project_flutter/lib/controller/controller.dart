@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dafl_project_flutter/model/music.dart';
 import 'package:dafl_project_flutter/services/api/api_spotify.dart';
 import 'package:dafl_project_flutter/services/database/database_service.dart';
-import 'package:dafl_project_flutter/services/position/area.dart';
+import 'package:dafl_project_flutter/services/position/location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../model/spot.dart';
@@ -11,8 +11,9 @@ import '../model/user.dart';
 class Controller {
   ApiSpotify _api = ApiSpotify();
   late User _currentUser;
-  Area _area = Area();
-  DataBaseService _dataBaseService = DataBaseService();
+  final Location _location = Location();
+  final DataBaseService _dataBaseService = DataBaseService();
+  bool sortChoice = false; //false = sort by name ; true = sort by date
 
   late BuildContext navigatorKey;
 
@@ -50,13 +51,11 @@ class Controller {
   }
 
   List<Spot> getSpots() {
-    return _area.spots;
+    return _location.spots;
   }
 
-  Future<List<Spot>> getArea() async {
-    await _area.sendCurrentLocation();
-    await _area.getData();
-    return _area.spots;
+  getLocation() async {
+    await _location.sendCurrentLocation();
   }
 
   playTrack(String id) {
@@ -75,7 +74,6 @@ class Controller {
   addToPlaylist(String id) {
     _api.requests.addToPlaylist(id);
   }
-
 
   // DATABASE
   void save(User userToSave) {
@@ -98,12 +96,8 @@ class Controller {
     return await _dataBaseService.searchUser(username);
   }
 
-
-
-
-
-  Future sendEmail(
-      User reporter, User reported, String reason, String message) async {
+  Future sendEmail(String reporterId, String reportedId, String reason,
+      String message) async {
     const serviceId = 'service_dzyndyb';
     const templateId = 'template_idgriw2';
     const userId = 'hy7HxL5QGV6gpdqry';
@@ -119,13 +113,12 @@ class Controller {
         'template_id': templateId,
         'user_id': userId,
         'template_params': {
-          'from_name': reporter.usernameDafl,
-          'to_name': reported.usernameDafl,
+          'from_name': reporterId,
+          'to_name': reportedId,
           'reason': reason,
           'message': message,
         },
       }),
     );
   }
-  */
 }

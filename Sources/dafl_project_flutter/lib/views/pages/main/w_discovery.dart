@@ -39,17 +39,17 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                         ),
                         OutlinedButton(
                           onPressed: () {
-                            MyApp.controller.currentUser.sortChoise =
-                                !MyApp.controller.currentUser.sortChoise;
+                            MyApp.controller.sortChoice =
+                                !MyApp.controller.sortChoice;
                             rebuildAllChildren(context);
                             setState(() {});
                           },
                           style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.grey,
                               shadowColor: Colors.black,
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(24),
-                              primary: Colors.grey),
-                          child: MyApp.controller.currentUser.sortChoise
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(24)),
+                          child: MyApp.controller.sortChoice
                               ? Image.asset(
                                   'assets/images/date_sort_icon.png',
                                   height: 25,
@@ -70,7 +70,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
               ),
             ),
             Expanded(
-              child: MyApp.controller.currentUser.discovery.isEmpty
+              child: MyApp.controller.getDiscoveries().isEmpty
                   ? Center(
                       child: Image.asset(
                       'assets/images/EmptyDiscovery-Hint.png',
@@ -119,7 +119,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
   @override
   Widget build(BuildContext context) {
     var listDiscoveries = MyApp.controller.getDiscoveries();
-    if (MyApp.controller.currentUser.sortChoise) {
+    if (MyApp.controller.sortChoice) {
       listDiscoveries.sort((a, b) {
         return a.date.compareTo(b.date);
       });

@@ -12,7 +12,7 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  User destinataire = User("test1", '1234');
+  String destinataire = 'test';
   List<Widget> messages = [];
   bool isNull = true;
 
@@ -20,13 +20,13 @@ class _ConversationPageState extends State<ConversationPage> {
 
   void sendMessage(String content) {
     setState(() {
-      messages
-          .add(messageWidget(Message(MyApp.controller.currentUser, content)));
+      messages.add(messageWidget(
+          Message(MyApp.controller.getIdDafl().toString(), content)));
     });
   }
 
   Widget messageWidget(Message message) {
-    if (message.sender != MyApp.controller.currentUser) {
+    if (message.senderId != MyApp.controller.getIdDafl().toString()) {
       return Align(
         alignment: Alignment.centerLeft,
         child: Container(
@@ -374,8 +374,11 @@ class _ConversationPageState extends State<ConversationPage> {
                   height: 70,
                   child: ElevatedButton(
                     onPressed: () {
-                      MyApp.controller.sendEmail(MyApp.controller.currentUser,
-                          destinataire, currentValue, messageTextField.text);
+                      MyApp.controller.sendEmail(
+                          MyApp.controller.getIdDafl().toString(),
+                          destinataire,
+                          currentValue,
+                          messageTextField.text);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(

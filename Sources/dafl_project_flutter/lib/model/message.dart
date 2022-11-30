@@ -1,8 +1,8 @@
 import 'user.dart';
 
 class Message {
-  User sender;
+  String senderId;
   String content;
 
-  Message(this.sender, this.content);
+  Message(this.senderId, this.content);
 }

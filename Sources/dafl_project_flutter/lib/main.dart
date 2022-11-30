@@ -46,13 +46,10 @@ class MyApp extends StatelessWidget {
 enum CardStatus { like, disLike, discovery, message }
 
 class CardProvider extends ChangeNotifier {
-  final List<Spot> _spotsList = MyApp.controller.getSpots();
   bool _isDragging = false;
   double _angle = 0;
   Offset _position = Offset.zero;
   Size _screenSize = Size.zero;
-
-  List<Spot> get spotsList => _spotsList;
 
   bool get isDragging => _isDragging;
 
@@ -373,14 +370,15 @@ class CardProvider extends ChangeNotifier {
   }
 
   Future _nextCard() async {
-    dev.log(_spotsList.length.toString());
-    if (_spotsList.isEmpty) {
+    List<Spot> spots = MyApp.controller.getSpots();
+    dev.log(spots.length.toString());
+    if (spots.isEmpty) {
       dev.log('dernier');
       return;
     } else {
       await Future.delayed(const Duration(milliseconds: 200));
-      dev.log(_spotsList.last.music.name);
-      _spotsList.removeLast();
+      dev.log(spots.last.music.name);
+      spots.removeLast();
       resetPosition();
     }
   }
