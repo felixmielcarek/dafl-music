@@ -39,8 +39,8 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                         ),
                         OutlinedButton(
                           onPressed: () {
-                            MyApp.controller.sortChoice =
-                                !MyApp.controller.sortChoice;
+                            MyApp.controller
+                                .setChoice(!MyApp.controller.getChoice());
                             rebuildAllChildren(context);
                             setState(() {});
                           },
@@ -49,7 +49,7 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
                               shadowColor: Colors.black,
                               shape: const CircleBorder(),
                               padding: const EdgeInsets.all(24)),
-                          child: MyApp.controller.sortChoice
+                          child: MyApp.controller.getChoice()
                               ? Image.asset(
                                   'assets/images/date_sort_icon.png',
                                   height: 25,
@@ -119,7 +119,7 @@ class _DiscoveryListState extends State<DiscoveryList> {
   @override
   Widget build(BuildContext context) {
     var listDiscoveries = MyApp.controller.getDiscoveries();
-    if (MyApp.controller.sortChoice) {
+    if (MyApp.controller.getChoice()) {
       listDiscoveries.sort((a, b) {
         return a.date.compareTo(b.date);
       });

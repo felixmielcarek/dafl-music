@@ -30,12 +30,6 @@ class MainPageProfil extends StatefulWidget {
 
 class _MainPageProfilState extends State<MainPageProfil> {
   String username = MyApp.controller.getIdDafl().toString();
-  late Future<Music> data;
-
-  Future<Music> getData() async {
-    return await MyApp.controller
-        .getCompleteMusic(MyApp.controller.getCurrentMusic());
-  }
 
   @override
   initState() async {

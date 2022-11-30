@@ -6,17 +6,7 @@ import 'dart:async';
 import '../../main.dart';
 
 class Location {
-  final Map _spots = {};
-
-  List<Spot> get spots {
-    List<Spot> spots = [];
-    _spots.forEach((key, value) {
-      spots.add(Spot(key, value));
-    });
-    return spots;
-  }
-
-  sendCurrentLocation() async {
+  static Future<List<Spot>> sendCurrentLocation() async {
     Uri uri = Uri.parse(
         "https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/insertAndMakeListUser.php");
     LocationPermission permission;
@@ -32,7 +22,7 @@ class Location {
     }
 
     String actualUser = MyApp.controller.getIdDafl().toString();
-    String actualSong = MyApp.controller.getCurrentMusic();
+    String actualSong = MyApp.controller.getCurrentMusic().id;
     Position current = await Geolocator.getCurrentPosition();
 
     http.Response response = await http.post(uri, body: {
@@ -43,13 +33,20 @@ class Location {
     });
 
     var data = jsonDecode(response.body);
+    Map<String, String> spotsData = {};
+    List<Spot> spots = [];
 
     if (data == 2) {
       return Future.error("Failed to connect, connection timeout");
     } else if (data == 3) {
       return Future.error("POST method failed");
     } else {
-      data.forEach((s) => _spots.putIfAbsent(s['user'], () => s['music']));
+      data.forEach((s) => spotsData.putIfAbsent(s['user'], () => s['music']));
     }
+
+    spotsData.forEach((key, value) async {
+      spots.add(Spot(key, await MyApp.controller.getCompleteMusic(value)));
+    });
+    return spots;
   }
 }

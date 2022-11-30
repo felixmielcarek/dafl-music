@@ -175,7 +175,7 @@ class CardProvider extends ChangeNotifier {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                        await MyApp.controller.getDiscoveries().containsKey(
+                        MyApp.controller.getDiscoveries().containsKey(
                                 MyApp.controller.currentUser.spots.last.music)
                             ? const Icon(
                                 Icons.info_rounded,
@@ -327,7 +327,7 @@ class CardProvider extends ChangeNotifier {
                 child: ElevatedButton(
                   onPressed: () {
                     sendMessage(messageTextField.text,
-                        MyApp.controller.getSpots().last.userId);
+                        MyApp.controller.getSpots().last.key);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3F1DC3),

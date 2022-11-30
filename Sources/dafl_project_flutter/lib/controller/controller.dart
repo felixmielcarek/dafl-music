@@ -1,70 +1,79 @@
 import 'dart:convert';
+import 'package:dafl_project_flutter/controller/live_datas.dart';
 import 'package:dafl_project_flutter/model/music.dart';
+import 'package:dafl_project_flutter/model/spot.dart';
 import 'package:dafl_project_flutter/services/api/api_spotify.dart';
 import 'package:dafl_project_flutter/services/database/database_service.dart';
 import 'package:dafl_project_flutter/services/position/location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import '../model/spot.dart';
 import '../model/user.dart';
 
 class Controller {
   ApiSpotify _api = ApiSpotify();
   late User _currentUser;
-  final Location _location = Location();
   final DataBaseService _dataBaseService = DataBaseService();
-  bool sortChoice = false; //false = sort by name ; true = sort by date
+  final LiveDatas _datas = LiveDatas();
 
   late BuildContext navigatorKey;
 
-  Uri getApiUrlAuthorize() {
-    return _api.identification.urlAuthorize;
+  //
+  // Methods to manage datas
+  //
+
+  // Datas that can change
+
+  bool getChoice() => _datas.discoveriesSortChoice;
+
+  setChoice(bool c) {
+    _datas.discoveriesSortChoice = c;
   }
 
-  String getApiRedirectUrl() {
-    return _api.identification.redirectUri;
+  Music getCurrentMusic() => _datas.userCurrentMusic;
+
+  setCurrentMusic() async {
+    _datas.userCurrentMusic =
+        await getCompleteMusic(await _api.requests.getCurrentlyPlayingTrack());
   }
+
+  List<Spot> getSpots() => _datas.spots;
+
+  setSpots() async {
+    _datas.spots = await Location.sendCurrentLocation();
+  }
+
+  Map<Music, DateTime> getDiscoveries() => _datas.discoveries;
+
+  setDiscoveries() async {
+    Map<String, DateTime> tmpData = await _api.requests.getPlaylistTracks();
+    Map<Music, DateTime> tmpCast = {};
+    tmpData.forEach((key, value) async {
+      tmpCast[(await getCompleteMusic(key))] = value;
+    });
+    _datas.discoveries = tmpCast;
+  }
+
+  //Data that can not change
+
+  Uri getApiUrlAuthorize() => _api.identification.urlAuthorize;
+
+  String getApiRedirectUrl() => _api.identification.redirectUri;
+
+  String getIdSpotify() => _currentUser.idSpotify;
+
+  int getIdDafl() => _currentUser.idDafl;
+
+  //
+  //Other methods
+  //
 
   apiAuthorization(url) {
     _api.apiAuthorization(url);
   }
 
-  String getIdSpotify() {
-    return _currentUser.idSpotify;
-  }
-
   Future<Music> getCompleteMusic(String id) async {
     Map infos = await _api.requests.getTrackInfo(id);
     return Music(id, infos['name'], infos['artist'], infos['cover']);
-  }
-
-  setCurrentMusic() async {
-    _currentUser.currentMusic = await _api.requests.getCurrentlyPlayingTrack();
-  }
-
-  String getCurrentMusic() {
-    return _currentUser.currentMusic;
-  }
-
-  int getIdDafl() {
-    return _currentUser.idDafl;
-  }
-
-  List<Spot> getSpots() {
-    return _location.spots;
-  }
-
-  getLocation() async {
-    await _location.sendCurrentLocation();
-  }
-
-  playTrack(String id) {
-    _api.requests.playTrack(id);
-  }
-
-  Future<Map<String, DateTime>> getDiscoveries() async {
-    _currentUser.discoveries = await _api.requests.getPlaylistTracks();
-    return _currentUser.discoveries;
   }
 
   removeFromPlaylist(String id) {
@@ -73,6 +82,10 @@ class Controller {
 
   addToPlaylist(String id) {
     _api.requests.addToPlaylist(id);
+  }
+
+  playTrack(String id) {
+    _api.requests.playTrack(id);
   }
 
   // DATABASE

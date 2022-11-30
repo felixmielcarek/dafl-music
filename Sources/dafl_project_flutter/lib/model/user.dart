@@ -1,7 +1,4 @@
 import 'dart:async';
-import '../main.dart';
-import 'music.dart';
-import 'spot.dart';
 
 class User {
   Timer? timer;
@@ -11,11 +8,8 @@ class User {
   late int idDafl;
   late String usernameDafl;
   late String passwDafl;
-  Map<String, DateTime> discoveries = {};
 
   final String _idSpotify;
-  late String currentMusic;
-  bool sortChoise = true;
 
   //constructors
   User(this.usernameDafl, this._idSpotify);
