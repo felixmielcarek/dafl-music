@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 import '../main.dart';
 
+
 class Location {
   static Future<Map<String, dynamic>> sendCurrentLocation() async {
     Uri uri = Uri.parse("http://89.83.53.34/phpmyadmin/dafldev/insert.php");
