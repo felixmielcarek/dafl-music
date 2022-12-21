@@ -1,5 +1,4 @@
 <?php
-
 $container = $app->getContainer();
 
 $container['db'] = function ($container) {
