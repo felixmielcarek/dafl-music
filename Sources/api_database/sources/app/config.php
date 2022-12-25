@@ -1,16 +1,8 @@
 <?php
 
-$config=[
-        'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails' => true,
-        'db' => [
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'dafl_music',
-            'username' => 'root',
-            'password' => 'root',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => ''  
-        ]   
-];
+$config['displayErrorDetails'] = true;
+$config['addContentLengthHeader'] = false;
+
+$config['db']['dsn']   = 'mysql:host=localhost;dbname=dafl_music';
+$config['db']['user']   = 'root';
+$config['db']['pass']   = 'root';

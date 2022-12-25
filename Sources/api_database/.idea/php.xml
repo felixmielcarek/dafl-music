@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/sources/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/sources/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/sources/vendor/pimple/pimple" />
+      <path value="$PROJECT_DIR$/sources/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/sources/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/sources/vendor/illuminate/support" />
+      <path value="$PROJECT_DIR$/sources/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/sources/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/sources/vendor/illuminate/contracts" />
+      <path value="$PROJECT_DIR$/sources/vendor/slim/slim" />
+      <path value="$PROJECT_DIR$/sources/vendor/illuminate/database" />
+      <path value="$PROJECT_DIR$/sources/vendor/illuminate/container" />
+      <path value="$PROJECT_DIR$/sources/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/sources/vendor/composer" />
+      <path value="$PROJECT_DIR$/sources/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/sources/vendor/kylekatarnls/update-helper" />
+      <path value="$PROJECT_DIR$/sources/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/sources/vendor/symfony/polyfill-mbstring" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
+</project>

@@ -1,11 +1,12 @@
 {
-    "require": {
-        "slim/slim": "3.*",
-        "illuminate/database": "~5.1"
-    },
-    "config": {
-        "allow-plugins": {
-            "kylekatarnls/update-helper": true
-        }
+  "require": {
+    "slim/slim": "3.*",
+    "illuminate/database": "~5.1",
+    "ext-json": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "kylekatarnls/update-helper": true
     }
+  }
 }
