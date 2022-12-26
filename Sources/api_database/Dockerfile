@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-cli
 RUN apt-get update && apt-get install -y libmcrypt-dev mariadb-client libmagickwand-dev --no-install-recommends
 RUN pecl install imagick 
 RUN docker-php-ext-enable imagick 
