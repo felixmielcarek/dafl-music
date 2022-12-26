@@ -6,31 +6,40 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require "Model.php";
 require "Connection.php";
 
-// Test route
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
-
-// Get information of a user
+// Get information about a user
 $app->get('/users/{id}', function (Request $request, Response $response, array $args) {
-    $mdl = new Model();
-    $response->getBody()->write(json_encode($mdl->getInformationsUser($args['id'])));
-    return $response;
+    try {
+        $mdl = new Model();
+        $res = $mdl->getInformationsUser($args['id']);
+    } catch (Exception $e) {
+        $res = array("Error: " . $e->getMessage());
+    } finally {
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    }
+
 });
 
 // Add a user
-$app->post('/users/{id}', function (Request $request, Response $response, array $args) {
-    $mdl = new Model();
-    $data = $request->getParsedBody();
-    $mdl->addUser($args['id'], $data['idSpotify'], $data['passw']);
-    return $response;
+$app->post('/users/new', function (Request $request, Response $response, array $args) {
+    try {
+        $mdl = new Model();
+        $data = $request->getParsedBody();
+        if (!isset($data['idDafl']) || !isset($data['idSpotify']) || !isset($data['passw'])) {
+            throw new Exception("missing arguments");
+        }
+        $mdl->addUser($data['idDafl'], $data['idSpotify'], $data['passw']);
+        $res = "Ok";
+    } catch (Exception $e) {
+        $res = array("Error: " . $e->getMessage());
+    } finally {
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    }
 });
 
-
-// Update information of a user
+/*
+// Update information about a user
 $app->put('/users/{id}', function (Request $request, Response $response, array $args) {
     $res = "Update infos of user " . $args['id'];
     $response->getBody()->write($res);
@@ -61,3 +70,4 @@ $app->post('/users/{id}/preferences', function (Request $request, Response $resp
 
     return $response;
 });
+*/

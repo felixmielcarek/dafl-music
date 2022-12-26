@@ -9,9 +9,12 @@ class Model
     {
         global $app;
         $db = $app->getContainer()['settings']['db'];
-        $gw = new UserGateway(new Connection($db['dsn'], $db['user'], $db['pass']));
         $id = filter_var($id, FILTER_SANITIZE_STRING);
+        $gw = new UserGateway(new Connection($db['dsn'], $db['user'], $db['pass']));
         $userDb = $gw->getInformations($id);
+        if (count($userDb) != 1) {
+            throw new Exception("no user matches id");
+        }
         $user = new User($userDb[0][0], $userDb[0][1]);
         return $user->getInformations();
     }
@@ -25,7 +28,6 @@ class Model
         $data['idDafl'] = filter_var($idDafl, FILTER_SANITIZE_STRING);
         $data['idSpotify'] = filter_var($idSpotify, FILTER_SANITIZE_STRING);
         $data['passw'] = filter_var($passw, FILTER_SANITIZE_STRING);
-
         $gw = new UserGateway(new Connection($db['dsn'], $db['user'], $db['pass']));
         $gw->addUser($data['idDafl'], $data['idSpotify'], $data['passw']);
     }
