@@ -105,3 +105,21 @@ steps:
     CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
       from_secret: db_password
   depends_on: [ deploy-php ]
+
+# database container deployment
+- name: database
+  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+  environment:
+    IMAGENAME: mariadb:10
+    CONTAINERNAME: dafl_database
+    COMMAND: create
+    # OVERWRITE: true
+    PRIVATE: true
+    CODEFIRST_CLIENTDRONE_ENV_MARIADB_ROOT_PASSWORD:
+      from_secret: dafl_db_root_password
+    CODEFIRST_CLIENTDRONE_ENV_MARIADB_DATABASE:
+      from_secret: dafl_db_database
+    CODEFIRST_CLIENTDRONE_ENV_MARIADB_USER:
+      from_secret: dafl_db_user
+    CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
+      from_secret: dafl_db_password
