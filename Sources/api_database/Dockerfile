@@ -8,5 +8,5 @@ COPY . /usr/src/daflmusic
 WORKDIR /usr/src/daflmusic
 RUN ls
 RUN php /usr/local/bin/composer require slim/slim:3.*
-RUN ls
+RUN ls vendor/
 CMD [ "php", "./public/index.php" ]
