@@ -1,4 +1,4 @@
-FROM php:7.4-cli
+FROM php:7.3-fpm
 RUN apt-get update && apt-get install -y libmcrypt-dev \
     mariadb-client libmagickwand-dev --no-install-recommends \
     && pecl install imagick \
