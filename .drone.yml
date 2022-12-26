@@ -135,3 +135,20 @@ steps:
       from_secret: secret-registry-username
     password:
       from_secret: secret-registry-password
+
+- name: deploy-database-api
+  image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+  environment:
+    IMAGENAME: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music:latest
+    CONTAINERNAME: dafl-database-api
+    COMMAND: create
+    OVERWRITE: true
+    CODEFIRST_CLIENTDRONE_ENV_DB_SERVER:
+      from_secret: dafl_db_server
+    CODEFIRST_CLIENTDRONE_ENV_DB_USER:
+      from_secret: dafl_db_user
+    CODEFIRST_CLIENTDRONE_ENV_DB_PASSWORD:
+      from_secret: dafl_db_password
+    CODEFIRST_CLIENTDRONE_ENV_DB_DATABASE:
+      from_secret: dafl_db_database
+  depends_on: [ database-api, database ]
