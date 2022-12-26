@@ -123,3 +123,15 @@ steps:
       from_secret: dafl_db_user
     CODEFIRST_CLIENTDRONE_ENV_MARIADB_PASSWORD:
       from_secret: dafl_db_password
+
+- name: database-api
+  image: plugins/docker
+  settings:
+    dockerfile: Sources/api_database/Dockerfile
+    context: Sources/api_database/sources/
+    registry: hub.codefirst.iut.uca.fr
+    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/dafl_music
+    username:
+      from_secret: secret-registry-username
+    password:
+      from_secret: secret-registry-password
