@@ -54,15 +54,24 @@ $app->delete('/users/{id}', function (Request $request, Response $response, arra
 
     return $response;
 });
-
+ */
 // Like someone
 $app->post('/user/{id}/like', function (Request $request, Response $response, array $args) {
-    $res = "User " . $args['id'] . " liked " . $args['liked'];
-    $response->getBody()->write($res);
-
-    return $response;
+	try {
+		$mdl = new Model();
+		$data = $request->getParsedBody();
+		if (!isset($data['liked'])) {
+			throw new Exception("missing arguments");
+		}
+		$res=($mdl->like($args["id"],$data["liked"])) ? "Match" : "Ok";
+	} catch (Exception $e) {
+		$res = array("Error: " . $e->getMessage());
+	} finally {
+		$response->getBody()->write(json_encode($res));
+		return $response;
+	}
 });
-
+/*
 // Add a new song as a preference for a situation
 $app->post('/users/{id}/preferences', function (Request $request, Response $response, array $args) {
     $res = "User " . $args['id'] . " add music " . $args['music'] . " to his preferences for category " . $args['categ'];
@@ -70,4 +79,4 @@ $app->post('/users/{id}/preferences', function (Request $request, Response $resp
 
     return $response;
 });
-*/
+ */

@@ -1,6 +1,7 @@
 <?php
 
 require "gateways/UserGateway.php";
+require "gateways/LikesGateway.php";
 require "business/User.php";
 
 class Model
@@ -30,5 +31,16 @@ class Model
         $data['passw'] = filter_var($passw, FILTER_SANITIZE_STRING);
         $gw = new UserGateway(new Connection($db['dsn'], $db['user'], $db['pass']));
         $gw->addUser($data['idDafl'], $data['idSpotify'], $data['passw']);
+    }
+
+    public function like($user,$liked) : bool {
+    	global $app;
+	$db = $app->getContainer()['settings']['db'];
+
+        $data = [];
+        $data['user'] = filter_var($user, FILTER_SANITIZE_STRING);
+        $data['liked'] = filter_var($liked, FILTER_SANITIZE_STRING);
+        $gw = new LikesGateway(new Connection($db['dsn'], $db['user'], $db['pass']));
+        return $gw->addUser($data['idDafl'], $data['idSpotify'], $data['passw']);
     }
 }
