@@ -34,3 +34,23 @@ CREATE TABLE LikeDafl(
     dateLike date NOT NULL,
     PRIMARY KEY(idUserWhoLike,idUserWhoGetLike)
 );
+
+CREATE TABLE MessageDafl(
+    senderID INT NOT NULL REFERENCES UserDafl(idDafl) ,
+    idMessage INT PRIMARY KEY,
+    content varchar(500),
+    dateMess date NOT NULL
+);
+
+CREATE TABLE ConversationDafl(
+    idUserA INT NOT NULL REFERENCES UserDafl(idDafl),
+    idUserB INT NOT NULL REFERENCES UserDafl(idDafl),
+    idConversation INT PRIMARY KEY,
+    waiting BOOLEAN NOT NULL CHECK (waiting=1 OR waiting=0)
+);
+
+CREATE TABLE MessToConv(
+    idConv INT REFERENCES Conversation(idConversation),
+    idMsg INT REFERENCES Message(idMessage),
+    PRIMARY KEY (idConv,idMsg)
+);
