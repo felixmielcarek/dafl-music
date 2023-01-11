@@ -39,7 +39,7 @@ class DatabaseConnexion {
 
     try {
       var uri =
-          'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:5442/$_psqlDataBase';
+          'postgres://$_psqlUser:$_psqlPswd@$_psqlHost:15739/$_psqlDataBase?sslmode=require';
 
       return connect(uri);
     } catch (e) {

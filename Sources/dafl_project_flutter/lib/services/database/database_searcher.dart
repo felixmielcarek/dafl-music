@@ -10,7 +10,7 @@ class DatabaseSearcher implements Searcher {
     final connection = await DatabaseConnexion.initConnexion();
 
     bool queryResult = await connection
-        .query('select * from utilisateur where username = @username',
+        .query('select * from users where idDafl = @username',
             {'username': username})
         .toList()
         .then((rows) {

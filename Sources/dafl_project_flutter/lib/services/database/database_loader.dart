@@ -11,7 +11,7 @@ class DatabaseLoader implements Loader {
     final connection = await DatabaseConnexion.initConnexion();
     var queryResult = await connection
         .query(
-            'select username from utilisateur where username = @username AND password = @password',
+            'select idDafl from users where idDafl = @username AND password = @password',
             {'username': username, 'password': password})
         .toList()
         .then((result) {
@@ -25,7 +25,6 @@ class DatabaseLoader implements Loader {
         .whenComplete(() {
           connection.close();
         });
-
     return queryResult;
   }
 }

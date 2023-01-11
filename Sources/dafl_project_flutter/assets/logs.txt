@@ -1,4 +1,4 @@
-postgres
-mdpDaflBd
-89.83.54.48
-BD-DaflMusic
+avnadmin
+AVNS_MA4OWhqM3cOMSwKXlzw
+pg-206a2fcd-the-3c42.aivencloud.com
+Bd-DaflMusic
