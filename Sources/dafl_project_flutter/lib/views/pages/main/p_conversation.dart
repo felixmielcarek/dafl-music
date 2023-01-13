@@ -15,18 +15,25 @@ class _ConversationPageState extends State<ConversationPage> {
   String destinataire = 'test';
   List<Widget> messages = [];
   bool isNull = true;
+  String receiver = 'test';
 
   final messageTextField = TextEditingController();
 
-  void sendMessage(String content) {
+  void sendMessage(String content, String idSender, String idReceiver) {
+    Message messageToSend = Message(
+        idSender: idSender,
+        idReceiver: idReceiver,
+        content: content);
+
+    MyApp.controller.sendMessage(messageToSend, idSender, idReceiver);
+
     setState(() {
-      messages.add(messageWidget(
-          Message(MyApp.controller.getIdDafl().toString(), content)));
+      messages.add(messageWidget(messageToSend));
     });
   }
 
   Widget messageWidget(Message message) {
-    if (message.senderId != MyApp.controller.getIdDafl().toString()) {
+    if (message.idSender != MyApp.controller.getIdDafl()) {
       return Align(
         alignment: Alignment.centerLeft,
         child: Container(
@@ -204,7 +211,7 @@ class _ConversationPageState extends State<ConversationPage> {
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.7)),
+                      TextStyle(color: Colors.white.withOpacity(0.7)),
                       border: InputBorder.none,
                       hintText: "Votre message...",
                     ),
@@ -218,38 +225,38 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: isNull
                   ? null
                   : () {
-                      sendMessage(messageTextField.text);
-                      if (listScrollController.hasClients) {
-                        final position =
-                            listScrollController.position.maxScrollExtent;
-                        listScrollController.jumpTo(position);
-                      }
-                      messageTextField.clear();
-                    },
+                sendMessage(messageTextField.text, MyApp.controller.getIdDafl(), receiver);
+                if (listScrollController.hasClients) {
+                  final position =
+                      listScrollController.position.maxScrollExtent;
+                  listScrollController.jumpTo(position);
+                }
+                messageTextField.clear();
+              },
               child: isNull == true
                   ? const SizedBox(
-                      height: 1,
-                      width: 1,
-                    )
+                height: 1,
+                width: 1,
+              )
                   : Container(
-                      width: 40,
-                      height: 40,
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xff8e24a1), Color(0xff8163ff)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          )),
-                      child: Transform.rotate(
-                        angle: -300,
-                        child: const Icon(
-                          Icons.arrow_back,
-                          size: 26,
-                          color: Colors.white,
-                        ),
+                  width: 40,
+                  height: 40,
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xff8e24a1), Color(0xff8163ff)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       )),
+                  child: Transform.rotate(
+                    angle: -300,
+                    child: const Icon(
+                      Icons.arrow_back,
+                      size: 26,
+                      color: Colors.white,
+                    ),
+                  )),
             )
           ],
         ),
@@ -261,7 +268,7 @@ class _ConversationPageState extends State<ConversationPage> {
     final messageTextField = TextEditingController();
     return SingleChildScrollView(
       padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         height: 500,
         width: double.infinity,

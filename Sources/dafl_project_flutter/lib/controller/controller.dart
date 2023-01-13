@@ -10,14 +10,31 @@ import '../services/api/api_spotify.dart';
 import '../services/database/database_service.dart';
 import '../services/position/location.dart';
 import 'live_datas.dart';
+import 'package:dafl_project_flutter/model/message.dart';
+import 'package:dafl_project_flutter/services/messaging/message_database.dart';
 
 class Controller {
   final ApiSpotify _api = ApiSpotify();
   late User _currentUser;
   final DataBaseService _dataBaseService = DataBaseService();
   final LiveData _data = LiveData();
+  final MessageDatabase _messageAccess = MessageDatabase();
 
   late BuildContext navigatorKey;
+
+
+
+  /// FIREBASE Messaging
+  void sendMessage(Message message, String idSender, String idReceiver){
+    _messageAccess.sendMessage(message, idSender, idReceiver);
+  }
+
+
+
+
+
+
+  
 
   initUser() async {
     await setCurrentMusic();
