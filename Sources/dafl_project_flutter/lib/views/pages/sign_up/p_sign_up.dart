@@ -196,26 +196,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.fromLTRB(45, 10, 45, 0),
                     child: Stack(
                       children: [
-                        Container(
-                          height: 43,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF24CF5F),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(50)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                        ),
                         SizedBox(
                           height: 43,
-                          width: width * 0.75,
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF24CF5F),
@@ -343,6 +325,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (password != confirmPassword) {
       notify(1, context);
     } else {
+       MyApp.controller.save(username, password);
       // create user in database
 
       Navigator.of(context).push(
@@ -354,5 +337,5 @@ class _SignUpPageState extends State<SignUpPage> {
             child: const HomePage()),
       );
     }
+    }
   }
-}

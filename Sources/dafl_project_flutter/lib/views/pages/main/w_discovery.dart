@@ -15,6 +15,14 @@ class DiscoveryWidget extends StatefulWidget {
 
 class _DiscoveryWidgetState extends State<DiscoveryWidget> {
   @override
+  initState() {
+    MyApp.controller.getDiscoveries();
+    MyApp.controller.setDiscoveries();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFF141414),
