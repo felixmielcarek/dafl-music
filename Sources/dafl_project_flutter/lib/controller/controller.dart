@@ -11,14 +11,14 @@ import '../services/database/database_service.dart';
 import '../services/position/location.dart';
 import 'live_datas.dart';
 import 'package:dafl_project_flutter/model/message.dart';
-import 'package:dafl_project_flutter/services/messaging/message_database.dart';
+import 'package:dafl_project_flutter/services/messaging/message_database_service.dart';
 
 class Controller {
   final ApiSpotify _api = ApiSpotify();
   late User _currentUser;
   final DataBaseService _dataBaseService = DataBaseService();
   final LiveData _data = LiveData();
-  final MessageDatabase _messageAccess = MessageDatabase();
+  final MessageDatabaseService _messageAccess = MessageDatabaseService();
 
   late BuildContext navigatorKey;
 
