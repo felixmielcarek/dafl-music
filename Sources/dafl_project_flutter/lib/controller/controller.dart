@@ -29,8 +29,9 @@ class Controller {
     _messageAccess.sendMessage(message, idSender, idReceiver);
   }
 
-
-
+  Stream<List<Message>> getMessage(String chatId){
+    return _messageAccess.getMessage(chatId);
+  }
 
 
 

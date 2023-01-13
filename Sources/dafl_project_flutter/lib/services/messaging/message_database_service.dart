@@ -3,16 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class MessageDatabaseService{
-  String _getChatId(String idSender, String idReceiver) {
+  // Make an unique chat ID between 2 client. Look like 'User1-User2'
+  static String _getChatId(String idSender, String idReceiver){
+    // Test to always have the same id
     if (idSender.hashCode <= idReceiver.hashCode)
       return '$idSender-${idReceiver}';
     else
       return '${idReceiver}-$idSender';
   }
 
+  // Send a message from an user to an other
   void sendMessage(Message message, String idSender, String idReceiver) {
     String chatId = _getChatId(idSender, idReceiver);
 
+    // Get a message from a snapshot Firestore
     var documentReference = FirebaseFirestore.instance
         .collection('messages')
         .doc(chatId)
@@ -35,13 +39,14 @@ class MessageDatabaseService{
     return Message.fromMap(data);
   }
 
-
+  // Get a list of messages from Firestore
   List<Message> _getAllMessages(QuerySnapshot<Map<String, dynamic>> snapshot) {
     return snapshot.docs.map((doc) {
       return _getMessage(doc);
     }).toList();
   }
 
+  // Get the massages from Firestore
   Stream<List<Message>> getMessage(String chatId) {
     return FirebaseFirestore.instance
         .collection('messages')
