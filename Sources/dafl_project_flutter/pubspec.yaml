@@ -32,6 +32,9 @@ dependencies:
   marquee: ^2.2.3
   text_scroll: ^0.1.1
   scroll_loop_auto_scroll: ^0.0.2
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.1.1
+  cloud_firestore: ^4.1.0
 
 dev_dependencies:
   flutter_test:

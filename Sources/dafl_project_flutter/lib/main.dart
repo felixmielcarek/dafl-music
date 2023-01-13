@@ -11,9 +11,15 @@ import '../controller/controller.dart';
 import 'model/spot.dart';
 import 'dart:developer' as dev;
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatelessWidget {
