@@ -29,7 +29,7 @@ class Location {
       "longitude": current.longitude.toString(),
       "idMusic": actualSong,
     });
-
+    print("echo");
     var data = jsonDecode(response.body);
     Map<String, String> spotsData = {};
     List<Spot> spots = [];

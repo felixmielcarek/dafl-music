@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../main.dart';
 import '../../presentation/custom_icons_icons.dart';
 import './w_settings.dart';
@@ -36,6 +37,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode (SystemUiMode.immersive);
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -48,8 +50,8 @@ class _MainPageState extends State<MainPage> {
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(
-            minHeight: 100,
-            maxHeight: 100,
+            minHeight: 80,
+            maxHeight: 80,
           ),
           child: NavigationBar(
             animationDuration: const Duration(microseconds: 800),
