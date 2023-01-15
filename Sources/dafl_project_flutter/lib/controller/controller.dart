@@ -141,6 +141,7 @@ class Controller {
       return false;
     }
     _currentUser = newUser;
+    _currentUser.idSpotify = await _api.requests.getIdUser();
     return true;
   }
 
