@@ -41,11 +41,9 @@ class Controller {
   initUser() async {
     await setCurrentMusic();
     await setDiscoveries();
-    beginRoutine();
   }
 
-  beginRoutine() async {
-    await setSpots();
+  beginRoutine() {
     Timer.periodic(const Duration(seconds: 10), (Timer t) => setSpots());
   }
 

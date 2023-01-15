@@ -6,6 +6,6 @@ import '../model/spot.dart';
 class LiveData {
   bool discoveriesSortChoice = true;
   late LinkedHashMap<Music, DateTime> discoveries;
-  late List<Spot> spots;
+  List<Spot> spots = <Spot>[];
   late Music userCurrentMusic;
 }
