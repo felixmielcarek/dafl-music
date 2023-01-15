@@ -233,8 +233,8 @@ class _SpotsWidgetState extends State<SpotsWidget> {
                     child: SizedBox(
                       height: 40,
                       child: MyApp.controller.getSpots().isEmpty
-                          ? Image.asset("assets/images/play_spotify_button.png")
-                          : Container(),
+                          ? Container()
+                          : Image.asset("assets/images/play_spotify_button.png"),
                     ),
                   ))
             ],

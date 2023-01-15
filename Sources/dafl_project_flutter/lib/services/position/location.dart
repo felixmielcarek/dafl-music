@@ -8,7 +8,7 @@ import '../../main.dart';
 class Location {
   static Future<List<Spot>> sendCurrentLocation() async {
     Uri uri = Uri.parse(
-        "https://codefirst.iut.uca.fr/containers/php_script-dorianhodin/insertAndMakeListUser.php");
+        "http://82.216.56.128/phpmyadmin/dafl/insertAndMakeListUser.php");
     LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
