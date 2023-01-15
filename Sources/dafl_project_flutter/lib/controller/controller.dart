@@ -82,6 +82,7 @@ class Controller {
     removeFromPlaylist(key.id);
   }
 
+
   setDiscoveries() async {
     LinkedHashMap<String, DateTime> tmpData =
         await _api.requests.getPlaylistTracks();
@@ -119,8 +120,10 @@ class Controller {
     _api.requests.removeFromPlaylist(id);
   }
 
-  addToPlaylist(String id) {
+  addToPlaylist(String id) async {
     _api.requests.addToPlaylist(id);
+    Music music = await getCompleteMusic(id);
+    _data.discoveries.addAll({music: DateTime.now()});
   }
 
   playTrack(String id) {

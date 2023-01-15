@@ -8,7 +8,7 @@ class DatabaseSaver implements Saver {
     final connection = await DatabaseConnexion.initConnexion();
 
     connection.execute(
-        'insert into users (idDafl, password) values (@username, @password)',
+        'insert into users (idDafl, idSpotify, password) values (@username, 0, @password)',
         {'id': '', 'username': idDafl, 'password': passw}).whenComplete(() {
       connection.close();
     });
