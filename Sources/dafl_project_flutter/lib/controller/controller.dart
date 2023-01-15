@@ -12,6 +12,7 @@ import '../services/position/location.dart';
 import 'live_datas.dart';
 import 'package:dafl_project_flutter/model/message.dart';
 import 'package:dafl_project_flutter/services/messaging/message_database_service.dart';
+import 'dart:developer' as dev;
 
 class Controller {
   final ApiSpotify _api = ApiSpotify();
@@ -35,11 +36,12 @@ class Controller {
 
 
 
-  
+
 
   initUser() async {
     await setCurrentMusic();
     await setDiscoveries();
+    beginRoutine();
   }
 
   beginRoutine() async {
@@ -66,13 +68,21 @@ class Controller {
         await getCompleteMusic(await _api.requests.getCurrentlyPlayingTrack());
   }
 
-  List<Spot> getSpots() => _data.spots;
+  List<Spot> getSpots() {
+    return _data.spots;
+  }
 
   setSpots() async {
+    print('setspot');
     _data.spots = await Location.sendCurrentLocation();
   }
 
   LinkedHashMap<Music, DateTime> getDiscoveries() => _data.discoveries;
+
+  void deleteDiscoveries(Music key) {
+    _data.discoveries.remove(key);
+    removeFromPlaylist(key.id);
+  }
 
   setDiscoveries() async {
     LinkedHashMap<String, DateTime> tmpData =

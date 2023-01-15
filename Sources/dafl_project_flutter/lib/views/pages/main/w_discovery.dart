@@ -17,7 +17,6 @@ class _DiscoveryWidgetState extends State<DiscoveryWidget> {
   @override
   initState() {
     MyApp.controller.getDiscoveries();
-    MyApp.controller.setDiscoveries();
 
     super.initState();
   }
@@ -163,9 +162,8 @@ class _DiscoveryListState extends State<DiscoveryList> {
                       dev.log(listDiscoveries.keys.toList()[reversedIndex].id);
                       dev.log(
                           listDiscoveries.keys.toList()[reversedIndex].name);
-                      MyApp.controller.removeFromPlaylist(
-                          listDiscoveries.keys.toList()[reversedIndex].id);
-                      listDiscoveries = MyApp.controller.getDiscoveries();
+                      MyApp.controller.deleteDiscoveries(
+                          listDiscoveries.keys.toList()[reversedIndex]);
                       return true;
                     }
                     if (direction == DismissDirection.startToEnd) {
