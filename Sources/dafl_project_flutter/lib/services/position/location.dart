@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dafl_project_flutter/model/spot.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +10,7 @@ import '../../main.dart';
 class Location {
   static Future<List<Spot>> sendCurrentLocation() async {
     Uri uri = Uri.parse(
-        "http://82.216.56.128/phpmyadmin/dafl/insertAndMakeListUser.php");
+        "http://89.83.53.34/phpmyadmin/dafl/insertAndMakeListUser.php");
     LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
@@ -29,7 +31,7 @@ class Location {
       "longitude": current.longitude.toString(),
       "idMusic": actualSong,
     });
-    print("echo");
+    log("echo");
     var data = jsonDecode(response.body);
     Map<String, String> spotsData = {};
     List<Spot> spots = [];
