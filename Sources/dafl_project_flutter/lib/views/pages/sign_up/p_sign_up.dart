@@ -318,7 +318,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (!await MyApp.controller.searchUser(username)) {
       notify(0, context);
     }
-    if (password == "" || confirmPassword == "") {
+    else if (password == "" || confirmPassword == "") {
       notify(4, context);
     } else if (password.length < 8) {
       notify(3, context);
@@ -327,7 +327,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else {
        MyApp.controller.save(username, password);
       // create user in database
-
+      print("success");
       Navigator.of(context).push(
         PageTransition(
             duration: const Duration(milliseconds: 300),

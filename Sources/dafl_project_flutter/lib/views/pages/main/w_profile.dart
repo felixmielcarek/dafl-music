@@ -40,6 +40,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Container(
         color: const Color(0xFF141414),
@@ -340,7 +341,7 @@ class _MainPageProfilState extends State<MainPageProfil> {
                                                   snapshot.data!.name.length >
                                                           22
                                                       ? SizedBox(
-                                                          width: 220,
+                                                          width: width*0.5,
                                                           child:
                                                               ScrollLoopAutoScroll(
                                                             delayAfterScrollInput:
