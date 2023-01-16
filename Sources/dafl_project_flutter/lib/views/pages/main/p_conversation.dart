@@ -14,7 +14,6 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  String destinataire = 'test';
   List<Widget> messages = [];
   bool isNull = true;
   final String receiver;
@@ -140,8 +139,9 @@ class _ConversationPageState extends State<ConversationPage> {
               width: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-                color: Colors.blue,
+
               ),
+              child: Image.asset('assets/images/DaflUser_profil.png'),
             ),
             const SizedBox(
               width: 20,
@@ -194,7 +194,7 @@ class _ConversationPageState extends State<ConversationPage> {
                         itemBuilder: (context, index) =>
                             messageWidget(listMessage[index]),
 
-                        reverse: false,
+                        reverse: true,
                         controller: listScrollController,
                       );
                     } else {
@@ -250,7 +250,7 @@ class _ConversationPageState extends State<ConversationPage> {
                     receiver);
                 if (listScrollController.hasClients) {
                   final position =
-                      listScrollController.position.maxScrollExtent;
+                      listScrollController.position.minScrollExtent;
                   listScrollController.jumpTo(position);
                 }
                 messageTextField.clear();
@@ -285,9 +285,9 @@ class _ConversationPageState extends State<ConversationPage> {
       ),
     );
   }
-
+  final messageReportTextField = TextEditingController();
   Widget buildSheet() {
-    final messageTextField = TextEditingController();
+
     return SingleChildScrollView(
       padding:
       EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -374,7 +374,7 @@ class _ConversationPageState extends State<ConversationPage> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextField(
-                          controller: messageTextField,
+                          controller: messageReportTextField,
                           keyboardAppearance: Brightness.dark,
                           style: TextStyle(
                               fontFamily: 'DMSans',
@@ -405,9 +405,9 @@ class _ConversationPageState extends State<ConversationPage> {
                     onPressed: () {
                       MyApp.controller.sendEmail(
                           MyApp.controller.getIdDafl().toString(),
-                          destinataire,
+                          receiver,
                           currentValue,
-                          messageTextField.text);
+                          messageReportTextField.text);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(

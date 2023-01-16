@@ -16,6 +16,8 @@ class SpotsWidget extends StatefulWidget {
 }
 
 class _SpotsWidgetState extends State<SpotsWidget> {
+
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

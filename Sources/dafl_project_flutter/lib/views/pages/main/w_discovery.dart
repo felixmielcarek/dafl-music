@@ -1,7 +1,7 @@
 import 'dart:collection';
-
 import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import 'dart:developer' as dev;
 
 import '../../../model/music.dart';
@@ -120,12 +120,13 @@ class _DiscoveryListState extends State<DiscoveryList> {
   }
 
   refreshList() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 3));
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     late LinkedHashMap<Music, DateTime> listDiscoveries;
     if (MyApp.controller.getChoice()) {
       //TODO : implement sort by date
@@ -224,19 +225,51 @@ class _DiscoveryListState extends State<DiscoveryList> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          MyApp.controller
-                                              .getDiscoveries()
-                                              .keys
-                                              .toList()[reversedIndex]
-                                              .name,
-                                          style: TextStyle(
-                                              fontFamily: 'DMSans',
-                                              color:
-                                                  Colors.white.withOpacity(1),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w800),
-                                        ),
+                                        MyApp.controller
+                                                    .getDiscoveries()
+                                                    .keys
+                                                    .toList()[reversedIndex]
+                                                    .name
+                                                    .length >
+                                                22
+                                            ? SizedBox(
+                                                width: width * 0.60,
+                                                child: ScrollLoopAutoScroll(
+                                                  delayAfterScrollInput:
+                                                      Duration(seconds: 1),
+                                                  delay: Duration(seconds: 1),
+                                                  child: Text(
+                                                    MyApp.controller
+                                                        .getDiscoveries()
+                                                        .keys
+                                                        .toList()[reversedIndex]
+                                                        .name,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  duration:
+                                                      Duration(seconds: 100),
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                ),
+                                              )
+                                            : Text(
+                                                MyApp.controller
+                                                    .getDiscoveries()
+                                                    .keys
+                                                    .toList()[reversedIndex]
+                                                    .name,
+                                                style: TextStyle(
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.white
+                                                        .withOpacity(1),
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.w800),
+                                              ),
                                         Text(
                                             MyApp.controller
                                                 .getDiscoveries()

@@ -67,7 +67,7 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                       color: Colors.grey.withOpacity(0.4), fontSize: 15),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, height * 0.01, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, height * 0.01, 0, height * 0.01),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -155,8 +155,7 @@ class MessagesButtonWidget extends StatelessWidget {
                     width: 60,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://www.goutemesdisques.com/uploads/tx_gmdchron/pi1/L_Etrange_Histoire_de_Mr_Anderson.jpg'),
+                        image: AssetImage('assets/images/DaflUser_profil.png'),
                         fit: BoxFit.cover,
                       ),
                       border: Border.all(

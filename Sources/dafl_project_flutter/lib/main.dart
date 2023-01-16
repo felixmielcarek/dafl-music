@@ -227,7 +227,7 @@ class CardProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
+  final messageTextField = TextEditingController();
   void message(context) {
     dev.log("message");
     _angle = 0;
@@ -249,7 +249,6 @@ class CardProvider extends ChangeNotifier {
   }
 
   Widget buildSheet(context) {
-    final messageTextField = TextEditingController();
     return SingleChildScrollView(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -302,26 +301,28 @@ class CardProvider extends ChangeNotifier {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: TextField(
-                    keyboardAppearance: Brightness.dark,
-                    controller: messageTextField,
-                    maxLength: 300,
-                    style: TextStyle(
-                        fontFamily: 'DMSans',
-                        color: Colors.white.withOpacity(1),
-                        fontSize: 17,
-                        fontWeight: FontWeight.w200),
-                    expands: true,
-                    maxLines: null,
-                    textInputAction: TextInputAction.send,
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                        color: Colors.white,
+                  child: Form(
+                    child: TextField(
+                      keyboardAppearance: Brightness.dark,
+                      controller: messageTextField,
+                      maxLength: 300,
+                      style: TextStyle(
+                          fontFamily: 'DMSans',
+                          color: Colors.white.withOpacity(1),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w200),
+                      expands: true,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        border: InputBorder.none,
+                        hintText: "Mon message",
                       ),
-                      border: InputBorder.none,
-                      hintText: "Mon message",
+
                     ),
-                  ),
+                  )
                 ),
               ),
               const SizedBox(
@@ -629,3 +630,5 @@ Object notify(int index, context, {bool isError = true}) {
         )));
   }
 }
+
+
