@@ -19,6 +19,7 @@ class _ConversationPageState extends State<ConversationPage> {
   bool isNull = true;
   final String receiver;
 
+
   _ConversationPageState(this.receiver);
 
   final messageTextField = TextEditingController();
@@ -124,7 +125,8 @@ class _ConversationPageState extends State<ConversationPage> {
     ScrollController listScrollController = ScrollController();
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
+      extendBody: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 20,
@@ -173,9 +175,10 @@ class _ConversationPageState extends State<ConversationPage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const ScrollPhysics(),
           child: Container(
               color: const Color(0xFF141414),
-              height: height * 0.92,
+              height: height * 0.85,
               width: double.infinity,
               child: Flexible(
                 child: StreamBuilder<List<Message>>(
@@ -187,10 +190,11 @@ class _ConversationPageState extends State<ConversationPage> {
                           snapshot.data ?? List.from([]);
                       return ListView.builder(
                         padding: EdgeInsets.all(10.0),
+                        itemCount: listMessage.length,
                         itemBuilder: (context, index) =>
                             messageWidget(listMessage[index]),
-                        itemCount: listMessage.length,
-                        reverse: true,
+
+                        reverse: false,
                         controller: listScrollController,
                       );
                     } else {
@@ -208,7 +212,7 @@ class _ConversationPageState extends State<ConversationPage> {
             Container(
               height: height * 0.08,
               color: Colors.transparent,
-              width: width * 0.9,
+              width: width * 0.8,
               child: Container(
                 margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                 decoration: BoxDecoration(
