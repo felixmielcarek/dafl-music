@@ -10,7 +10,7 @@ import '../../main.dart';
 class Location {
   static Future<List<Spot>> sendCurrentLocation() async {
     Uri uri = Uri.parse(
-        "http://89.83.53.34/phpmyadmin/dafl/insertAndMakeListUser.php");
+        "https://codefirst.iut.uca.fr/containers/DAFLDev-php_script/insertAndMakeListUser.php");
     LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
