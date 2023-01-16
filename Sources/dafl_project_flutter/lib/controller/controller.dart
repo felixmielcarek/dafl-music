@@ -38,6 +38,7 @@ class Controller {
 
 
 
+
   initUser() async {
     await setCurrentMusic();
     await setDiscoveries();

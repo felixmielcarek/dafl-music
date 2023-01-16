@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dafl_project_flutter/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -131,7 +133,10 @@ class _MessagesWidgetState extends State<MessagesWidget> {
 }
 
 class MessagesButtonWidget extends StatelessWidget {
-  const MessagesButtonWidget({super.key});
+  final String sender;
+
+  const MessagesButtonWidget({super.key, required this.sender});
+
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +176,7 @@ class MessagesButtonWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Max',
+                              sender,
                               style: TextStyle(
                                   fontFamily: 'DMSans',
                                   color: Colors.white.withOpacity(1),
@@ -207,17 +212,44 @@ class MessagesButtonWidget extends StatelessWidget {
   }
 }
 
+
+
+
 class ListConfirmedWidget extends StatelessWidget {
   const ListConfirmedWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: const [
-      MessagesButtonWidget(),
-      MessagesButtonWidget(),
-      MessagesButtonWidget(),
-      MessagesButtonWidget(),
-    ]);
+
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance.collection('users').doc('felix').collection('felix').snapshots(),
+      builder: (_, snapshot) {
+        if (snapshot.hasError) return Text('Error = ${snapshot.error}');
+
+        if (snapshot.hasData) {
+          final docs = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: docs.length,
+            itemBuilder: (context, i) {
+              final data = docs[i].data();
+              return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(PageTransition(
+                        duration: const Duration(milliseconds: 200),
+                        reverseDuration: const Duration(milliseconds: 200),
+                        type: PageTransitionType.rightToLeftWithFade,
+                        childCurrent: context.widget,
+                        child: const ConversationPage()));
+                  },
+                  child: MessagesButtonWidget(sender : data['user'])
+              );
+            },
+          );
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }
 
@@ -226,6 +258,7 @@ class ListWaitingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListView(
       children: [
         GestureDetector(
@@ -237,9 +270,11 @@ class ListWaitingWidget extends StatelessWidget {
                 childCurrent: context.widget,
                 child: const ConversationPage()));
           },
-          child: const MessagesButtonWidget(),
+          child: const MessagesButtonWidget(sender : "test6"),
         ),
       ],
     );
   }
 }
+
+

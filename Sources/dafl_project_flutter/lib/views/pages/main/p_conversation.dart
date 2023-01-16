@@ -5,7 +5,9 @@ import 'package:dafl_project_flutter/model/message.dart';
 import 'dart:developer' as dev;
 
 class ConversationPage extends StatefulWidget {
-  const ConversationPage({Key? key}) : super(key: key);
+  String sender;
+
+  ConversationPage({Key? key, required String this.sender}) : super(key: key);
 
   @override
   State<ConversationPage> createState() => _ConversationPageState();

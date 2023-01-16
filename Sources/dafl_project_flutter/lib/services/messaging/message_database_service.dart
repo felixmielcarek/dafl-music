@@ -54,4 +54,5 @@ class MessageDatabaseService{
         .collection(chatId)
         .snapshots().map(_getAllMessages);
   }
+
 }
