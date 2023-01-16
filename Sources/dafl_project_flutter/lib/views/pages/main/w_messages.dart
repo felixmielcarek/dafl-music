@@ -240,7 +240,7 @@ class ListConfirmedWidget extends StatelessWidget {
                         reverseDuration: const Duration(milliseconds: 200),
                         type: PageTransitionType.rightToLeftWithFade,
                         childCurrent: context.widget,
-                        child: const ConversationPage()));
+                        child: ConversationPage(sender : data['user'])));
                   },
                   child: MessagesButtonWidget(sender : data['user'])
               );
@@ -268,7 +268,7 @@ class ListWaitingWidget extends StatelessWidget {
                 reverseDuration: const Duration(milliseconds: 200),
                 type: PageTransitionType.rightToLeftWithFade,
                 childCurrent: context.widget,
-                child: const ConversationPage()));
+                child: ConversationPage(sender :'test')));
           },
           child: const MessagesButtonWidget(sender : "test6"),
         ),

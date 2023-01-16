@@ -10,14 +10,16 @@ class ConversationPage extends StatefulWidget {
   ConversationPage({Key? key, required String this.sender}) : super(key: key);
 
   @override
-  State<ConversationPage> createState() => _ConversationPageState();
+  State<ConversationPage> createState() => _ConversationPageState(sender);
 }
 
 class _ConversationPageState extends State<ConversationPage> {
   String destinataire = 'test';
   List<Widget> messages = [];
   bool isNull = true;
-  String receiver = 'test';
+  final String receiver;
+
+  _ConversationPageState(this.receiver);
 
   final messageTextField = TextEditingController();
 
@@ -145,7 +147,7 @@ class _ConversationPageState extends State<ConversationPage> {
             const SizedBox(
               width: 20,
             ),
-            const Text("Max"),
+            Text(receiver),
             const Spacer(),
             IconButton(
               splashColor: Colors.grey.withOpacity(0.2),
