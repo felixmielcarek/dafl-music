@@ -24,10 +24,7 @@ class _ConversationPageState extends State<ConversationPage> {
   final messageTextField = TextEditingController();
 
   void sendMessage(String content, String idSender, String idReceiver) {
-    Message messageToSend = Message(
-        idSender: idSender,
-        idReceiver: idReceiver,
-        content: content);
+    Message messageToSend = Message(idSender: idSender, idReceiver: idReceiver, content: content);
 
     MyApp.controller.sendMessage(messageToSend, idSender, idReceiver);
 
@@ -176,18 +173,32 @@ class _ConversationPageState extends State<ConversationPage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-            color: const Color(0xFF141414),
-            height: height * 0.92,
-            width: double.infinity,
-            child: ListView.builder(
-                controller: listScrollController,
-                physics: const BouncingScrollPhysics(),
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  return messages[index];
-                })),
-      ),
+          child: Container(
+              color: const Color(0xFF141414),
+              height: height * 0.92,
+              width: double.infinity,
+              child: Flexible(
+                child: StreamBuilder<List<Message>>(
+                  stream: MyApp.controller.getMessage(MyApp.controller.getIdDafl(), receiver),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Message>> snapshot) {
+                    if (snapshot.hasData) {
+                      List<Message> listMessage =
+                          snapshot.data ?? List.from([]);
+                      return ListView.builder(
+                        padding: EdgeInsets.all(10.0),
+                        itemBuilder: (context, index) =>
+                            messageWidget(listMessage[index]),
+                        itemCount: listMessage.length,
+                        reverse: true,
+                        controller: listScrollController,
+                      );
+                    } else {
+                      return Center(child: Container());
+                    }
+                  },
+                ),
+              ))),
       bottomSheet: BottomAppBar(
         color: const Color(0xFF141414),
         child: Row(
@@ -229,7 +240,10 @@ class _ConversationPageState extends State<ConversationPage> {
               onTap: isNull
                   ? null
                   : () {
-                sendMessage(messageTextField.text, MyApp.controller.getIdDafl(), receiver);
+                sendMessage(
+                    messageTextField.text,
+                    MyApp.controller.getIdDafl(),
+                    receiver);
                 if (listScrollController.hasClients) {
                   final position =
                       listScrollController.position.maxScrollExtent;

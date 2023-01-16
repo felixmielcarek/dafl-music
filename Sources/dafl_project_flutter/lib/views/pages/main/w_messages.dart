@@ -222,7 +222,11 @@ class ListConfirmedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      stream: FirebaseFirestore.instance.collection('users').doc('felix').collection('felix').snapshots(),
+      stream: FirebaseFirestore.instance
+              .collection('users')
+              .doc(MyApp.controller.getIdDafl())
+              .collection(MyApp.controller.getIdDafl())
+              .snapshots(),
       builder: (_, snapshot) {
         if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 

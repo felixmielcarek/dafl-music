@@ -26,12 +26,12 @@ class Controller {
 
 
   /// FIREBASE Messaging
-  void sendMessage(Message message, String idSender, String idReceiver){
+  void sendMessage(Message message, String idSender, String idReceiver) {
     _messageAccess.sendMessage(message, idSender, idReceiver);
   }
 
-  Stream<List<Message>> getMessage(String chatId){
-    return _messageAccess.getMessage(chatId);
+  Stream<List<Message>> getMessage(String idSender, String idReceiver) {
+    return _messageAccess.getMessage(idSender, idReceiver);
   }
 
 
