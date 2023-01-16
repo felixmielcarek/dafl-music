@@ -33,7 +33,7 @@ function insertUserAndReturnList(): array|int
                 latitude double NOT NULL,
                 longitude double NOT NULL,
                 idMusic varchar(100) NOT NULL,
-                dateLog date NOT NULL
+                dateLog datetime NOT NULL
               );";
     mysqli_query($res, $query);
 
