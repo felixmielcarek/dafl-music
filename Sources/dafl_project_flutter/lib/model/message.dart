@@ -4,11 +4,13 @@ class Message {
   String idSender;
   String idReceiver;
   String content;
+  String timestamp;
 
 
   Message({required this.idSender,
     required this.idReceiver,
-    required this.content
+    required this.content,
+    required this.timestamp
   });
 
 
@@ -17,6 +19,7 @@ class Message {
       'idSender': idSender,
       'idReceiver': idReceiver,
       'content': content,
+      'timestamp' : timestamp
     };
   }
 
@@ -26,6 +29,7 @@ class Message {
       idSender: data['idSender'],
       idReceiver: data['idReceiver'],
       content: data['content'],
+        timestamp: data['timestamp']
     );
   }
 }
