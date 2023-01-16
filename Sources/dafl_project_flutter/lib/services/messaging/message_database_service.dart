@@ -54,6 +54,7 @@ class MessageDatabaseService{
         .collection('messages')
         .doc(chatId)
         .collection(chatId)
+        .orderBy('timestamp', descending: true)
         .snapshots().map(_getAllMessages);
   }
 }

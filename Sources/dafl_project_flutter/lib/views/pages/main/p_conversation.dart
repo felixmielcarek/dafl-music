@@ -25,7 +25,7 @@ class _ConversationPageState extends State<ConversationPage> {
   final messageTextField = TextEditingController();
 
   void sendMessage(String content, String idSender, String idReceiver) {
-    Message messageToSend = Message(idSender: idSender, idReceiver: idReceiver, content: content);
+    Message messageToSend = Message(idSender: idSender, idReceiver: idReceiver, content: content, timestamp: DateTime.now().toString());
 
     MyApp.controller.sendMessage(messageToSend, idSender, idReceiver);
 
