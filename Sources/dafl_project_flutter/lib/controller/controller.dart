@@ -45,7 +45,7 @@ class Controller {
   }
 
   beginRoutine() {
-    Timer.periodic(const Duration(seconds: 10), (Timer t) => setSpots());
+    Timer.periodic(const Duration(seconds: 20), (Timer t) => setSpots());
   }
 
   //
