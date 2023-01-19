@@ -34,6 +34,10 @@ class Controller {
     return _messageAccess.getMessage(idSender, idReceiver);
   }
 
+  void addUserConversation(String idSender, String idReceiver){
+    _messageAccess.addMessagingUser(idSender, idReceiver);
+  }
+
 
 
 

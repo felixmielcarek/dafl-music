@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart' as riv;
 import '../controller/controller.dart';
+import 'model/message.dart';
 import 'model/spot.dart';
 import 'dart:developer' as dev;
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -364,8 +365,14 @@ class CardProvider extends ChangeNotifier {
     );
   }
 
-  void sendMessage(String message, String userId) {
-    dev.log(MyApp.controller.getSpots().last.userId);
+  void sendMessage(String content, String idReceiver) {
+    Message message = Message(idSender: MyApp.controller.getIdDafl(), idReceiver: idReceiver,
+        content: content, timestamp: DateTime.now().toString());
+
+    MyApp.controller.sendMessage(message,  MyApp.controller.getIdDafl(),
+        idReceiver);
+
+    MyApp.controller.addUserConversation(MyApp.controller.getIdDafl(), idReceiver);
   }
 
   void like(context) {

@@ -57,4 +57,24 @@ class MessageDatabaseService{
         .orderBy('timestamp', descending: true)
         .snapshots().map(_getAllMessages);
   }
+
+
+  void addMessagingUser(String idSender, String idReceiver) {
+
+    // Get a message from a snapshot Firestore
+    var documentReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(idSender)
+        .collection(idSender)
+        .doc(DateTime
+        .now()
+        .millisecondsSinceEpoch
+        .toString());
+
+    Map<String, dynamic> receiver = { 'user' : idReceiver };
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.set(documentReference, receiver);
+    });
+  }
 }
