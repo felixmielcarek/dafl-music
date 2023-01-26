@@ -14,11 +14,11 @@ jobs:
           command: fvm stable && fvm 1.22.5
       - run:
           name: Compile iOS App
-          command: cd Sources/dafl_project_flutter/ && flutter build ios --release --no-codesign && ls build/Release/
+          command: cd Sources/dafl_project_flutter/ && flutter build ios --release --no-codesign
       - run:
           # compress Xcode's build output so that it can be stored as an artifact
           name: Compress app for storage
-          command: zip -r app.zip build/Release/dafl_project_flutter.app
+          command: zip -r app.zip /Users/distiller/project/Sources/dafl_project_flutter/build/ios/iphoneos/Runner.app
       - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
           path: app.zip
           destination: app
