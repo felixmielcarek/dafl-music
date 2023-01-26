@@ -5,6 +5,21 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  "ios":
+    macos: 
+      xcode: "10.3.0"
+    steps:
+      - checkout
+      - run:
+          name: Install Flutter SDK Manager
+          command: npm install -g fvm
+      - run:
+          name: Install Flutter SDK
+          command: fvm stable && fvm 1.22.5
+      - run:
+          name: Compile iOS App
+          command: flutter build ios --release --no-codesign
+
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -21,6 +36,11 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
+  version: 2
+  build:
+    jobs:
+      - "ios"
+
   say-hello-workflow:
     jobs:
       - say-hello
