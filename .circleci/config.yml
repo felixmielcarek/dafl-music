@@ -18,7 +18,7 @@ jobs:
           command: fvm stable && fvm 1.22.5
       - run:
           name: Compile iOS App
-          command: flutter build ios --release --no-codesign
+          command: cd Sources/dafl_project_flutter/ && flutter build ios --release --no-codesign
 
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -40,7 +40,3 @@ workflows:
   build:
     jobs:
       - "ios"
-
-  say-hello-workflow:
-    jobs:
-      - say-hello
