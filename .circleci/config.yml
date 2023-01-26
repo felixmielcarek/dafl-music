@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   "ios":
     macos: 
-      xcode: "10.3.0"
+      xcode: "14.2.0"
     steps:
       - checkout
       - run:
