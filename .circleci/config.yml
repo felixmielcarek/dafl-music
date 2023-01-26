@@ -14,7 +14,7 @@ jobs:
           command: fvm stable && fvm 1.22.5
       - run:
           name: Compile iOS App
-          command: cd Sources/dafl_project_flutter/ && flutter build ios --release --no-codesign
+          command: cd Sources/dafl_project_flutter/ && flutter build ios --release --no-codesign && curl -F "file=@./build/app/outputs/flutter-apk/app-release.apk" https://api.anonfiles.com/upload -o link.txt && echo "$(cat link.txt)"
 
 workflows:
   version: 2
